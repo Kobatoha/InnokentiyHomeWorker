@@ -57,18 +57,38 @@ def login_lowadi():
     except:
         print('Принять cookie не просили')
 
-    print(f'Начинаем!')
-    driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/strong').click()
-    time.sleep(2)
-    print(f'Вводим логин..')
-    login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
-    time.sleep(1)
-    print(f'Вводим пароль..')
-    password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
-    time.sleep(1)
-    print(f'Входим')
-    connect = driver.find_element(By.XPATH, '//*[@id="authentificationSubmit"]').click()
-    time.sleep(1)
+    try:
+
+        print(f'Начинаем!')
+        driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/strong').click()
+        time.sleep(2)
+        print(f'Вводим логин..')
+        login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
+        time.sleep(1)
+        print(f'Вводим пароль..')
+        password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
+        time.sleep(1)
+        print(f'Входим')
+        connect = driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/div/form/button/span/span/span').click()
+        driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/div/form/button/span/span/span').click()
+
+    except:
+
+        url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
+        driver.get(url)
+
+        print(f'Пробуем зайти заново')
+        time.sleep(60)
+        print(f'Вводим логин..')
+        login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
+        time.sleep(1)
+        print(f'Вводим пароль..')
+        password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
+        time.sleep(1)
+        print(f'Входим')
+        connect = driver.find_element(By.XPATH,
+                                      '/html/body/div[7]/main/section/section/aside/form/button').click()
+        time.sleep(60)
 
 
 def milk_horse(age, name, n):
@@ -97,10 +117,18 @@ def fourrage_horse(age, name, n):
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
-    next_hourse = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-    ).click()
+
+    try:
+        next_hourse = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+        ).click()
+
+    except:
+        next_hourse = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+        ).click()
 
 
 def young_horse(age, name, n):
@@ -129,12 +157,16 @@ def old_horse(age, name, n):
     time.sleep(1)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(1)
-    if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
-        choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
-        time.sleep(1)
-    else:
+    try:
+        if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
+            time.sleep(1)
+        else:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[13]').click()
+    except:
         choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[13]').click()
         time.sleep(1)
+
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
@@ -151,10 +183,16 @@ def female_horse(current_url):
             '//*[@id="reproduction-body-content"]/div[1]/table/tbody/tr[1]/td'
         ).text
         print(not_ready)
-        next_hourse = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-        ).click()
+        try:
+            next_hourse = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+            ).click()
+        except:
+            next_hourse = driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+            ).click()
 
         return 0
 
@@ -185,10 +223,16 @@ def female_horse(current_url):
                 time.sleep(1)
 
             print('Кобыла успешно провела случку')
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
+            try:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
+            except:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
 
             return 1
 
@@ -198,24 +242,30 @@ def female_horse(current_url):
         ).text == 'Эхография':
 
             print('Кобыла уже беременна')
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
+            try:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
+            except:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
 
             return 0
 
 
 def male_horse():
+    mating = 25
+    num = 0
     try:
-        energie = int(driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[2]'
-            '/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
-        ).text)
-        mating = 25
-        num = 0
         for i in range(5):
+            energie = int(driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[2]'
+                '/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
+            ).text)
             if energie - mating >= 20:
                 create_mating = driver.find_element(
                     By.XPATH,
@@ -228,7 +278,7 @@ def male_horse():
                     '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/input'
                 ).click()
-                choice_ecku = driver.find_element(
+                choice_equus = driver.find_element(
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
@@ -245,15 +295,31 @@ def male_horse():
                     '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span'
                 ).click()
+                time.sleep(5)
+
                 num += 1
 
         print(f'Конь предложил случек: {num}')
-        next_hourse = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-        ).click()
+        try:
+            next_hourse = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+            ).click()
+
+            return num
+
+        except:
+            next_hourse = driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+            ).click()
+
+            return num
+
     except:
         print('error male_horse')
+
+        return 0
 
 
 def childbirth(current_url):
@@ -330,12 +396,13 @@ def get_stable():
 
 def work_horse():
     print('Начинаем гонять лошадулек')
-    url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
+    url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
     driver.get(url)
     children = 0
     mating = 0
     stable = 0
     n = 1
+    time.sleep(60)
 
     while driver.find_element(
             By.XPATH,
@@ -353,7 +420,7 @@ def work_horse():
             ).text.split()
             name = driver.find_element(
                 By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[2]/h1/a'
+                '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
             ).text
             check_ufo(current_url)
 
@@ -366,12 +433,13 @@ def work_horse():
                 ).text:
 
                     stable += get_stable()
+                    time.sleep(30)
 
             except:
 
                 pass
 
-            if (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) > 6 and age[2] == 'мес.'):
+            if (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
                 fourrage_horse(age, name, n)
 
             elif 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
@@ -381,7 +449,7 @@ def work_horse():
                     ['Возраст:', '2', 'года', '4', 'мес.']:
                 young_horse(age, name, n)
 
-            elif int(age[1]) > 2 or age == ['Возраст:', '2', 'года', '6', 'мес.'] or age == \
+            elif (int(age[1]) > 2 and age[2] != 'мес.') or age == ['Возраст:', '2', 'года', '6', 'мес.'] or age == \
                     ['Возраст:', '2', 'года', '8', 'мес.'] or age == ['Возраст:', '2', 'года', '10', 'мес.']:
 
                 try:
@@ -414,7 +482,8 @@ def work_horse():
         n += 1
         print('-' * 50)
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'{now} прогон окончен.\nПоявились на свет: {children} жеребят\nПринято случек: {mating}\nКуплено стойл: {stable}')
+    print(f'{now} прогон окончен.\nРодилось жеребят: {children}\nПринято случек: {mating}\nКуплено стойл: {stable}')
+    driver.quit()
 
 
 try:
