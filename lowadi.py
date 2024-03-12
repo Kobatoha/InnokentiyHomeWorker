@@ -39,6 +39,8 @@ def check_ufo(current_url):
                     print(f"НЛО: {good_ufo[good_key]}, надо брать")
                     driver.find_element(By.XPATH, '//*[@id="Ufo_0"]').click()
                     driver.find_element(By.XPATH, '//*[@id="agi-10972849001709751854"]').click()
+                    driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
+
 
     except:
         pass
@@ -323,6 +325,7 @@ def male_horse():
 
 
 def childbirth(current_url):
+    check_ufo(current_url)
     sex = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/img'
@@ -370,28 +373,33 @@ def childbirth(current_url):
 
 
 def get_stable():
-    print('Лошадь нуждается в стойле, ищем подходящий КСК..')
-    find_stable = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
-        '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-    ).click()
-    time.sleep(1)
-    two_mouth = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
-    ).click()
-    time.sleep(1)
-    low_price_stable = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
-    )
-    low_price_stable.click()
-    alert = driver.switch_to.alert
-    alert.accept()
-    print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
+    try:
+        print('Лошадь нуждается в стойле, ищем подходящий КСК..')
+        find_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
+            '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
+        ).click()
+        time.sleep(1)
+        two_mouth = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
+        ).click()
+        time.sleep(1)
+        low_price_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
+        )
+        low_price_stable.click()
+        alert = driver.switch_to.alert
+        alert.accept()
+        print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
 
-    return 1
+        return 1
+
+    except:
+
+        return 0
 
 
 def work_horse():
@@ -399,7 +407,8 @@ def work_horse():
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
     driver.get(url)
     children = 0
-    mating = 0
+    get_mating = 0
+    post_mating = 0
     stable = 0
     n = 1
     time.sleep(60)
@@ -466,11 +475,11 @@ def work_horse():
                 if 'кобыла' in driver.find_element(
                         By.XPATH,
                         '//*[@id="characteristics-body-content"]/table/tbody/tr[3]/td[1]').text:
-                    mating += female_horse(current_url)
+                    get_mating += female_horse(current_url)
                 elif 'конь' in driver.find_element(
                         By.XPATH,
                         '//*[@id="characteristics-body-content"]/table/tbody/tr[3]/td[1]').text:
-                    male_horse()
+                    post_mating += male_horse()
 
         except:
             print('Некакая error при уходе за лошадью')
@@ -482,7 +491,8 @@ def work_horse():
         n += 1
         print('-' * 50)
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'{now} прогон окончен.\nРодилось жеребят: {children}\nПринято случек: {mating}\nКуплено стойл: {stable}')
+    print(f'{now} прогон окончен.\nРодилось жеребят: {children}\nПринято случек: {get_mating}\n'
+          f'Предложено случек: {post_mating}\nКуплено стойл: {stable}')
     driver.quit()
 
 
