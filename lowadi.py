@@ -402,6 +402,26 @@ def get_stable():
         return 0
 
 
+def death_horse():
+    try:
+        death = driver.find_element(
+            By.XPATH,
+            '//*[@id="page-contents"]/section/div/div/div[1]/h1'
+        ).text
+        if 'умер' in death:
+            paradise = driver.find_element(
+                By.XPATH,
+                '//*[@id="page-contents"]/section/div/div/div[1]/div[2]/a'
+            ).click()
+            print('Ваша лошадь умерла и отправилась в рай, аминь')
+
+            return 1
+
+    except:
+
+        return 0
+
+
 def work_horse():
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
@@ -412,6 +432,7 @@ def work_horse():
     stable = 0
     n = 1
     time.sleep(60)
+    current_url = ''
 
     while driver.find_element(
             By.XPATH,
@@ -419,6 +440,15 @@ def work_horse():
     ).get_attribute('href') != 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945':
 
         try:
+            dead = death_horse()
+
+            if dead == 1:
+                driver.get(current_url)
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
+
             current_url = driver.find_element(
                 By.XPATH,
                 '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
