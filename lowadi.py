@@ -243,7 +243,7 @@ def female_horse(current_url):
                 '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]'
         ).text == 'Эхография':
 
-            print('Кобыла уже беременна')
+            print('Кобыла уже жеребая')
             try:
                 next_hourse = driver.find_element(
                     By.XPATH,
