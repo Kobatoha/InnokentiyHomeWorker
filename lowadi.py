@@ -433,11 +433,9 @@ def work_horse():
     n = 1
     time.sleep(60)
     current_url = ''
+    horses = 350
 
-    while driver.find_element(
-            By.XPATH,
-            '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
-    ).get_attribute('href') != 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945':
+    while horses != 0:
 
         try:
             dead = death_horse()
@@ -520,6 +518,8 @@ def work_horse():
 
         n += 1
         print('-' * 50)
+        horses -= 1
+
     now = datetime.now().strftime('%d.%m %H:%M')
     print(f'{now} прогон окончен.\nРодилось жеребят: {children}\nПринято случек: {get_mating}\n'
           f'Предложено случек: {post_mating}\nКуплено стойл: {stable}')
