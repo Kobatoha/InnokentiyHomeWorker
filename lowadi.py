@@ -26,6 +26,7 @@ def check_ufo(current_url):
     bad_ufo = {'pomme': 'яблоко', 'carotte': 'морковь', 'classique': 'седло', 'mash': 'комбикорм',
                'equus': 'экю'}
     try:
+
         if driver.find_element(By.XPATH, '//*[@id="Ufo_0"]'):
             icon = driver.find_element(By.XPATH, '/html/body/div[1]/img').get_attribute('src')
 
@@ -41,8 +42,8 @@ def check_ufo(current_url):
                     driver.find_element(By.XPATH, '//*[@id="agi-10972849001709751854"]').click()
                     driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
 
-
     except:
+
         pass
 
 
@@ -375,12 +376,20 @@ def childbirth(current_url):
 def get_stable():
     try:
         print('Лошадь нуждается в стойле, ищем подходящий КСК..')
+        current_url = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/nav/a[4]'
+        ).get_attribute('href')
+
+        check_ufo(current_url)
+
         find_stable = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
             '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
         ).click()
         time.sleep(1)
+
         two_mouth = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
