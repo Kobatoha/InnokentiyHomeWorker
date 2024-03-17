@@ -468,6 +468,58 @@ def death_horse():
         return 0
 
 
+def training(current_url):
+    stamina = 8
+    speed = 8
+    dressage = 5
+    gallop = 7
+    trot = 7
+    jumping = 7
+
+    energie = int(driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]'
+        '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
+    ).text)
+
+    try:
+
+        genetic_potential = driver.find_element(
+            By.XPATH,
+            '//*[@id="tab-genetics-title"]'
+        ).click()
+        time.sleep(0.2)
+        gp = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[4]/div/div/div/div/table[2]'
+            '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
+        ).text.split()[1][:-3])
+
+        if gp >= 10000:
+            choice_speed = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+                '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
+            ).click()
+
+            hour = (energie - 20) // speed
+            time.sleep(1)
+
+            choice_speed = driver.find_element(
+                By.XPATH,
+                f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 1}]'
+            ).click()
+            time.sleep(1)
+            train = driver.find_element(
+                By.XPATH,
+                '//*[@id="training-vitesse-submit"]/span/span/span'
+            ).click()
+
+    except:
+
+        pass
+
+
 def work_horse():
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
@@ -480,6 +532,7 @@ def work_horse():
     time.sleep(60)
     current_url = ''
     horses = 350
+    equus = 'Good'
 
     while horses != 0:
 
@@ -493,6 +546,16 @@ def work_horse():
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
                 ).click()
+
+            check_equus = (driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
+            ).text.replace(' ', ''))
+
+            if check_equus >= 10000:
+                equus = 'Good'
+            else:
+                equus = 'Bad'
 
             current_url = driver.find_element(
                 By.XPATH,
@@ -514,7 +577,7 @@ def work_horse():
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
                     '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-                ).text:
+                ).text and check_equus == 'Good':
 
                     stable += get_stable()
                     time.sleep(30)
