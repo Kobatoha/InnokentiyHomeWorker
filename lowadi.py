@@ -469,12 +469,14 @@ def death_horse():
 
 
 def training(current_url):
-    stamina = 8
-    speed = 8
-    dressage = 5
-    gallop = 7
-    trot = 7
-    jumping = 7
+    stamina = 8                 # endurance
+    speed = 8                   # vitesse
+    dressage = 5                # dressage
+    gallop = 7                  # galop
+    trot = 7                    # trot
+    jumping = 7                 # saut
+
+    flag = 'Тренировка завершена'
 
     energie = int(driver.find_element(
         By.XPATH,
@@ -482,20 +484,44 @@ def training(current_url):
         '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
     ).text)
 
+    genetic_potential = driver.find_element(
+        By.XPATH,
+        '//*[@id="tab-genetics-title"]'
+    ).click()
+
+    time.sleep(0.2)
+
+    gp = int(driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[4]/div/div/div/div/table[2]'
+        '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
+    ).text.split()[1][:-3])
+
     try:
 
-        genetic_potential = driver.find_element(
-            By.XPATH,
-            '//*[@id="tab-genetics-title"]'
-        ).click()
-        time.sleep(0.2)
-        gp = int(driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[4]/div/div/div/div/table[2]'
-            '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
-        ).text.split()[1][:-3])
-
         if gp >= 10000:
+
+            if flag in driver.find_element(
+                By.XPATH,
+                '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]'
+            ).get_attribute('data-tooltip'):
+
+                train_speed()
+
+            elif flag in driver.find_element(
+                By.XPATH,
+                '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]'
+            ).get_attribute('data-tooltip'):
+
+                train_dressage()
+
+            elif flag in driver.find_element(
+                By.XPATH,
+                '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
+            ).get_attribute('data-tooltip'):
+
+                train_galop()
+
             choice_speed = driver.find_element(
                 By.XPATH,
                 '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
@@ -514,10 +540,15 @@ def training(current_url):
                 By.XPATH,
                 '//*[@id="training-vitesse-submit"]/span/span/span'
             ).click()
+            print(f'Лошадь провела тренировку скорости на {hour} часов')
 
     except:
 
         pass
+
+
+def train_speed():
+    speed = 8                   # vitesse
 
 
 def work_horse():
@@ -537,6 +568,7 @@ def work_horse():
     while horses != 0:
 
         try:
+            check_ufo(current_url)
 
             dead = death_horse()
 
@@ -547,7 +579,7 @@ def work_horse():
                     '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
                 ).click()
 
-            check_equus = (driver.find_element(
+            check_equus = int(driver.find_element(
                 By.XPATH,
                 '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
             ).text.replace(' ', ''))
@@ -569,7 +601,6 @@ def work_horse():
                 By.XPATH,
                 '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
             ).text
-            check_ufo(current_url)
 
             try:
 
