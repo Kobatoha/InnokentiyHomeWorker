@@ -40,7 +40,9 @@ def check_ufo(current_url):
                 if good_key in icon:
                     print(f"НЛО: {good_ufo[good_key]}, надо брать")
                     driver.find_element(By.XPATH, '//*[@id="Ufo_0"]').click()
+                    time.sleep(1)
                     driver.find_element(By.XPATH, '//*[@id="agi-10972849001709751854"]').click()
+                    time.sleep(1)
                     driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
 
     except:
@@ -656,10 +658,13 @@ def work_horse():
         except:
 
             print('Некакая error при уходе за лошадью')
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
+            try:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
+            except:
+                driver.get(current_url)
 
         n += 1
         print('-' * 50)
