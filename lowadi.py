@@ -18,7 +18,7 @@ def newDR():
     chromeOptions.headless = False
     driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
 
-    return (driver)
+    return driver
 
 
 def check_ufo(current_url):
@@ -44,6 +44,7 @@ def check_ufo(current_url):
                     driver.find_element(By.XPATH, '//*[@id="agi-10972849001709751854"]').click()
                     time.sleep(1)
                     driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
+                    driver.get(current_url)
 
     except:
 
@@ -82,6 +83,7 @@ def login_lowadi():
             By.XPATH,
             '/html/body/div[7]/header/nav/div/div/form/button/span/span/span'
         ).click()
+        time.sleep(1)
         driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/div/form/button/span/span/span').click()
 
     except:
@@ -553,18 +555,46 @@ def train_speed():
     speed = 8                   # vitesse
 
 
+def find_unworking_horse():
+    page = 1
+    horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
+    pages = driver.find_elements(By.XPATH, '//*[@class="page "]/a')
+    while page != 4:
+        get_page = driver.find_elements(By.XPATH, '//*[@class="page "]/a').get_attribute('data-page')
+        try:
+            for horse in horses:
+                status = horse.find_element(
+                    By.XPATH,
+                    '//*[@class="cheval-status spacer-small-left"]/span[1]'
+                ).get_attribute('data-tooltip')
+                if status == 'Размещена в комплексе':
+                    url = horse.find_element(
+                        By.XPATH,
+                        '//*[@class="horsename"]'
+                    ).get_attribute('href')
+                    return url
+        except:
+            return 0
+
+        page += 1
+
+
+
 def work_horse():
     print('Начинаем гонять лошадулек')
-    url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
+    url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
     driver.get(url)
+
+    current_url = find_unworking_horse()
+
     children = 0
     get_mating = 0
     post_mating = 0
     stable = 0
     n = 1
     time.sleep(60)
-    current_url = ''
-    horses = 350
+
+    horses = 500
     equus = 'Good'
 
     while horses != 0:
