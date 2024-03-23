@@ -556,11 +556,23 @@ def train_speed():
 
 
 def find_unworking_horse():
-    page = 1
-    horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
-    pages = driver.find_elements(By.XPATH, '//*[@class="page "]/a')
-    while page != 4:
-        get_page = driver.find_elements(By.XPATH, '//*[@class="page "]/a').get_attribute('data-page')
+
+    pages = len(driver.find_elements(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li'
+    )[1:])
+
+    print(f'Страниц во вкладке: {pages}')
+    for i in range(2, pages + 2):
+        page = driver.find_element(
+            By.XPATH,
+            f'/html/body/div[7]/main/section/section/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li[{i}]/a'
+        ).click()
+        print(f'Page: {i - 1}')
+        time.sleep(1)
+        url = ''
+        horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
+
         try:
             for horse in horses:
                 status = horse.find_element(
@@ -568,16 +580,15 @@ def find_unworking_horse():
                     '//*[@class="cheval-status spacer-small-left"]/span[1]'
                 ).get_attribute('data-tooltip')
                 if status == 'Размещена в комплексе':
+                    print('Найдена необработанная лошадь')
                     url = horse.find_element(
                         By.XPATH,
                         '//*[@class="horsename"]'
                     ).get_attribute('href')
                     return url
         except:
-            return 0
-
-        page += 1
-
+            print('Неуложенных лошадей не найдено')
+            return url
 
 
 def work_horse():
