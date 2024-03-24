@@ -579,7 +579,7 @@ def find_unworking_horse():
                     By.XPATH,
                     '//*[@class="cheval-status spacer-small-left"]/span[1]'
                 ).get_attribute('data-tooltip')
-                if status == 'Размещена в комплексе':
+                if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horse.find_element(
                         By.XPATH,
@@ -597,6 +597,8 @@ def work_horse():
     driver.get(url)
 
     current_url = find_unworking_horse()
+
+    driver.get(current_url)
 
     children = 0
     get_mating = 0
@@ -735,7 +737,7 @@ except:
 
 login_lowadi()
 time.sleep(5)
-
+work_horse()
 
 
 
