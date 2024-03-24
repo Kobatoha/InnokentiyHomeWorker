@@ -712,8 +712,12 @@ def work_horse():
         horses -= 1
 
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'{now} прогон окончен.\nРодилось жеребят: {children}\nПринято случек: {get_mating}\n'
-          f'Предложено случек: {post_mating}\nКуплено стойл: {stable}')
+    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
+          f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
+
+
+def quit():
+    print(f'{datetime.now().strftime("%H:%M:%S")}: закрываем chrome')
     driver.quit()
 
 
@@ -731,7 +735,7 @@ except:
 
 login_lowadi()
 time.sleep(5)
-work_horse()
+
 
 
 
