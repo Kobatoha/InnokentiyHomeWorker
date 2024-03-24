@@ -573,22 +573,15 @@ def find_unworking_horse():
         url = ''
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
-        try:
-            for horse in horses:
-                status = horse.find_element(
-                    By.XPATH,
-                    '//*[@class="cheval-status spacer-small-left"]/span[1]'
-                ).get_attribute('data-tooltip')
-                if status != 'Спит':
-                    print('Найдена необработанная лошадь')
-                    url = horse.find_element(
-                        By.XPATH,
-                        '//*[@class="horsename"]'
-                    ).get_attribute('href')
-                    return url
-        except:
-            print('Неуложенных лошадей не найдено')
-            return url
+        for i in range(len(horses)):
+            name = horses[i].find_element(By.CLASS_NAME, 'horsename').text
+            status = horses[i].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
+                i].get_attribute('data-tooltip')
+
+            if status != 'Спит':
+                print('Найдена необработанная лошадь')
+                url = horses[i].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
+                return url
 
 
 def work_horse():
@@ -723,21 +716,22 @@ def quit():
     driver.quit()
 
 
-try:
+if __name__ == '__main__':
+    try:
 
-    print(f'{datetime.now().strftime("%H:%M:%S")}: запускаем chrome')
-    driver = newDR()
-    driver.set_window_size(1900, 1000)
+        print(f'{datetime.now().strftime("%H:%M:%S")}: запускаем chrome')
+        driver = newDR()
+        driver.set_window_size(1900, 1000)
 
-except:
+    except:
 
-    time.sleep(30)
-    driver = newDR()
-    driver.set_window_size(1900, 1000)
+        time.sleep(30)
+        driver = newDR()
+        driver.set_window_size(1900, 1000)
 
-login_lowadi()
-time.sleep(5)
-work_horse()
+    login_lowadi()
+    time.sleep(5)
+    work_horse()
 
 
 
