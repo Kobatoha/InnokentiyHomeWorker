@@ -1,6 +1,7 @@
 import asyncio
 import sys
-from os import getenv
+from dotenv import load_dotenv
+import os
 
 from aiogram import Bot, Dispatcher, Router, types
 from aiogram.enums import ParseMode
@@ -10,8 +11,9 @@ from aiogram.utils.markdown import hbold
 
 from lowadi import *
 
+load_dotenv()
 
-TOKEN = getenv("BOT_TOKEN")
+TOKEN = os.getenv("BOT_TOKEN")
 
 dp = Dispatcher()
 
@@ -30,10 +32,9 @@ async def work_horses():
 
 
 async def main() -> None:
-    bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
+    bot = Bot(TOKEN)
     await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO, stream=sys.stdout)
     asyncio.run(main())
