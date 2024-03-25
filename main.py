@@ -23,12 +23,18 @@ async def command_start_handler(message: Message) -> None:
     """
     This handler receives messages with `/start` command
     """
-    await message.answer(f"Hello, {hbold(message.from_user.full_name)}!")
+    await message.answer(f"Hello, {message.from_user.full_name}!")
 
-@dp.message()
+@dp.message(command='work_horse')
 async def work_horses():
     print('Запускаем прогон лошадулек')
     work_horse()
+
+    await message.answer(f'Запускаем прогон лошадулек')
+
+
+async def login_horses():
+    print('Open')
 
 
 async def main() -> None:
