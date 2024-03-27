@@ -573,15 +573,19 @@ def find_unworking_horse():
         url = ''
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
-        for i in range(len(horses)):
-            name = horses[i].find_element(By.CLASS_NAME, 'horsename').text
-            status = horses[i].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
-                i].get_attribute('data-tooltip')
+        for j in range(len(horses)):
+            try:
+                name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
+                status = horses[j].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
+                    j].get_attribute('data-tooltip')
 
-            if status != 'Спит':
-                print('Найдена необработанная лошадь')
-                url = horses[i].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                return url
+                if status != 'Спит':
+                    print('Найдена необработанная лошадь')
+                    url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
+                    return url
+            except:
+                pass
+
 
 
 def work_horse():
