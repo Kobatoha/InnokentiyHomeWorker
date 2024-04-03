@@ -587,7 +587,6 @@ def find_unworking_horse():
                 pass
 
 
-
 def work_horse():
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
