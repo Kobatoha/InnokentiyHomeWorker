@@ -21,6 +21,10 @@ def newDR():
     return driver
 
 
+def newDRB():
+    pass
+
+
 def check_ufo(current_url):
 
     good_ufo = {'vieillissement': 'очки роста'}
@@ -127,7 +131,7 @@ def fourrage_horse(age, name, n):
     time.sleep(1)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(1)
-    choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[9]').click()
+    choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[6]').click()
     time.sleep(1)
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
