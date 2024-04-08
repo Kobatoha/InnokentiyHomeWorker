@@ -491,6 +491,8 @@ def training(current_url):
     trot = 7                    # trot
     jumping = 7                 # saut
 
+    mountains = 9               # montagne
+
     flag = 'Тренировка завершена!'
 
     energie = int(driver.find_element(
@@ -521,7 +523,7 @@ def training(current_url):
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_speed(energie)
+                train_speed(energie, speed)
                 return 1
 
             elif flag not in driver.find_element(
@@ -529,7 +531,7 @@ def training(current_url):
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_dressage(energie)
+                train_dressage(energie, dressage)
                 return 1
 
             elif flag not in driver.find_element(
@@ -537,17 +539,26 @@ def training(current_url):
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_galop(energie)
+                train_galop(energie, gallop)
                 return 1
+
+            else:
+                train = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
+                ).get_attribute('data-tooltip')
+                print(train, 'Начинаем прогулки..')
+                if
+
+                ride_mountains(energie, mountains)
+
 
     except:
 
         return 0
 
 
-def train_speed(energie):
-    speed = 8                   # vitesse
-
+def train_speed(energie, speed):
     try:
 
         choice_speed = driver.find_element(
@@ -564,11 +575,13 @@ def train_speed(energie):
             f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 2}]'
         ).click()
         time.sleep(1)
+
         train = driver.find_element(
             By.XPATH,
             '//*[@id="training-vitesse-submit"]/span/span/span'
         ).click()
         time.sleep(1)
+
         pat = driver.find_element(
             By.XPATH,
             '//*[@id="boutonCaresser"]'
@@ -579,9 +592,7 @@ def train_speed(energie):
         print('Тренировка отменяется, ждем дитятко.')
 
 
-def train_dressage(energie):
-    dressage = 5                # dressage
-
+def train_dressage(energie, dressage):
     try:
 
         choice_dressage = driver.find_element(
@@ -598,11 +609,13 @@ def train_dressage(energie):
             f'//*[@id="trainingDressageSlider"]/ol/li[{hour + 2}]'
         ).click()
         time.sleep(1)
+
         train = driver.find_element(
             By.XPATH,
             '//*[@id="training-dressage-submit"]/span/span/span'
         ).click()
         time.sleep(1)
+
         pat = driver.find_element(
             By.XPATH,
             '//*[@id="boutonCaresser"]'
@@ -613,9 +626,7 @@ def train_dressage(energie):
         print('Тренировка отменяется, ждем дитятко.')
 
 
-def train_galop(energie):
-    gallop = 7                  # galop
-
+def train_galop(energie, gallop):
     try:
 
         choice_galop = driver.find_element(
@@ -632,11 +643,13 @@ def train_galop(energie):
             f'//*[@id="trainingGalopSlider"]/ol/li[{hour + 2}]'
         ).click()
         time.sleep(1)
+
         train = driver.find_element(
             By.XPATH,
             '//*[@id="training-galop-submit"]/span/span/span'
         ).click()
         time.sleep(1)
+
         pat = driver.find_element(
             By.XPATH,
             '//*[@id="boutonCaresser"]'
@@ -645,6 +658,51 @@ def train_galop(energie):
 
     except:
         print('Тренировка отменяется, ждем дитятко.')
+
+
+def ride_mountains(energie, mountains):
+    try:
+        choice_mountains = driver.find_element(
+            By.XPATH,
+            '//*[@id="boutonBalade-montagne"]'
+        ).click()
+
+        hour = (energie - 20) // mountains
+        time.sleep(1)
+
+        click_mountains = driver.find_element(
+            By.XPATH,
+            f'//*[@id="walkmontagneSlider"]/ol/li[{hour + 1}]'
+        ).click()
+        time.sleep(1)
+
+        if 'Скорость' not in driver.find_element(
+            By.XPATH,
+            '//*[@id="walk-montagne-form"]/table/tbody/tr[2]/td'
+        ).text:
+            return 0
+
+        else:
+            train = driver.find_element(
+                By.XPATH,
+                '//*[@id="walk-montagne-submit"]/span/span/span'
+            ).click()
+            time.sleep(1)
+
+            pat = driver.find_element(
+                By.XPATH,
+                '//*[@id="boutonCaresser"]'
+            ).click()
+            time.sleep(1)
+
+            water = driver.find_element(
+                By.XPATH,
+                '//*[@id="boutonBoire"]'
+            ).click()
+            print(f'Лошадь провела прогулку в горах на {hour} часов')
+
+    except:
+        print('Прогулка отменяется, ждем дитятко.')
 
 
 def find_unworking_horse():
