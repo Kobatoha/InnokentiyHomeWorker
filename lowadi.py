@@ -217,7 +217,7 @@ def female_horse(current_url):
         ).text
         print(not_ready)
         time.sleep(1)
-        training(current_url)
+        training()
 
         try:
 
@@ -264,7 +264,7 @@ def female_horse(current_url):
             print('Кобыла успешно провела случку')
             time.sleep()
 
-            training(current_url)
+            training()
 
             try:
 
@@ -290,7 +290,7 @@ def female_horse(current_url):
             print('Кобыла уже жеребая')
             time.sleep(1)
 
-            training(current_url)
+            training()
 
             try:
 
@@ -491,7 +491,7 @@ def death_horse():
         return 0
 
 
-def training(current_url):
+def training():
     stamina = 8                 # endurance
     speed = 8                   # vitesse
     dressage = 5                # dressage
