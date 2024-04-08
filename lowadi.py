@@ -22,7 +22,15 @@ def newDR():
 
 
 def newDRB():
-    pass
+    chromeOptions = uc.ChromeOptions()
+    caps = DesiredCapabilities().CHROME
+    caps["pageLoadStrategy"] = "eager"  # normal - full_load
+    chromeOptions.add_extension('browsec.crx')
+    # chromeOptions.add_argument("--single-process")
+    chromeOptions.headless = False
+    driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
+
+    return driver
 
 
 def check_ufo(current_url):
@@ -38,7 +46,7 @@ def check_ufo(current_url):
             for bad_key in bad_ufo:
                 if bad_key in icon:
                     print(f"НЛО: {bad_ufo[bad_key]}, надо скипнуть")
-                    driver.get(current_url)
+                    driver.refresh()
 
             for good_key in good_ufo:
                 if good_key in icon:
@@ -48,7 +56,7 @@ def check_ufo(current_url):
                     driver.find_element(By.XPATH, '//*[@id="agi-10972849001709751854"]').click()
                     time.sleep(1)
                     driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
-                    driver.get(current_url)
+                    driver.refresh()
 
     except:
 
@@ -68,7 +76,6 @@ def login_lowadi():
         driver.find_element(By.XPATH, '/html/body/aside/div/article/div/div[2]/div/div/div[3]/form/button').click()
 
     except:
-
         print('Принять cookie не просили')
 
     try:
@@ -108,7 +115,7 @@ def login_lowadi():
             By.XPATH,
             '/html/body/div[7]/main/section/section/aside/form/button'
         ).click()
-        time.sleep(60)
+        time.sleep(30)
 
 
 def milk_horse(age, name, n):
@@ -417,11 +424,10 @@ def childbirth(current_url):
 
 def get_stable():
     try:
-
         print('Лошадь нуждается в стойле, ищем подходящий КСК..')
         current_url = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/nav/a[4]'
+            '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
         ).get_attribute('href')
 
         check_ufo(current_url)
@@ -446,6 +452,7 @@ def get_stable():
         alert = driver.switch_to.alert
         alert.accept()
         print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
+        time.sleep(2)
 
         return 1
 
@@ -484,7 +491,7 @@ def training(current_url):
     trot = 7                    # trot
     jumping = 7                 # saut
 
-    flag = 'Тренировка завершена'
+    flag = 'Тренировка завершена!'
 
     energie = int(driver.find_element(
         By.XPATH,
@@ -509,54 +516,135 @@ def training(current_url):
 
         if gp >= 10000:
 
-            if flag in driver.find_element(
+            if flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_speed()
+                train_speed(energie)
+                return 1
 
-            elif flag in driver.find_element(
+            elif flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_dressage()
+                train_dressage(energie)
+                return 1
 
-            elif flag in driver.find_element(
+            elif flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_galop()
-
-            choice_speed = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
-                '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
-            ).click()
-
-            hour = (energie - 20) // speed
-            time.sleep(1)
-
-            choice_speed = driver.find_element(
-                By.XPATH,
-                f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 1}]'
-            ).click()
-            time.sleep(1)
-            train = driver.find_element(
-                By.XPATH,
-                '//*[@id="training-vitesse-submit"]/span/span/span'
-            ).click()
-            print(f'Лошадь провела тренировку скорости на {hour} часов')
+                train_galop(energie)
+                return 1
 
     except:
 
-        pass
+        return 0
 
 
-def train_speed():
+def train_speed(energie):
     speed = 8                   # vitesse
+
+    try:
+
+        choice_speed = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
+        ).click()
+
+        hour = (energie - 20) // speed
+        time.sleep(1)
+
+        click_speed = driver.find_element(
+            By.XPATH,
+            f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 2}]'
+        ).click()
+        time.sleep(1)
+        train = driver.find_element(
+            By.XPATH,
+            '//*[@id="training-vitesse-submit"]/span/span/span'
+        ).click()
+        time.sleep(1)
+        pat = driver.find_element(
+            By.XPATH,
+            '//*[@id="boutonCaresser"]'
+        ).click()
+        print(f'Лошадь провела тренировку скорости на {hour} часов')
+
+    except:
+        print('Тренировка отменяется, ждем дитятко.')
+
+
+def train_dressage(energie):
+    dressage = 5                # dressage
+
+    try:
+
+        choice_dressage = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[3]/td[3]/button/span'
+        ).click()
+
+        hour = (energie - 20) // dressage
+        time.sleep(1)
+
+        click_dressage = driver.find_element(
+            By.XPATH,
+            f'//*[@id="trainingDressageSlider"]/ol/li[{hour + 2}]'
+        ).click()
+        time.sleep(1)
+        train = driver.find_element(
+            By.XPATH,
+            '//*[@id="training-dressage-submit"]/span/span/span'
+        ).click()
+        time.sleep(1)
+        pat = driver.find_element(
+            By.XPATH,
+            '//*[@id="boutonCaresser"]'
+        ).click()
+        print(f'Лошадь провела тренировку выездки на {hour} часов')
+
+    except:
+        print('Тренировка отменяется, ждем дитятко.')
+
+
+def train_galop(energie):
+    gallop = 7                  # galop
+
+    try:
+
+        choice_galop = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[4]/td[3]/button/span'
+        ).click()
+
+        hour = (energie - 20) // gallop
+        time.sleep(1)
+
+        click_galop = driver.find_element(
+            By.XPATH,
+            f'//*[@id="trainingGalopSlider"]/ol/li[{hour + 2}]'
+        ).click()
+        time.sleep(1)
+        train = driver.find_element(
+            By.XPATH,
+            '//*[@id="training-galop-submit"]/span/span/span'
+        ).click()
+        time.sleep(1)
+        pat = driver.find_element(
+            By.XPATH,
+            '//*[@id="boutonCaresser"]'
+        ).click()
+        print(f'Лошадь провела тренировку галопа на {hour} часов')
+
+    except:
+        print('Тренировка отменяется, ждем дитятко.')
 
 
 def find_unworking_horse():
@@ -595,7 +683,7 @@ def work_horse():
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
     driver.get(url)
-
+    time.sleep(3)
     current_url = find_unworking_horse()
 
     driver.get(current_url)
@@ -605,9 +693,9 @@ def work_horse():
     post_mating = 0
     stable = 0
     n = 1
-    time.sleep(60)
+    time.sleep(5)
 
-    horses = 600
+    horses = 850
     equus = 'Good'
 
     while horses != 0:
@@ -638,10 +726,12 @@ def work_horse():
                 By.XPATH,
                 '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
             ).get_attribute('href')
+
             age = driver.find_element(
                 By.XPATH,
                 '//*[@id="characteristics-body-content"]/table/tbody/tr[1]/td[2]'
             ).text.split()
+
             name = driver.find_element(
                 By.XPATH,
                 '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
@@ -653,7 +743,7 @@ def work_horse():
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
                     '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-                ).text and check_equus == 'Good':
+                ).text and equus == 'Good':
 
                     stable += get_stable()
                     time.sleep(30)
