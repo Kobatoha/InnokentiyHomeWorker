@@ -216,6 +216,8 @@ def female_horse(current_url):
             '//*[@id="reproduction-body-content"]/div[1]/table/tbody/tr[1]/td'
         ).text
         print(not_ready)
+        time.sleep(1)
+        training(current_url)
 
         try:
 
@@ -260,6 +262,9 @@ def female_horse(current_url):
                 time.sleep(1)
 
             print('Кобыла успешно провела случку')
+            time.sleep()
+
+            training(current_url)
 
             try:
 
@@ -283,6 +288,9 @@ def female_horse(current_url):
         ).text == 'Эхография':
 
             print('Кобыла уже жеребая')
+            time.sleep(1)
+
+            training(current_url)
 
             try:
 
@@ -523,24 +531,24 @@ def training(current_url):
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_speed(energie, speed)
-                return 1
+                hours = train_speed(energie, speed)
+                return hours
 
             elif flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_dressage(energie, dressage)
-                return 1
+                hours = train_dressage(energie, dressage)
+                return hours
 
             elif flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
             ).get_attribute('data-tooltip'):
 
-                train_galop(energie, gallop)
-                return 1
+                hours = train_galop(energie, gallop)
+                return hours
 
             else:
                 train = driver.find_element(
@@ -548,10 +556,12 @@ def training(current_url):
                     '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
                 ).get_attribute('data-tooltip')
                 print(train, 'Начинаем прогулки..')
-                if
 
-                ride_mountains(energie, mountains)
+                hours = ride_mountains(energie, mountains)
+                return hours
 
+        else:
+            return 0
 
     except:
 
@@ -587,9 +597,11 @@ def train_speed(energie, speed):
             '//*[@id="boutonCaresser"]'
         ).click()
         print(f'Лошадь провела тренировку скорости на {hour} часов')
+        return hour
 
     except:
         print('Тренировка отменяется, ждем дитятко.')
+        return 0
 
 
 def train_dressage(energie, dressage):
@@ -621,9 +633,11 @@ def train_dressage(energie, dressage):
             '//*[@id="boutonCaresser"]'
         ).click()
         print(f'Лошадь провела тренировку выездки на {hour} часов')
+        return hour
 
     except:
         print('Тренировка отменяется, ждем дитятко.')
+        return 0
 
 
 def train_galop(energie, gallop):
@@ -655,9 +669,11 @@ def train_galop(energie, gallop):
             '//*[@id="boutonCaresser"]'
         ).click()
         print(f'Лошадь провела тренировку галопа на {hour} часов')
+        return hour
 
     except:
         print('Тренировка отменяется, ждем дитятко.')
+        return 0
 
 
 def ride_mountains(energie, mountains):
@@ -700,6 +716,8 @@ def ride_mountains(energie, mountains):
                 '//*[@id="boutonBoire"]'
             ).click()
             print(f'Лошадь провела прогулку в горах на {hour} часов')
+
+            return hour
 
     except:
         print('Прогулка отменяется, ждем дитятко.')
@@ -887,6 +905,8 @@ if __name__ == '__main__':
     login_lowadi()
     time.sleep(5)
     work_horse()
+    time.sleep(5)
+
 
 
 
