@@ -827,11 +827,11 @@ def work_horse():
 
                 pass
 
-            if (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
-                fourrage_horse(age, name, n)
-
-            elif 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
+            if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                 milk_horse(age, name, n)
+
+            elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
+                fourrage_horse(age, name, n)
 
             elif age == ['Возраст:', '2', 'года'] or age == ['Возраст:', '2', 'года', '2', 'мес.'] or age == \
                     ['Возраст:', '2', 'года', '4', 'мес.']:
