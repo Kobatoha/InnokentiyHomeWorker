@@ -95,7 +95,6 @@ def login_lowadi():
             '/html/body/div[7]/header/nav/div/div/form/button/span/span/span'
         ).click()
         time.sleep(1)
-        driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/div/form/button/span/span/span').click()
 
     except:
 
@@ -882,6 +881,14 @@ def work_horse():
     now = datetime.now().strftime('%d.%m %H:%M')
     print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
           f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
+
+
+def ksanf():
+    """
+    Ежедневная глажка 5 Ксанфов.
+    Есть вероятность получить рог изобилия.
+    :return:
+    """
 
 
 def quit():
