@@ -8,6 +8,7 @@ from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import json
 from os import getenv
 from selenium.webdriver.common.keys import Keys
+import schedule
 
 
 def newDR():
@@ -912,45 +913,58 @@ def xanthos():
 
 
 def atelier():
+    print(datetime.now().strftime('%H:%M:%S'), 'Проверяем мастерские..')
     url = 'https://www.lowadi.com/centre/atelier/'
     driver.get(url)
-    get_stable_1 = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span/span/span'
-    )
-    get_stable_2 = driver.find_element(
-        By.XPATH,
-        '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span/span/span'
-    )
-    match get_stable_1.text:
-        case 'Получить':
-            get_stable_1.click()
-            time.sleep(1)
-            driver.find_element(
+    try:
+        try:
+            get_stable_1 = driver.find_element(
                 By.XPATH,
-                '/html/body/div[11]/div/div/form/button/span/span/span'
-            ).click()
-            time.sleep(2)
-
-    get_stable_2 = driver.find_element(
-        By.XPATH,
-        '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span/span/span'
-    )
-    match get_stable_2.text:
-        case 'Получить':
-            get_stable_2.click()
-            time.sleep(1)
-            driver.find_element(
+                '/html/body/div[7]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
+            )
+        except:
+            get_stable_1 = driver.find_element(
                 By.XPATH,
-                '/html/body/div[12]/div/div/form/button/span/span/span'
-            ).click()
-            time.sleep(2)
+                '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
+            )
+        for _ in range(2):
+            match get_stable_1.text:
+                case 'Получить':
+                    print('Стойла готовы, собираем')
+                    get_stable_1.click()
+                    time.sleep(2)
+                    driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[11]/div/div/form/button/span/span/span'
+                    ).click()
+                    time.sleep(2)
+                case 'Стоп':
+                    print('Стойла не готовы, сваливаем')
+                    return 0
 
+        begin_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/form/table/tbody/tr[1]/td[6]/button/span/span/span'
+        )
+        for _ in range(2):
+            match begin_stable.text:
+                case 'Производство':
+                    print('Мастерская свободна, пора запускать постройку стойла')
+                    begin_stable.click()
+                    time.sleep(2)
+                    driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[12]/div/div/div/div/div/div/div[1]/div/div[3]/div[1]/div/span'
+                    ).click()
+                    time.sleep(2)
+                    driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[12]/div/div/div/div/div/div/div[2]/form[8]/div[2]/button/span/span/span'
+                    ).click()
+                    time.sleep(2)
 
-
-
-
-
+    except:
+        print('Проверка мастерской провалилась')
 
 
 def quit():
