@@ -967,6 +967,10 @@ def atelier():
         print('Проверка мастерской провалилась')
 
 
+def refresh():
+    driver.refresh()
+
+
 def quit():
     print(f'{datetime.now().strftime("%H:%M:%S")}: закрываем chrome')
     driver.quit()
@@ -987,6 +991,8 @@ if __name__ == '__main__':
 
     schedule.every().day.at(f'05:05').do(login_lowadi)
     schedule.every().day.at(f'05:{random.randint(10, 47)}').do(work_horse)
+    schedule.every(1).hours.do(refresh)
+    schedule.every(3).hours.do(atelier)
 
     while True:
         schedule.run_pending()
@@ -998,9 +1004,6 @@ if __name__ == '__main__':
     time.sleep(5)
     work_horse()
     time.sleep(5)
-
-
-
-
-
-
+    for i in range(3):
+        atelier()
+        time.sleep(60 * 180)
