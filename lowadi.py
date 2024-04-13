@@ -424,6 +424,10 @@ def childbirth(current_url):
         '/html/body/div[7]/main/section/section/form/button'
     ).click()
     time.sleep(1)
+
+    milk_horse('несколько часов', 'дитё', 0)
+    time.sleep(1)
+
     return_to_mother = driver.get(current_url)
 
     return 1
@@ -770,7 +774,7 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 850
+    horses = 975
     equus = 'Good'
 
     while horses != 0:
@@ -883,12 +887,70 @@ def work_horse():
           f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
 
 
-def ksanf():
+def xanthos():
     """
     Ежедневная глажка 5 Ксанфов.
     Есть вероятность получить рог изобилия.
     :return:
     """
+    urls = [
+        'https://www.lowadi.com/elevage/fiche/?id=1045736',
+        'https://www.lowadi.com/elevage/fiche/?id=1047131',
+        'https://www.lowadi.com/elevage/fiche/?id=1044747',
+        'https://www.lowadi.com/elevage/fiche/?id=1044960',
+        'https://www.lowadi.com/elevage/fiche/?id=1046269'
+    ]
+    for url in urls:
+        driver.get(url)
+        time.sleep(2)
+        pat_xanthos = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/div[2]'
+            '/div/div/div/div/div/div[1]/table/tbody/tr/td[3]/form/a'
+        ).click()
+        time.sleep(2)
+
+
+def atelier():
+    url = 'https://www.lowadi.com/centre/atelier/'
+    driver.get(url)
+    get_stable_1 = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span/span/span'
+    )
+    get_stable_2 = driver.find_element(
+        By.XPATH,
+        '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span/span/span'
+    )
+    match get_stable_1.text:
+        case 'Получить':
+            get_stable_1.click()
+            time.sleep(1)
+            driver.find_element(
+                By.XPATH,
+                '/html/body/div[11]/div/div/form/button/span/span/span'
+            ).click()
+            time.sleep(2)
+
+    get_stable_2 = driver.find_element(
+        By.XPATH,
+        '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span/span/span'
+    )
+    match get_stable_2.text:
+        case 'Получить':
+            get_stable_2.click()
+            time.sleep(1)
+            driver.find_element(
+                By.XPATH,
+                '/html/body/div[12]/div/div/form/button/span/span/span'
+            ).click()
+            time.sleep(2)
+
+
+
+
+
+
 
 
 def quit():
@@ -909,7 +971,16 @@ if __name__ == '__main__':
         driver = newDR()
         driver.set_window_size(1900, 1000)
 
+    schedule.every().day.at(f'05:05').do(login_lowadi)
+    schedule.every().day.at(f'05:{random.randint(10, 47)}').do(work_horse)
+
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
     login_lowadi()
+    time.sleep(5)
+    xanthos()
     time.sleep(5)
     work_horse()
     time.sleep(5)
