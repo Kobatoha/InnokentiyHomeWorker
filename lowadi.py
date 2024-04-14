@@ -34,7 +34,7 @@ def newDRB():
     return driver
 
 
-def check_ufo(current_url):
+def check_ufo():
 
     good_ufo = {'vieillissement': 'очки роста'}
     bad_ufo = {'pomme': 'яблоко', 'carotte': 'морковь', 'classique': 'седло', 'mash': 'комбикорм',
@@ -243,7 +243,7 @@ def female_horse(current_url):
         ).text == 'Случить кобылу':
 
             print('Нужна случка, идем на брачный рынок..')
-            check_ufo(current_url)
+            check_ufo()
             driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
             time.sleep(1)
             master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
@@ -382,7 +382,7 @@ def male_horse():
 
 
 def childbirth(current_url):
-    check_ufo(current_url)
+    check_ufo()
     sex = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/img'
@@ -413,11 +413,13 @@ def childbirth(current_url):
     time.sleep(1)
     farm = driver.find_element(
         By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]').click()
+        '/html/body/div[7]/main/section/section/form/table[3]/tbody'
+        '/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]').click()
     time.sleep(2)
     get_farm = driver.find_element(
         By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]/select/option[2]'
+        '/html/body/div[7]/main/section/section/form/table[3]/tbody'
+        '/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]/select/option[2]'
     ).click()
     time.sleep(1)
     complete = driver.find_element(
@@ -442,7 +444,7 @@ def get_stable():
             '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
         ).get_attribute('href')
 
-        check_ufo(current_url)
+        check_ufo()
 
         find_stable = driver.find_element(
             By.XPATH,
@@ -781,7 +783,7 @@ def work_horse():
     while horses != 0:
 
         try:
-            check_ufo(current_url)
+            check_ufo()
 
             dead = death_horse()
 
@@ -917,36 +919,42 @@ def atelier():
     url = 'https://www.lowadi.com/centre/atelier/'
     driver.get(url)
     try:
-        try:
-            get_stable_1 = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
-            )
-        except:
-            get_stable_1 = driver.find_element(
-                By.XPATH,
-                '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
-            )
         for _ in range(2):
+            try:
+                get_stable_1 = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
+                )
+            except:
+                get_stable_1 = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
+                )
             match get_stable_1.text:
                 case 'Получить':
                     print('Стойла готовы, собираем')
                     get_stable_1.click()
                     time.sleep(2)
-                    driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[11]/div/div/form/button/span/span/span'
-                    ).click()
+                    try:
+                        driver.find_element(
+                            By.XPATH,
+                            '/html/body/div[11]/div/div/form/button/span/span/span'
+                        ).click()
+                    except:
+                        driver.find_element(
+                            By.XPATH,
+                            '/html/body/div[12]/div/div/form/button/span/span/span'
+                        ).click()
                     time.sleep(2)
                 case 'Стоп':
                     print('Стойла не готовы, сваливаем')
                     return 0
 
-        begin_stable = driver.find_element(
-            By.XPATH,
-            '/html/body/div[8]/main/section/section/form/table/tbody/tr[1]/td[6]/button/span/span/span'
-        )
         for _ in range(2):
+            begin_stable = driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/form/table/tbody/tr[1]/td[6]/button/span/span/span'
+            )
             match begin_stable.text:
                 case 'Производство':
                     print('Мастерская свободна, пора запускать постройку стойла')
@@ -971,7 +979,7 @@ def refresh():
     driver.refresh()
 
 
-def quit():
+def quit_lowadi():
     print(f'{datetime.now().strftime("%H:%M:%S")}: закрываем chrome')
     driver.quit()
 
