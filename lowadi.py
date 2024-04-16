@@ -126,10 +126,6 @@ def milk_horse(age, name, n):
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
-    next_hourse = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-    ).click()
 
 
 def fourrage_horse(age, name, n):
@@ -777,7 +773,7 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 975
+    horses = 950
     equus = 'Good'
 
     while horses != 0:
@@ -836,6 +832,10 @@ def work_horse():
 
             if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                 milk_horse(age, name, n)
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
 
             elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
                 fourrage_horse(age, name, n)
@@ -988,13 +988,13 @@ if __name__ == '__main__':
     try:
 
         print(f'{datetime.now().strftime("%H:%M:%S")}: запускаем chrome')
-        driver = newDR()
+        driver = newDRB()
         driver.set_window_size(1900, 1000)
 
     except:
 
         time.sleep(30)
-        driver = newDR()
+        driver = newDRB()
         driver.set_window_size(1900, 1000)
 
     schedule.every().day.at(f'05:05').do(login_lowadi)
