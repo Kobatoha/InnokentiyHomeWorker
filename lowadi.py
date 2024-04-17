@@ -145,14 +145,14 @@ def fourrage_horse(age, name, n):
 
         next_hourse = driver.find_element(
             By.XPATH,
-            '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+            '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
         ).click()
 
     except:
 
         next_hourse = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
         ).click()
 
 
@@ -172,7 +172,7 @@ def young_horse(age, name, n):
     time.sleep(1)
     next_hourse = driver.find_element(
         By.XPATH,
-        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
     ).click()
 
 
@@ -216,11 +216,17 @@ def female_horse(current_url):
         training()
 
         try:
+            try:
 
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
+            except:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
 
         except:
 
@@ -263,11 +269,17 @@ def female_horse(current_url):
             training()
 
             try:
+                try:
 
-                next_hourse = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                ).click()
+                    next_hourse = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                    ).click()
+                except:
+                    next_hourse = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                    ).click()
 
             except:
 
@@ -289,17 +301,23 @@ def female_horse(current_url):
             training()
 
             try:
+                try:
 
-                next_hourse = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                ).click()
+                    next_hourse = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                    ).click()
+                except:
+                    next_hourse = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                    ).click()
 
             except:
 
                 next_hourse = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
                 ).click()
 
             return 0
@@ -314,36 +332,36 @@ def male_horse():
         for i in range(5):
             energie = int(driver.find_element(
                 By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[2]'
+                '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[2]'
                 '/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
             ).text)
             if energie - mating >= 20:
                 create_mating = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
                 ).click()
                 time.sleep(1)
                 open_mating = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/input'
                 ).click()
                 choice_equus = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
                 ).click()
                 time.sleep(2)
                 lower_price = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[2]'
                 ).click()
                 time.sleep(1)
                 complete = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[5]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span'
                 ).click()
                 time.sleep(5)
@@ -356,7 +374,7 @@ def male_horse():
 
             next_hourse = driver.find_element(
                 By.XPATH,
-                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
             ).click()
 
             return num
@@ -365,7 +383,7 @@ def male_horse():
 
             next_hourse = driver.find_element(
                 By.XPATH,
-                '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
             ).click()
 
             return num
@@ -444,7 +462,7 @@ def get_stable():
 
         find_stable = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
             '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
         ).click()
         time.sleep(1)
@@ -505,11 +523,18 @@ def training():
 
     flag = 'Тренировка завершена!'
 
-    energie = int(driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]'
-        '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
-    ).text)
+    try:
+        energie = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]'
+            '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
+        ).text)
+    except:
+        energie = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]'
+            '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
+        ).text)
 
     genetic_potential = driver.find_element(
         By.XPATH,
@@ -518,11 +543,19 @@ def training():
 
     time.sleep(0.2)
 
-    gp = int(driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[4]/div/div/div/div/table[2]'
-        '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
-    ).text.split()[1][:-3])
+    try:
+        gp = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[4]/div/div/div/div/table[2]'
+            '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
+        ).text.split()[1][:-3])
+    except:
+        gp = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[2]'
+            '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
+        ).text.split()[1][:-3])
+
 
     try:
 
@@ -575,7 +608,7 @@ def train_speed(energie, speed):
 
         choice_speed = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
             '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
         ).click()
 
@@ -611,7 +644,7 @@ def train_dressage(energie, dressage):
 
         choice_dressage = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
             '/div[1]/div/table/tbody/tr[3]/td[3]/button/span'
         ).click()
 
@@ -647,7 +680,7 @@ def train_galop(energie, gallop):
 
         choice_galop = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[3]/div[3]/div/div/div/div/div'
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
             '/div[1]/div/table/tbody/tr[4]/td[3]/button/span'
         ).click()
 
@@ -819,7 +852,7 @@ def work_horse():
 
                 if 'Зарегистрируйте свою лошадь' in driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[1]'
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
                     '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
                 ).text and equus == 'Good':
 
