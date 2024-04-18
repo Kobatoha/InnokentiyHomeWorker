@@ -340,7 +340,12 @@ def male_horse():
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
-                ).click()
+                )
+                try:
+                    create_mating.click()
+                except:
+                    return num
+
                 time.sleep(1)
                 open_mating = driver.find_element(
                     By.XPATH,
@@ -1038,6 +1043,7 @@ if __name__ == '__main__':
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
     login_lowadi()
     time.sleep(5)
