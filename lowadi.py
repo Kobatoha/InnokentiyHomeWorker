@@ -232,7 +232,7 @@ def female_horse(current_url):
 
             next_hourse = driver.find_element(
                 By.XPATH,
-                '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
             ).click()
 
         return 0
@@ -285,7 +285,7 @@ def female_horse(current_url):
 
                 next_hourse = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                    '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
                 ).click()
 
             return 1
@@ -310,7 +310,7 @@ def female_horse(current_url):
                 except:
                     next_hourse = driver.find_element(
                         By.XPATH,
-                        '/html/body/div[8]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                        '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
                     ).click()
 
             except:
