@@ -179,9 +179,9 @@ def young_horse(age, name, n):
 def old_horse(age, name, n):
     print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
-    time.sleep(1)
+    time.sleep(2)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
-    time.sleep(1)
+    time.sleep(2)
 
     try:
 
@@ -190,6 +190,7 @@ def old_horse(age, name, n):
             time.sleep(1)
         else:
             choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[13]').click()
+            time.sleep(1)
 
     except:
 
@@ -197,7 +198,7 @@ def old_horse(age, name, n):
         time.sleep(1)
 
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
-    time.sleep(1)
+    time.sleep(2)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
     lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
@@ -264,7 +265,7 @@ def female_horse(current_url):
                 time.sleep(1)
 
             print('Кобыла успешно провела случку')
-            time.sleep()
+            time.sleep(1)
 
             training()
 
@@ -401,6 +402,7 @@ def male_horse():
 
 
 def childbirth(current_url):
+    age = 'Несколько часов'
     check_ufo()
     sex = driver.find_element(
         By.XPATH,
@@ -419,19 +421,10 @@ def childbirth(current_url):
         ).send_keys(f'Пуля {gen_potential}')
 
     elif sex == 'femelle':
-        if 'Вороная' in driver.find_element(
-                (By.XPATH,
-                 '/html/body/div[7]/main/section/section/div/figure/figcaption')
-        ).text:
-            get_name = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-            ).send_keys(f'Слива {gen_potential}')
-        else:
-            get_name = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-            ).send_keys(f'Вишня {gen_potential}')
+        get_name = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
+        ).send_keys(f'Вишня {gen_potential}')
 
     profile = driver.find_element(
         By.XPATH,
@@ -455,7 +448,7 @@ def childbirth(current_url):
     ).click()
     time.sleep(1)
 
-    milk_horse('несколько часов', 'дитё', 0)
+    milk_horse(age, 'дитё', 0)
     time.sleep(1)
 
     return_to_mother = driver.get(current_url)
@@ -630,7 +623,7 @@ def train_speed(energie, speed):
 
         click_speed = driver.find_element(
             By.XPATH,
-            f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 2}]'
+            f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 1}]'
         ).click()
         time.sleep(1)
 
@@ -666,7 +659,7 @@ def train_dressage(energie, dressage):
 
         click_dressage = driver.find_element(
             By.XPATH,
-            f'//*[@id="trainingDressageSlider"]/ol/li[{hour + 2}]'
+            f'//*[@id="trainingDressageSlider"]/ol/li[{hour + 1}]'
         ).click()
         time.sleep(1)
 
@@ -702,7 +695,7 @@ def train_galop(energie, gallop):
 
         click_galop = driver.find_element(
             By.XPATH,
-            f'//*[@id="trainingGalopSlider"]/ol/li[{hour + 2}]'
+            f'//*[@id="trainingGalopSlider"]/ol/li[{hour + 1}]'
         ).click()
         time.sleep(1)
 
@@ -803,6 +796,26 @@ def find_unworking_horse():
                 pass
 
 
+def check_horse_complete():
+    history = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[5]/div/div/div/div[1]/div/div/div/ul'
+    ).text.split('\n')
+    count = 0
+    for i in history:
+        if 'Полный уход' in i:
+            count += 1
+        elif 'съел(а)' in i:
+            count += 1
+        elif 'уложен(а) спать' in i:
+            count += 1
+        elif 'урок верховой езды' in i:
+            count += 1
+    if count == 4:
+        return True
+    return False
+
+
 def work_horse():
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
@@ -819,10 +832,22 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 950
+    horses = 50
     equus = 'Good'
 
     while horses != 0:
+        if check_horse_complete():
+            try:
+                next_hourse = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
+                ).click()
+            except:
+                driver.get(current_url)
+            n += 1
+            print('-' * 50)
+            horses -= 1
+            continue
 
         try:
             check_ufo()
@@ -1056,6 +1081,8 @@ if __name__ == '__main__':
     login_lowadi()
     time.sleep(5)
     xanthos()
+    time.sleep(5)
+    atelier()
     time.sleep(5)
     work_horse()
     time.sleep(5)
