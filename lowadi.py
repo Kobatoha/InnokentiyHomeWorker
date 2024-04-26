@@ -134,7 +134,7 @@ def fourrage_horse(age, name, n):
     time.sleep(1)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(1)
-    choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[6]').click()
+    choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[12]').click()
     time.sleep(1)
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
@@ -162,7 +162,7 @@ def young_horse(age, name, n):
     time.sleep(1)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(1)
-    choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[11]').click()
+    choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[12]').click()
     time.sleep(1)
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
@@ -809,7 +809,7 @@ def check_horse_complete():
             count += 1
         elif 'уложен(а) спать' in i:
             count += 1
-        elif 'урок верховой езды' in i:
+        elif 'урок верховой езды' in i or 'выполнила миссию' in i:
             count += 1
     if count == 4:
         return True
@@ -832,11 +832,21 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 50
+    horses = 950
     equus = 'Good'
 
     while horses != 0:
         if check_horse_complete():
+
+            age = driver.find_element(
+                By.XPATH,
+                '//*[@id="characteristics-body-content"]/table/tbody/tr[1]/td[2]'
+            ).text.split()
+
+            name = driver.find_element(
+                By.XPATH,
+                '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
+            ).text
             try:
                 next_hourse = driver.find_element(
                     By.XPATH,
@@ -844,9 +854,13 @@ def work_horse():
                 ).click()
             except:
                 driver.get(current_url)
+
+            print(f'№{n} Лошадь: {name}, уже получила уход.', *age)
             n += 1
             print('-' * 50)
             horses -= 1
+
+            time.sleep(1)
             continue
 
         try:
