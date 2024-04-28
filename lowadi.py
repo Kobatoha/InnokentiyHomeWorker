@@ -836,6 +836,7 @@ def work_horse():
     equus = 'Good'
 
     while horses != 0:
+        check_ufo()
         if check_horse_complete():
 
             age = driver.find_element(
