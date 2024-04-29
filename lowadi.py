@@ -468,14 +468,14 @@ def get_stable():
             '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
         ).get_attribute('href')
 
-        check_ufo()
-
         find_stable = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
             '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
         ).click()
         time.sleep(1)
+
+        check_ufo()
 
         two_mouth = driver.find_element(
             By.XPATH,
@@ -881,15 +881,7 @@ def work_horse():
                     '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
                 ).click()
 
-            check_equus = int(driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
-            ).text.replace(' ', ''))
-
-            if check_equus >= 10000:
-                equus = 'Good'
-            else:
-                equus = 'Bad'
+            equus = check_equus()
 
             current_url = driver.find_element(
                 By.XPATH,
@@ -1066,21 +1058,23 @@ def atelier():
         print('Проверка мастерской провалилась')
 
 
-
-
-def buy_marshadore():
-    check_equus = int(driver.find_element(
+def check_equus():
+    equus = int(driver.find_element(
         By.XPATH,
         '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
     ).text.replace(' ', ''))
 
-    if check_equus >= 10000:
-        equus = 'Good'
+    if equus >= 10000:
+        return 'Good'
     else:
-        equus = 'Bad'
+        return 'Bad'
+
+
+def buy_marshadore():
+    equus = check_equus()
 
     while equus == 'Good':
-
+        equus = check_equus()
         url = ['https://www.lowadi.com/marche/vente/?chevalType=&chevalEspece=any-all&unicorn=2&pegasus=2&'
                'amountComparaison=g&amount=0&currency=soft&competencesComparaison=g&competences=0&race-cheval=&'
                'race-poney=&race-ane=&race-cheval-trait=&race-all=78&race-cheval-pegase=&race-poney-pegase=&'
@@ -1114,15 +1108,6 @@ def buy_marshadore():
                 '/html/body/div[7]/main/section/section/div[3]/table/tbody/tr[1]/td[9]/div/div[1]'
              ).click()
             alert.accept()
-        check_equus = int(driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
-        ).text.replace(' ', ''))
-
-        if check_equus >= 10000:
-            equus = 'Good'
-        else:
-            equus = 'Bad'
 
 
 def refresh():
