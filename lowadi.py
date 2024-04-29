@@ -60,10 +60,11 @@ def check_ufo():
                     driver.refresh()
                     time.sleep(0.5)
                     driver.refresh()
+                    time.sleep(1)
 
     except:
 
-        pass
+        return
 
 
 def login_lowadi():
@@ -569,7 +570,7 @@ def training():
 
     try:
 
-        if gp >= 10000:
+        if gp >= 300:
 
             if flag not in driver.find_element(
                 By.XPATH,
@@ -1071,10 +1072,14 @@ def check_equus():
 
 
 def buy_marshadore():
+    check_ufo()
     equus = check_equus()
 
     while equus == 'Good':
+        check_ufo()
+        time.sleep(0.1)
         equus = check_equus()
+
         url = ['https://www.lowadi.com/marche/vente/?chevalType=&chevalEspece=any-all&unicorn=2&pegasus=2&'
                'amountComparaison=g&amount=0&currency=soft&competencesComparaison=g&competences=0&race-cheval=&'
                'race-poney=&race-ane=&race-cheval-trait=&race-all=78&race-cheval-pegase=&race-poney-pegase=&'
@@ -1108,6 +1113,7 @@ def buy_marshadore():
                 '/html/body/div[7]/main/section/section/div[3]/table/tbody/tr[1]/td[9]/div/div[1]'
              ).click()
             alert.accept()
+        time.sleep(0.5)
 
 
 def refresh():
