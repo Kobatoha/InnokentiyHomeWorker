@@ -173,6 +173,12 @@ def young_horse(age, name, n):
     time.sleep(1)
     lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
     time.sleep(1)
+
+    try:
+        training()
+    except:
+        pass
+
     next_hourse = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
@@ -837,7 +843,7 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 1000
+    horses = 400
     equus = 'Good'
 
     while horses != 0:
