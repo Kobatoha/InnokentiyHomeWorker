@@ -913,9 +913,7 @@ def work_horse():
                     '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
                 ).text and equus == 'Good':
 
-                    stable += get_stable()
-                    time.sleep(30)
-
+                    print('Нужно стойло')
             except:
 
                 pass
