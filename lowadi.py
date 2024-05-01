@@ -843,7 +843,7 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 400
+    horses = 1000
     equus = 'Good'
 
     while horses != 0:
