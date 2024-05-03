@@ -58,8 +58,10 @@ def check_ufo():
                     time.sleep(1)
                     driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
                     driver.refresh()
+                    time.sleep(1)
 
-
+            driver.refresh()
+            time.sleep(1)
 
     except:
 
@@ -826,7 +828,7 @@ def check_horse_complete():
             return True
         return False
     except Exception as error:
-        print('error in check_horse_complete:', error)
+        print('error in check_horse_complete')
 
 
 def work_horse():
@@ -1000,6 +1002,50 @@ def xanthos():
             By.XPATH,
             '/html/body/div[7]/main/section/section/div/div/div[1]/div[2]'
             '/div/div/div/div/div/div[1]/table/tbody/tr/td[3]/form/a'
+        ).click()
+        time.sleep(2)
+
+
+def topaz():
+    """
+    Ежедневная глажка 5 Топазов.
+    Есть вероятность получить 10 пропусков.
+    :return:
+    """
+    urls = [
+        'https://www.lowadi.com/elevage/fiche/?id=4763736',
+        'https://www.lowadi.com/elevage/fiche/?id=4775333',
+        'https://www.lowadi.com/elevage/fiche/?id=4771120',
+        'https://www.lowadi.com/elevage/fiche/?id=4792032',
+        'https://www.lowadi.com/elevage/fiche/?id=4789329'
+    ]
+    for url in urls:
+        driver.get(url)
+        time.sleep(2)
+        pat_topaz = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/div[2]'
+            '/div/div/div/div/div/div[1]/table/tbody/tr/td[3]/form/a'
+        ).click()
+        time.sleep(2)
+
+
+def givre():
+    """
+    Ежедневная разморозка Морозницы.
+    Есть вероятность получить Одеяло Гипноса.
+    :return:
+    """
+    urls = [
+        'https://www.lowadi.com/elevage/fiche/?id=12086505'
+    ]
+    for url in urls:
+        driver.get(url)
+        time.sleep(2)
+        pat_givre = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/div[2]/'
+            'div/div/div/div/div/div[1]/table/tbody/tr/td[3]/a'
         ).click()
         time.sleep(2)
 
