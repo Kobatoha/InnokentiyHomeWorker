@@ -58,9 +58,8 @@ def check_ufo():
                     time.sleep(1)
                     driver.find_element(By.XPATH, '/html/body/div[12]/aside/div[2]/button/span/span').click()
                     driver.refresh()
-                    time.sleep(0.5)
-                    driver.refresh()
-                    time.sleep(1)
+
+
 
     except:
 
@@ -808,23 +807,26 @@ def find_unworking_horse():
 
 
 def check_horse_complete():
-    history = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[5]/div/div/div/div[1]/div/div/div/ul'
-    ).text.split('\n')
-    count = 0
-    for i in history:
-        if 'Полный уход' in i:
-            count += 1
-        elif 'съел(а)' in i:
-            count += 1
-        elif 'уложен(а) спать' in i:
-            count += 1
-        elif 'урок верховой езды' in i or 'выполнила миссию' in i:
-            count += 1
-    if count == 4:
-        return True
-    return False
+    try:
+        history = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[5]/div/div/div/div[1]/div/div/div/ul'
+        ).text.split('\n')
+        count = 0
+        for i in history:
+            if 'Полный уход' in i:
+                count += 1
+            elif 'съел(а)' in i:
+                count += 1
+            elif 'уложен(а) спать' in i:
+                count += 1
+            elif 'урок верховой езды' in i or 'выполнила миссию' in i:
+                count += 1
+        if count == 4:
+            return True
+        return False
+    except Exception as error:
+        print('error in check_horse_complete:', error)
 
 
 def work_horse():
