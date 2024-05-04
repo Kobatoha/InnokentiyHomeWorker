@@ -1197,6 +1197,66 @@ def grow_up():
         ).click()
 
 
+def get_doping():
+    pat = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonCaresser"]'
+    ).click()
+    time.sleep(1)
+    water = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonBoire"]'
+    ).click()
+    time.sleep(1)
+    carrot = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonCarotte"]'
+    ).click()
+    time.sleep(1)
+    mash = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonMash"]'
+    ).click()
+    time.sleep(1)
+
+
+def blup_diet():
+    print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
+    clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
+    time.sleep(2)
+    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
+    time.sleep(1)
+    choice_hay = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[15]').click()
+    time.sleep(1)
+    choice_oats = driver.find_element(By.XPATH, '//*[@id="oatsSlider"]/ol/li[13]').click()
+    time.sleep(1)
+    get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
+    time.sleep(1)
+    sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
+    time.sleep(1)
+
+
+def blup_montains(hour):
+    choice_mountains = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonBalade-montagne"]'
+    ).click()
+    time.sleep(0.5)
+    choice_hours = driver.find_element(
+        By.XPATH,
+        f'//*[@id="walkmontagneSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(0.5)
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="walk-montagne-submit"]/span/span/span'
+    ).click()
+    time.sleep(2)
+
+
+
+
+
 def train_blup():
     name = driver.find_element(
         By.XPATH,
@@ -1204,11 +1264,13 @@ def train_blup():
     ).text
     gp = name.split()[1]
     age = get_age_horse()
+    step = 1
 
     if age == ['Возраст:', 'несколько', 'часов']:
         for i in range(3):
-            milk_horse(age, name, i)
+            milk_horse(age, name, step)
             grow_up()
+            step += 1
 
     age = get_age_horse()
 
@@ -1216,8 +1278,41 @@ def train_blup():
         wait_stable = input('Найди мне классное стойло с душем, поилкой, морковкой и комбикормом!')
         print('Спасибо, кек.')
         for i in range(6):
-            fourrage_horse(name, age, i)
+            fourrage_horse(name, age, step)
             grow_up()
+            step += 1
+        print('Nice!')
+
+    age = get_age_horse()
+
+    if age == ['Возраст:', '1', 'год', '6', 'мес.']:
+        for i in range(3):
+            hour = 12
+            fourrage_horse(name, age, step)
+            blup_montains(hour)
+            get_doping()
+            hour = 1
+            blup_montains(hour)
+            grow_up()
+
+            step += 1
+
+    age = get_age_horse()
+
+    if age == ['Возраст:', '2', 'года']:
+        for i in range(3):
+            hour = 12
+            blup_montains(hour)
+            get_doping()
+            blup_diet()
+            hour = 4
+            blup_montains(hour)
+            grow_up()
+
+            step += 1
+
+
+
 
 
 
