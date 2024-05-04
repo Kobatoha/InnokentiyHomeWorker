@@ -145,15 +145,15 @@ def fourrage_horse(age, name, n):
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
 
-    try:
 
+def next_horse():
+    try:
         next_hourse = driver.find_element(
             By.XPATH,
             '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
         ).click()
 
     except:
-
         next_hourse = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
@@ -931,6 +931,7 @@ def work_horse():
 
             elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
                 fourrage_horse(age, name, n)
+                next_horse()
 
             elif age == ['Возраст:', '2', 'года'] or age == ['Возраст:', '2', 'года', '2', 'мес.'] or age == \
                     ['Возраст:', '2', 'года', '4', 'мес.']:
@@ -1166,6 +1167,61 @@ def buy_marshadore():
              ).click()
             alert.accept()
         time.sleep(0.5)
+
+
+def get_age_horse():
+    age = driver.find_element(
+        By.XPATH,
+        '//*[@id="characteristics-body-content"]/table/tbody/tr[1]/td[2]'
+    ).text.split()
+    return age
+
+
+def grow_up():
+    grow_up = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonVieillir"]'
+    ).click()
+    time.sleep(1)
+    try:
+        agree = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[2]/div/div/div[2]'
+            '/div/div/div[2]/table/tbody/tr[2]/td/form/div/button/span/span/span'
+        ).click()
+    except:
+        agree = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[1]/div[2]/div/div/div[2]'
+            '/div/div/div[2]/table/tbody/tr[2]/td/form/div/button/span/span/span'
+        ).click()
+
+
+def train_blup():
+    name = driver.find_element(
+        By.XPATH,
+        '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
+    ).text
+    gp = name.split()[1]
+    age = get_age_horse()
+
+    if age == ['Возраст:', 'несколько', 'часов']:
+        for i in range(3):
+            milk_horse(age, name, i)
+            grow_up()
+
+    age = get_age_horse()
+
+    if age == ['Возраст:', '6', 'мес.']:
+        wait_stable = input('Найди мне классное стойло с душем, поилкой, морковкой и комбикормом!')
+        print('Спасибо, кек.')
+        for i in range(6):
+            fourrage_horse(name, age, i)
+            grow_up()
+
+
+
+
 
 
 def refresh():
