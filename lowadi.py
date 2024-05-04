@@ -135,7 +135,7 @@ def milk_horse(age, name, n):
 def fourrage_horse(age, name, n):
     print(f'№{n} Жеребенок на фураже: {name}, начинаем уход.', *age)
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
-    time.sleep(1)
+    time.sleep(2)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(1)
     choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[12]').click()
@@ -369,7 +369,7 @@ def male_horse():
                     lower_price = driver.find_element(
                         By.XPATH,
                         '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[2]'
+                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[3]'
                     ).click()
                     time.sleep(1)
                     complete = driver.find_element(
@@ -1203,6 +1203,10 @@ if __name__ == '__main__':
     login_lowadi()
     time.sleep(5)
     xanthos()
+    time.sleep(5)
+    topaz()
+    time.sleep(5)
+    givre()
     time.sleep(5)
     atelier()
     time.sleep(5)
