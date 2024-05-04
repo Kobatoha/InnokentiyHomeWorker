@@ -1254,7 +1254,33 @@ def blup_montains(hour):
     time.sleep(2)
 
 
+def blup_dressage(hour):
+    try:
+        choice_dressage = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[3]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+    except:
+        choice_dressage = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[3]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
 
+    click_dressage = driver.find_element(
+        By.XPATH,
+        f'//*[@id="trainingDressageSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(1)
+
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="training-dressage-submit"]/span/span/span'
+    ).click()
+    time.sleep(1)
 
 
 def train_blup():
@@ -1301,12 +1327,14 @@ def train_blup():
 
     if age == ['Возраст:', '2', 'года']:
         for i in range(3):
-            hour = 12
+            hour = 11
             blup_montains(hour)
             get_doping()
             blup_diet()
             hour = 4
             blup_montains(hour)
+            hour = 1
+            blup_dressage(hour)
             grow_up()
 
             step += 1
