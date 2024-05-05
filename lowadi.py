@@ -1198,26 +1198,16 @@ def grow_up():
 
 
 def get_doping():
-    pat = driver.find_element(
-        By.XPATH,
-        '//*[@id="boutonCaresser"]'
-    ).click()
-    time.sleep(1)
-    water = driver.find_element(
-        By.XPATH,
-        '//*[@id="boutonBoire"]'
-    ).click()
-    time.sleep(1)
-    carrot = driver.find_element(
-        By.XPATH,
-        '//*[@id="boutonCarotte"]'
-    ).click()
-    time.sleep(1)
-    mash = driver.find_element(
-        By.XPATH,
-        '//*[@id="boutonMash"]'
-    ).click()
-    time.sleep(1)
+    '''
+
+    :return: pat, water, carrot, mash
+    '''
+    pat = driver.find_element(By.XPATH, '//*[@id="boutonCaresser"]')
+    water = driver.find_element(By.XPATH, '//*[@id="boutonBoire"]')
+    carrot = driver.find_element(By.XPATH, '//*[@id="boutonCarotte"]')
+    mash = driver.find_element(By.XPATH, '//*[@id="boutonMash"]')
+
+    return [pat, water, carrot, mash]
 
 
 def blup_diet():
@@ -1311,6 +1301,36 @@ def blup_speed(hour):
     time.sleep(2)
 
 
+def blup_galop(hour):
+    try:
+        choice_galop = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[4]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+    except:
+        choice_galop = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[4]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+
+    click_galop = driver.find_element(
+        By.XPATH,
+        f'//*[@id="trainingGalopSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(1)
+
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="training-galop-submit"]/span/span/span'
+    ).click()
+    time.sleep(2)
+
+
+
 def train_blup():
     name = driver.find_element(
         By.XPATH,
@@ -1318,10 +1338,12 @@ def train_blup():
     ).text
     gp = name.split()[1]
     age = get_age_horse()
+    doping = get_doping()
     step = 1
     speed = 100
     dressage = 100
     galop = 100
+    competitions = 25
 
     if age == ['Возраст:', 'несколько', 'часов']:
         for i in range(3):
@@ -1391,6 +1413,46 @@ def train_blup():
             hour = 20
             blup_dressage(hour)
             dressage -= hour
+            get_doping()
+            blup_diet()
+            hour = 3
+            blup_dressage(hour)
+            dressage -= hour
+            grow_up()
+
+            step += 1
+
+    age = get_age_horse()
+
+    if age == ['Возраст:', '5', 'лет', '6', 'мес.']:
+        print('Начинаем качать соревнования.')
+        get_classic = input('Выбери мне специализацию "Классическая езда" и снаряди вальтрап, седло и уздечку')
+        print('Spasibo')
+        for i in range(6):
+            get_competition = driver.find_element(
+                By.XPATH,
+                '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
+            ).click()
+            time.sleep(1)
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+            ).click()
+            competitions -= 1
+            time.sleep(2)
+
+        blup_diet()
+        grow_up()
+
+        step += 1
+
+
+
+    if age == ['Возраст:', '5', 'лет', '6', 'мес.']:
+        for i in range(3):
+            hour = 14
+            blup_galop(hour)
+            galop -= hour
             get_doping()
             blup_diet()
             hour = 3
