@@ -831,7 +831,7 @@ def check_horse_complete():
         print('error in check_horse_complete')
 
 
-def work_horse():
+def work_horse(horses=1000):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
     driver.get(url)
@@ -847,7 +847,6 @@ def work_horse():
     n = 1
     time.sleep(5)
 
-    horses = 1000
     equus = 'Good'
 
     while horses != 0:
@@ -855,10 +854,7 @@ def work_horse():
         time.sleep(2)
         if check_horse_complete():
 
-            age = driver.find_element(
-                By.XPATH,
-                '//*[@id="characteristics-body-content"]/table/tbody/tr[1]/td[2]'
-            ).text.split()
+            age = get_age_horse()
 
             name = driver.find_element(
                 By.XPATH,
@@ -899,10 +895,7 @@ def work_horse():
                 '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
             ).get_attribute('href')
 
-            age = driver.find_element(
-                By.XPATH,
-                '//*[@id="characteristics-body-content"]/table/tbody/tr[1]/td[2]'
-            ).text.split()
+            age = get_age_horse()
 
             name = driver.find_element(
                 By.XPATH,
@@ -931,6 +924,7 @@ def work_horse():
 
             elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
                 fourrage_horse(age, name, n)
+                time.sleep(1)
                 next_horse()
 
             elif age == ['Возраст:', '2', 'года'] or age == ['Возраст:', '2', 'года', '2', 'мес.'] or age == \
@@ -1243,6 +1237,24 @@ def blup_montains(hour):
     time.sleep(2)
 
 
+def blup_forest(hour):
+    choice_forest = driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonBalade-foret"]'
+    ).click()
+    time.sleep(0.5)
+    choice_hours = driver.find_element(
+        By.XPATH,
+        f'//*[@id="walkforetSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(0.5)
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="walk-foret-submit"]/span/span/span'
+    ).click()
+    time.sleep(2)
+
+
 def blup_dressage(hour):
     try:
         choice_dressage = driver.find_element(
@@ -1330,7 +1342,6 @@ def blup_galop(hour):
     time.sleep(2)
 
 
-
 def train_blup():
     name = driver.find_element(
         By.XPATH,
@@ -1343,6 +1354,8 @@ def train_blup():
     speed = 100
     dressage = 100
     galop = 100
+    forest = 200
+    montains = 200
     competitions = 25
 
     if age == ['Возраст:', 'несколько', 'часов']:
@@ -1446,22 +1459,42 @@ def train_blup():
 
         step += 1
 
-
+    age = get_age_horse()
 
     if age == ['Возраст:', '5', 'лет', '6', 'мес.']:
-        for i in range(3):
+        for i in range(5):
             hour = 14
             blup_galop(hour)
             galop -= hour
-            get_doping()
+            for i in range(4):
+                get_doping()[i].click()
+                time.sleep(1)
             blup_diet()
-            hour = 3
-            blup_dressage(hour)
-            dressage -= hour
+            hour = 6
+            blup_galop(hour)
+            galop -= hour
             grow_up()
 
             step += 1
+            time.sleep(2)
 
+    age = get_age_horse()
+
+    if age == ['Возраст:', '2', 'года']:
+        for i in range(11):
+            hour = 11
+            blup_forest(hour)
+            forest -= hour
+            for i in range(4):
+                get_doping()[i].click()
+                time.sleep(1)
+            blup_diet()
+            hour = 4
+            blup_forest(hour)
+            forest -= hour
+            grow_up()
+
+            step += 1
 
 def refresh():
     driver.refresh()
