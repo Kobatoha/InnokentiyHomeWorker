@@ -12,7 +12,7 @@ def newDRB():
     caps["pageLoadStrategy"] = "eager"
     chromeOptions.add_argument(
         "--load-extension=" +
-        rf"C:\Users\aleksandra.usupova\AppData\Local\Google\Chrome\User Data\Default\Extensions\{extension}\3.84.1_0")
+        rf"C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default\Extensions\{extension}\3.84.1_0")
     chromeOptions.headless = False
     driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
 

@@ -1113,9 +1113,9 @@ def get_doping():
 
 def blup_diet():
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
-    time.sleep(2)
-    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(1)
+    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
+    time.sleep(2)
     choice_hay = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[15]').click()
     time.sleep(1)
     choice_oats = driver.find_element(By.XPATH, '//*[@id="oatsSlider"]/ol/li[13]').click()
