@@ -496,8 +496,7 @@ def training():
                 hours = ride_mountains(energie, mountains)
                 return hours
             
-            elif:
-                flag not in driver.find_element(
+            elif flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]'
             ).get_attribute('data-tooltip'):
