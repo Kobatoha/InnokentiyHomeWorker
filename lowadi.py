@@ -104,7 +104,7 @@ def milk_horse(age, name, n):
     food = driver.find_element(By.XPATH, '//*[@id="boutonAllaiter"]').click()
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
-    time.sleep(1)
+    time.sleep(2)
 
 
 def fourrage_horse(age, name, n):
@@ -156,7 +156,7 @@ def young_horse(age, name, n):
         pass
 
 
-def old_horse(age, name, n):
+def old_horse(age=['Возраст:', '2', 'года'], name='horse', n=1):
     print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
     time.sleep(2)
@@ -168,7 +168,7 @@ def old_horse(age, name, n):
         if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
             choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
             time.sleep(1)
-        if 'толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+        if 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
             choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
             time.sleep(1)
         else:
@@ -1097,6 +1097,8 @@ def grow_up():
             '/div/div/div[2]/table/tbody/tr[2]/td/form/div/button/span/span/span'
         ).click()
 
+    time.sleep(2)
+
 
 def get_doping():
     '''
@@ -1256,7 +1258,6 @@ def train_blup():
     ).text
     gp = name.split()[1]
     age = get_age_horse()
-    doping = get_doping()
     step = 1
     speed = 100
     dressage = 100
@@ -1269,6 +1270,7 @@ def train_blup():
     if age == ['Возраст:', 'несколько', 'часов']:
         for i in range(3):
             milk_horse(age, name, step)
+
             grow_up()
             step += 1
 
@@ -1411,6 +1413,7 @@ def train_blup():
 
             step += 1
             time.sleep(2)
+
 
 def refresh():
     driver.refresh()
