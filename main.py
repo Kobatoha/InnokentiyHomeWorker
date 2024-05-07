@@ -1,44 +1,38 @@
 import asyncio
-import sys
-from dotenv import load_dotenv
-import os
-
-from aiogram import Bot, Dispatcher, Router, types
-from aiogram.enums import ParseMode
-from aiogram.filters import CommandStart
-from aiogram.types import Message
-from aiogram.utils.markdown import hbold
-
+import logging
+from aiogram import Bot, Dispatcher, types
+from aiogram.filters.command import Command
+from config_reader import config
 from lowadi import *
 
-load_dotenv()
 
-TOKEN = os.getenv("BOT_TOKEN")
+bot = Bot(token=config.bot_token.get_secret_value())
 
+logging.basicConfig(level=logging.INFO)
+# Объект бота
+bot = Bot(token=TOKEN)
+# Диспетчер
 dp = Dispatcher()
 
 
-@dp.message(CommandStart())
-async def command_start_handler(message: Message) -> None:
-    """
-    This handler receives messages with `/start` command
-    """
-    await message.answer(f"Hello, {message.from_user.full_name}!")
-
-@dp.message(command='work_horse')
-async def work_horses():
-    print('Запускаем прогон лошадулек')
-    work_horse()
-
-    await message.answer(f'Запускаем прогон лошадулек')
+# Хэндлер на команду /start
+@dp.message(Command("start"))
+async def cmd_start(message: types.Message):
+    await message.answer("Hello!")
 
 
-async def login_horses():
-    print('Open')
+@dp.message(Command("test1"))
+async def cmd_test1(message: types.Message):
+    await message.answer("Test 1")
 
 
-async def main() -> None:
-    bot = Bot(TOKEN)
+@dp.message(Command("test2"))
+async def cmd_test1(message: types.Message):
+    await message.answer("Test 2")
+
+
+# Запуск процесса поллинга новых апдейтов
+async def main():
     await dp.start_polling(bot)
 
 
