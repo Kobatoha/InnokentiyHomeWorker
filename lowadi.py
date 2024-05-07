@@ -1356,7 +1356,8 @@ def train_blup():
     galop = 100
     forest = 200
     montains = 200
-    competitions = 25
+    competitions_galop = 25
+    competitions_trot = 25
 
     if age == ['Возраст:', 'несколько', 'часов']:
         for i in range(3):
@@ -1451,7 +1452,7 @@ def train_blup():
                 By.XPATH,
                 '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
             ).click()
-            competitions -= 1
+            competitions_galop -= 1
             time.sleep(2)
 
         blup_diet()
@@ -1480,21 +1481,29 @@ def train_blup():
 
     age = get_age_horse()
 
-    if age == ['Возраст:', '2', 'года']:
-        for i in range(11):
-            hour = 11
-            blup_forest(hour)
-            forest -= hour
-            for i in range(4):
-                get_doping()[i].click()
+    if age == ['Возраст:', '8', 'лет', '6', 'мес.']:
+        while competitions_trot != 0:
+            for i in range(6):
+                get_competition = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[1]/a'
+                ).click()
                 time.sleep(1)
+                check_ufo()
+                run = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+                ).click()
+                competitions_trot -= 1
+                time.sleep(2)
+
+            get_doping()[0].click()
+            time.sleep(1)
             blup_diet()
-            hour = 4
-            blup_forest(hour)
-            forest -= hour
             grow_up()
 
             step += 1
+            time.sleep(2)
 
 def refresh():
     driver.refresh()
