@@ -2,36 +2,9 @@ import os
 import random
 from datetime import datetime
 import time
-import undetected_chromedriver as uc
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+from chrome_driver import newDRB
 import json
 from os import getenv
-from selenium.webdriver import Keys, ActionChains
-import schedule
-
-
-def newDR():
-    chromeOptions = uc.ChromeOptions()
-    caps = DesiredCapabilities().CHROME
-    caps["pageLoadStrategy"] = "eager"  # normal - full_load
-    chromeOptions.add_argument("--single-process")
-    chromeOptions.headless = False
-    driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
-
-    return driver
-
-
-def newDRB():
-    chromeOptions = uc.ChromeOptions()
-    caps = DesiredCapabilities().CHROME
-    caps["pageLoadStrategy"] = "eager"  # normal - full_load
-    chromeOptions.add_extension('browsec.crx')
-    # chromeOptions.add_argument("--single-process")
-    chromeOptions.headless = False
-    driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
-
-    return driver
 
 
 def check_ufo():
@@ -88,12 +61,13 @@ def login_lowadi():
         print(f'Начинаем!')
         driver.find_element(By.XPATH, '/html/body/div[7]/header/nav/div/strong').click()
         time.sleep(2)
-        print(f'Вводим логин..')
-        login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
-        time.sleep(1)
-        print(f'Вводим пароль..')
-        password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
-        time.sleep(1)
+        if driver.find_element(By.XPATH, '//*[@id="login"]').text == '':
+            print(f'Вводим логин..')
+            login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
+            time.sleep(1)
+            print(f'Вводим пароль..')
+            password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
+            time.sleep(1)
         print(f'Входим')
         connect = driver.find_element(
             By.XPATH,
@@ -107,19 +81,20 @@ def login_lowadi():
         driver.get(url)
 
         print(f'Пробуем зайти заново')
-        time.sleep(60)
-        print(f'Вводим логин..')
-        login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
-        time.sleep(1)
-        print(f'Вводим пароль..')
-        password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
-        time.sleep(1)
-        print(f'Входим')
+        time.sleep(10)
+        if driver.find_element(By.XPATH, '//*[@id="login"]').text == '':
+            print(f'Вводим логин..')
+            login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
+            time.sleep(1)
+            print(f'Вводим пароль..')
+            password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
+            time.sleep(1)
+            print(f'Входим')
         connect = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/aside/form/button'
         ).click()
-        time.sleep(30)
+        time.sleep(10)
 
 
 def milk_horse(age, name, n):
@@ -137,7 +112,7 @@ def fourrage_horse(age, name, n):
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
     time.sleep(2)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
-    time.sleep(1)
+    time.sleep(2)
     choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[12]').click()
     time.sleep(1)
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
@@ -165,7 +140,7 @@ def young_horse(age, name, n):
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
     time.sleep(1)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
-    time.sleep(1)
+    time.sleep(2)
     choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[12]').click()
     time.sleep(1)
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
@@ -180,11 +155,6 @@ def young_horse(age, name, n):
     except:
         pass
 
-    next_hourse = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-    ).click()
-
 
 def old_horse(age, name, n):
     print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
@@ -197,6 +167,9 @@ def old_horse(age, name, n):
 
         if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
             choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
+            time.sleep(1)
+        if 'толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
             time.sleep(1)
         else:
             choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[13]').click()
@@ -226,25 +199,7 @@ def female_horse(current_url):
         time.sleep(1)
         training()
 
-        try:
-            try:
-
-                next_hourse = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                ).click()
-            except:
-                next_hourse = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                ).click()
-
-        except:
-
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
+        next_horse()
 
         return 0
 
@@ -261,8 +216,10 @@ def female_horse(current_url):
             time.sleep(1)
             master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
             time.sleep(1)
-            get_offers = driver.find_element(By.XPATH,
-                                             '/html/body/div[7]/main/section/section/form/button[1]/span/span').click()
+            get_offers = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/form/button[1]/span/span'
+            ).click()
             time.sleep(1)
             price_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[6]/a').click()
             time.sleep(1)
@@ -279,25 +236,7 @@ def female_horse(current_url):
 
             training()
 
-            try:
-                try:
-
-                    next_hourse = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                    ).click()
-                except:
-                    next_hourse = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                    ).click()
-
-            except:
-
-                next_hourse = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                ).click()
+            next_horse()
 
             return 1
 
@@ -311,25 +250,7 @@ def female_horse(current_url):
 
             training()
 
-            try:
-                try:
-
-                    next_hourse = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                    ).click()
-                except:
-                    next_hourse = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                    ).click()
-
-            except:
-
-                next_hourse = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-                ).click()
+            next_horse()
 
             return 0
 
@@ -388,23 +309,9 @@ def male_horse():
 
         training()
 
-        try:
+        next_horse()
 
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
-
-            return num
-
-        except:
-
-            next_hourse = driver.find_element(
-                By.XPATH,
-                '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[4]/a[2]'
-            ).click()
-
-            return num
+        return num
 
     except:
 
@@ -494,13 +401,18 @@ def get_stable():
             By.XPATH,
             '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
         )
-        low_price_stable.click()
-        alert = driver.switch_to.alert
-        alert.accept()
-        print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
-        time.sleep(2)
-
-        return 1
+        if len(low_price_stable.text) == 1200:
+            low_price_stable.click()
+            alert = driver.switch_to.alert
+            alert.accept()
+            print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
+            time.sleep(2)
+    
+            return 1
+        else:
+            print(f'Стойло слишком дорогое, аж {low_price_stable.text}')
+            
+            return 0
 
     except:
 
@@ -579,14 +491,20 @@ def training():
 
         if gp >= 300:
 
-            if flag not in driver.find_element(
+            if int(get_age_horse()[1]) <= 3:
+
+                hours = ride_mountains(energie, mountains)
+                return hours
+            
+            elif:
+                flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]'
             ).get_attribute('data-tooltip'):
 
                 hours = train_speed(energie, speed)
                 return hours
-
+            
             elif flag not in driver.find_element(
                 By.XPATH,
                 '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]'
@@ -602,17 +520,7 @@ def training():
 
                 hours = train_galop(energie, gallop)
                 return hours
-
-            else:
-                train = driver.find_element(
-                    By.XPATH,
-                    '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
-                ).get_attribute('data-tooltip')
-                print(train, 'Начинаем прогулки..')
-
-                hours = ride_mountains(energie, mountains)
-                return hours
-
+                
         else:
             return 0
 
@@ -1526,16 +1434,6 @@ if __name__ == '__main__':
         time.sleep(30)
         driver = newDRB()
         driver.set_window_size(1900, 1000)
-
-    schedule.every().day.at(f'05:05').do(login_lowadi)
-    schedule.every().day.at(f'05:{random.randint(10, 47)}').do(work_horse)
-    schedule.every(1).hours.do(refresh)
-    schedule.every(3).hours.do(atelier)
-
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
 
     login_lowadi()
     time.sleep(5)
