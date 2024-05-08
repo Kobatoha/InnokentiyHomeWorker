@@ -1103,19 +1103,18 @@ def grow_up():
 def get_doping():
     '''
 
-    :return: pat, water, carrot, mash
+    :return: pat, water, carrot, mash, clean
     '''
     pat = driver.find_element(By.XPATH, '//*[@id="boutonCaresser"]')
     water = driver.find_element(By.XPATH, '//*[@id="boutonBoire"]')
     carrot = driver.find_element(By.XPATH, '//*[@id="boutonCarotte"]')
     mash = driver.find_element(By.XPATH, '//*[@id="boutonMash"]')
+    clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]')
 
-    return [pat, water, carrot, mash]
+    return [pat, water, carrot, mash, clean]
 
 
 def blup_diet():
-    clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
-    time.sleep(1)
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(2)
     choice_hay = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[15]').click()
@@ -1350,12 +1349,16 @@ def train_blup():
 
     if age == ['Возраст:', '5', 'лет']:
         for i in range(3):
+            get_doping()[4].click()
+            time.sleep(2)
             hour = 20
             blup_dressage(hour)
             dressage -= hour
-            get_doping()
+            for j in range(3):
+                get_doping()[j].click()
+                time.sleep(2)
             blup_diet()
-            hour = 3
+            hour = 4
             blup_dressage(hour)
             dressage -= hour
             grow_up()
@@ -1373,14 +1376,18 @@ def train_blup():
                 By.XPATH,
                 '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
             ).click()
-            time.sleep(1)
+            time.sleep(2)
             run = driver.find_element(
                 By.XPATH,
                 '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
             ).click()
             competitions_galop -= 1
-            time.sleep(2)
+            time.sleep(3)
 
+        get_doping()[0].click()
+        time.sleep(2)
+        get_doping()[4].click()
+        time.sleep(2)
         blup_diet()
         grow_up()
 
@@ -1390,12 +1397,14 @@ def train_blup():
 
     if age == ['Возраст:', '5', 'лет', '6', 'мес.']:
         for i in range(5):
+            get_doping()[4].click()
+            time.sleep(2)
             hour = 14
             blup_galop(hour)
             galop -= hour
             for i in range(4):
                 get_doping()[i].click()
-                time.sleep(1)
+                time.sleep(2)
             blup_diet()
             hour = 6
             blup_galop(hour)
