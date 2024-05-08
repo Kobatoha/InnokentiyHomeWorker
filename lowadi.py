@@ -118,7 +118,7 @@ def fourrage_horse(age, name, n):
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
-    time.sleep(1)
+    time.sleep(2)
 
 
 def next_horse():
@@ -1125,7 +1125,7 @@ def blup_diet():
     get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
-    time.sleep(1)
+    time.sleep(2)
 
 
 def blup_montains(hour):
@@ -1292,9 +1292,14 @@ def train_blup():
             hour = 12
             fourrage_horse(name, age, step)
             blup_montains(hour)
-            get_doping()
+            montains -= hour
+            for j in range(4):
+                get_doping()[j].click()
+                time.sleep(2)
+
             hour = 1
             blup_montains(hour)
+            montains -= hour
             grow_up()
 
             step += 1
@@ -1302,29 +1307,41 @@ def train_blup():
     age = get_age_horse()
 
     if age == ['Возраст:', '2', 'года']:
-        for i in range(11):
+        n = 0
+        for i in range(5):
+            print(n)
             hour = 11
             blup_montains(hour)
-            get_doping()
+            montains -= hour
+            for j in range(4):
+                get_doping()[j].click()
+                time.sleep(2)
             blup_diet()
             hour = 4
             blup_montains(hour)
+            montains -= hour
             hour = 1
             blup_dressage(hour)
+            dressage -= hour
             grow_up()
 
             step += 1
+            n += 1
 
     age = get_age_horse()
 
-    if age == ['Возраст:', '4', 'года']:
+    if age == ['Возраст:', '2', 'года', '10', 'мес.']:
         for i in range(3):
-            hour = 13
+            hour = 12
             blup_speed(hour)
-            get_doping()
+            speed -= hour
+            for j in range(4):
+                get_doping()[j].click()
+                time.sleep(2)
             blup_diet()
             hour = 4
             blup_speed(hour)
+            speed -= hour
             grow_up()
 
             step += 1
