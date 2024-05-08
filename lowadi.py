@@ -1132,12 +1132,12 @@ def blup_montains(hour):
         By.XPATH,
         '//*[@id="boutonBalade-montagne"]'
     ).click()
-    time.sleep(0.5)
+    time.sleep(1)
     choice_hours = driver.find_element(
         By.XPATH,
         f'//*[@id="walkmontagneSlider"]/ol/li[{hour + 1}]'
     ).click()
-    time.sleep(0.5)
+    time.sleep(1)
     train = driver.find_element(
         By.XPATH,
         '//*[@id="walk-montagne-submit"]/span/span/span'
@@ -1150,12 +1150,12 @@ def blup_forest(hour):
         By.XPATH,
         '//*[@id="boutonBalade-foret"]'
     ).click()
-    time.sleep(0.5)
+    time.sleep(1)
     choice_hours = driver.find_element(
         By.XPATH,
         f'//*[@id="walkforetSlider"]/ol/li[{hour + 1}]'
     ).click()
-    time.sleep(0.5)
+    time.sleep(1)
     train = driver.find_element(
         By.XPATH,
         '//*[@id="walk-foret-submit"]/span/span/span'
@@ -1248,6 +1248,10 @@ def blup_galop(hour):
         '//*[@id="training-galop-submit"]/span/span/span'
     ).click()
     time.sleep(2)
+
+
+def blup_day():
+
 
 
 def train_blup():
