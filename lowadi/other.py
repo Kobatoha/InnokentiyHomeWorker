@@ -35,7 +35,7 @@ def check_ufo():
                     time.sleep(1)
 
             driver.refresh()
-            time.sleep(1)
+            time.sleep(2)
 
     except:
 
@@ -73,7 +73,7 @@ def login_lowadi():
             By.XPATH,
             '/html/body/div[7]/header/nav/div/div/form/button/span/span/span'
         ).click()
-        time.sleep(1)
+        time.sleep(2)
 
     except:
 
@@ -228,6 +228,7 @@ def atelier():
 
 def refresh():
     driver.refresh()
+    time.sleep(2)
 
 
 def quit_lowadi():
