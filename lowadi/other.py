@@ -42,6 +42,18 @@ def check_ufo():
         return
 
 
+def check_equus():
+    equus = int(driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
+    ).text.replace(' ', ''))
+
+    if equus >= 10000:
+        return 'Good'
+    else:
+        return 'Bad'
+
+
 def login_lowadi():
     now = datetime.now().strftime('%H:%M:%S')
     print(f'{now}: Логинимся на lowadi.com')
