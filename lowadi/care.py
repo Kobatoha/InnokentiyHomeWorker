@@ -71,6 +71,14 @@ def get_age_horse():
     return age
 
 
+def get_name_horse():
+    name = driver.find_element(
+        By.XPATH,
+        '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
+    ).text
+    return name
+
+
 def grow_up():
     grow_up = driver.find_element(
         By.XPATH,
@@ -157,6 +165,32 @@ def young_horse(age, name, n):
         training()
     except:
         pass
+
+
+def get_food():
+    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
+    time.sleep(2)
+    recommend = int(driver.find_element(
+        By.XPATH,
+        '//*[@id="feeding"]/table[1]/tbody/tr[2]/td[1]/span[2]/strong'
+    ).text)
+
+    try:
+
+        if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
+            time.sleep(1)
+        elif 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
+            time.sleep(1)
+        else:
+            choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
+            time.sleep(1)
+
+    except:
+
+        choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
+        time.sleep(1)
 
 
 def old_horse(age=['Возраст:', '2', 'года'], name='horse', n=1):
