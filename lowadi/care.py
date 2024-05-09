@@ -79,6 +79,32 @@ def get_name_horse():
     return name
 
 
+def get_food():
+    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
+    time.sleep(2)
+    recommend = int(driver.find_element(
+        By.XPATH,
+        '//*[@id="feeding"]/table[1]/tbody/tr[2]/td[1]/span[2]/strong'
+    ).text)
+
+    try:
+
+        if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
+            time.sleep()
+        elif 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
+            time.sleep(1)
+        else:
+            choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
+            time.sleep(1)
+
+    except:
+
+        choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
+        time.sleep(1)
+
+
 def grow_up():
     grow_up = driver.find_element(
         By.XPATH,
@@ -167,30 +193,97 @@ def young_horse(age, name, n):
         pass
 
 
-def get_food():
-    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
-    time.sleep(2)
-    recommend = int(driver.find_element(
-        By.XPATH,
-        '//*[@id="feeding"]/table[1]/tbody/tr[2]/td[1]/span[2]/strong'
-    ).text)
-
+def get_stable():
     try:
+        print('Лошадь нуждается в стойле, ищем подходящий КСК..')
+        current_url = driver.find_element(
+            By.XPATH,
+            '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
+        ).get_attribute('href')
 
-        if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
-            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
-            time.sleep(1)
-        elif 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
-            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
-            time.sleep(1)
+        find_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
+            '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
+        ).click()
+        time.sleep(1)
+
+        check_ufo()
+
+        two_mouth = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
+        ).click()
+        time.sleep(1)
+        low_price_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
+        )
+        if len(low_price_stable.text) == 1200:
+            low_price_stable.click()
+            alert = driver.switch_to.alert
+            alert.accept()
+            print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
+            time.sleep(2)
+
+            return 1
         else:
-            choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
-            time.sleep(1)
+            print(f'Стойло слишком дорогое, аж {low_price_stable.text}')
+
+            return 0
 
     except:
 
-        choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
-        time.sleep(1)
+        return 0
+
+
+def death_horse():
+    try:
+
+        death = driver.find_element(
+            By.XPATH,
+            '//*[@id="page-contents"]/section/div/div/div[1]/h1'
+        ).text
+
+        if 'умер' in death:
+            paradise = driver.find_element(
+                By.XPATH,
+                '//*[@id="page-contents"]/section/div/div/div[1]/div[2]/a'
+            ).click()
+            print('Ваша лошадь умерла и отправилась в рай, аминь')
+
+            return 1
+
+    except:
+
+        return 0
+
+
+def blup_diet():
+    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
+    time.sleep(2)
+    choice_hay = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[15]').click()
+    time.sleep(1)
+    choice_oats = driver.find_element(By.XPATH, '//*[@id="oatsSlider"]/ol/li[13]').click()
+    time.sleep(1)
+    get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
+    time.sleep(1)
+    sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
+    time.sleep(2)
+
+
+def get_doping():
+    '''
+
+    :return: pat, water, carrot, mash, clean
+    '''
+    pat = driver.find_element(By.XPATH, '//*[@id="boutonCaresser"]')
+    water = driver.find_element(By.XPATH, '//*[@id="boutonBoire"]')
+    carrot = driver.find_element(By.XPATH, '//*[@id="boutonCarotte"]')
+    mash = driver.find_element(By.XPATH, '//*[@id="boutonMash"]')
+    clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]')
+
+    return [pat, water, carrot, mash, clean]
 
 
 def old_horse(age=['Возраст:', '2', 'года'], name='horse', n=1):
@@ -409,96 +502,3 @@ def childbirth(current_url):
     return_to_mother = driver.get(current_url)
 
     return 1
-
-
-def get_stable():
-    try:
-        print('Лошадь нуждается в стойле, ищем подходящий КСК..')
-        current_url = driver.find_element(
-            By.XPATH,
-            '//*[@id="module-2"]/div[1]/div/div[2]/h1/a'
-        ).get_attribute('href')
-
-        find_stable = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
-            '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-        ).click()
-        time.sleep(1)
-
-        check_ufo()
-
-        two_mouth = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
-        ).click()
-        time.sleep(1)
-        low_price_stable = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
-        )
-        if len(low_price_stable.text) == 1200:
-            low_price_stable.click()
-            alert = driver.switch_to.alert
-            alert.accept()
-            print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
-            time.sleep(2)
-
-            return 1
-        else:
-            print(f'Стойло слишком дорогое, аж {low_price_stable.text}')
-
-            return 0
-
-    except:
-
-        return 0
-
-
-def death_horse():
-    try:
-
-        death = driver.find_element(
-            By.XPATH,
-            '//*[@id="page-contents"]/section/div/div/div[1]/h1'
-        ).text
-
-        if 'умер' in death:
-            paradise = driver.find_element(
-                By.XPATH,
-                '//*[@id="page-contents"]/section/div/div/div[1]/div[2]/a'
-            ).click()
-            print('Ваша лошадь умерла и отправилась в рай, аминь')
-
-            return 1
-
-    except:
-
-        return 0
-
-
-def blup_diet():
-    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
-    time.sleep(2)
-    choice_hay = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[15]').click()
-    time.sleep(1)
-    choice_oats = driver.find_element(By.XPATH, '//*[@id="oatsSlider"]/ol/li[13]').click()
-    time.sleep(1)
-    get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
-    time.sleep(1)
-    sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
-    time.sleep(2)
-
-
-def get_doping():
-    '''
-
-    :return: pat, water, carrot, mash, clean
-    '''
-    pat = driver.find_element(By.XPATH, '//*[@id="boutonCaresser"]')
-    water = driver.find_element(By.XPATH, '//*[@id="boutonBoire"]')
-    carrot = driver.find_element(By.XPATH, '//*[@id="boutonCarotte"]')
-    mash = driver.find_element(By.XPATH, '//*[@id="boutonMash"]')
-    clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]')
-
-    return [pat, water, carrot, mash, clean]
