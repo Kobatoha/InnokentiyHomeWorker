@@ -5,19 +5,7 @@ import os
 import random
 from datetime import datetime
 import time
-from chrome_driver import newDRB
-
-
-def check_equus():
-    equus = int(driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
-    ).text.replace(' ', ''))
-
-    if equus >= 10000:
-        return 'Good'
-    else:
-        return 'Bad'
+from other import check_equus
 
 
 def buy_marshadore():
