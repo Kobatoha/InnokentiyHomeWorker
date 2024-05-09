@@ -224,3 +224,12 @@ def atelier():
 
     except:
         print('Проверка мастерской провалилась')
+
+
+def refresh():
+    driver.refresh()
+
+
+def quit_lowadi():
+    print(f'{datetime.now().strftime("%H:%M:%S")}: закрываем chrome')
+    driver.quit()
