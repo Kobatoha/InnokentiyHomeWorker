@@ -5,20 +5,25 @@ import os
 import random
 from datetime import datetime
 import time
-from chrome_driver import newDRB
+import pretty_errors
+from care import *
 
 
 def training():
-    stamina = 8  # endurance
-    speed = 8  # vitesse
-    dressage = 5  # dressage
-    gallop = 7  # galop
-    trot = 7  # trot
-    jumping = 7  # saut
+    stamina = 8     # endurance
+    speed = 8       # vitesse
+    dressage = 5    # dressage
+    gallop = 7      # galop
+    trot = 7        # trot
+    jumping = 7     # saut
 
-    mountains = 9  # montagne
+    mountains = 9   # montagne
+    forest = 9      # forest
 
     flag = 'Тренировка завершена!'
+    name = get_name_horse()
+
+    genetic_potential = int(name.split()[1])
 
     try:
         energie = int(driver.find_element(
@@ -33,29 +38,9 @@ def training():
             '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
         ).text)
 
-    genetic_potential = driver.find_element(
-        By.XPATH,
-        '//*[@id="tab-genetics-title"]'
-    ).click()
-
-    time.sleep(0.2)
-
-    try:
-        gp = int(driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[4]/div/div/div/div/table[2]'
-            '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
-        ).text.split()[1][:-3])
-    except:
-        gp = int(driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[2]'
-            '/tbody[1]/tr/td/div/table[1]/tbody/tr[1]/td[3]/strong'
-        ).text.split()[1][:-3])
-
     try:
 
-        if gp >= 300:
+        if genetic_potential >= 300:
 
             if int(get_age_horse()[1]) <= 3:
 
