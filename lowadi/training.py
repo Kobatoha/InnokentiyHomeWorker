@@ -7,28 +7,34 @@ import re
 def flag_train_complete(driver, train='speed'):
     discipline = {
         'speed': '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]',
-        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]',
-        'dressage': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
+        'dressage': '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]',
+        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
     }
     find_flag = driver.find_element(
         By.XPATH,
         discipline[train]
     ).get_attribute('data-tooltip')
-    flag = int(re.search(r'\b(?:100|\d{1,2})\b', find_flag).group())
+    if 'Тренировка завершена!' in find_flag:
+        return 100
+    else:
+        flag = int(re.search(r'\b(?:100|\d{1,2})\b', find_flag).group())
+        return flag
 
-    return flag
 
-
-def flag_train_possible(driver, train='speed'):
+def flag_train_possible(driver, train='stamina'):
     discipline = {
+        'stamina': '//*[@id="training-tab-main"]/div/table/tbody/tr[1]/td[3]/button',
         'speed': '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[3]/button',
-        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[3]/button',
-        'dressage': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[3]/button'
+        'dressage': '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[3]/button',
+        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[3]/button',
+        'trot': '//*[@id="training-tab-main"]/div/table/tbody/tr[5]/td[3]/button',
+        'jump': '//*[@id="training-tab-main"]/div/table/tbody/tr[6]/td[3]/button'
     }
     find_flag = driver.find_element(
         By.XPATH,
         discipline[train]
     ).get_attribute('data-tooltip')
+
     if not find_flag:
         return True
     elif 'ее больше нельзя обучать.' in find_flag:
@@ -191,7 +197,7 @@ def general_training(driver, energy=20):
         print('Энергии слишком мало')
         return
     else:
-        if not flag_train_possible(driver, 'speed'):
+        if not flag_train_possible(driver, 'stamina'):
             print('Кобыла слишком жеребая, тренировка невозможна')
             return
 
@@ -212,28 +218,28 @@ def general_training(driver, energy=20):
     if flag != 100:
         if train == 'speed':
             hour = (energy - 20) // speed
-            if hour <= flag:
+            if hour <= 100 - flag:
                 blup_speed(driver, hour)
             else:
-                hour = flag
+                hour = 100 - flag
                 blup_speed(driver, hour)
 
         elif train == 'dressage':
             hour = (energy - 20) // dressage
-            if hour <= flag:
-                blup_speed(driver, hour)
+            if hour <= 100 - flag:
+                blup_dressage(driver, hour)
             else:
-                hour = flag
-                blup_speed(driver, hour)
+                hour = 100 - flag
+                blup_dressage(driver, hour)
         elif train == 'galop':
             hour = (energy - 20) // galop
-            if hour <= flag:
-                blup_speed(driver, hour)
+            if hour <= 100 - flag:
+                blup_galop(driver, hour)
             else:
-                hour = flag
-                blup_speed(driver, hour)
+                hour = 100 - flag
+                blup_galop(driver, hour)
 
-    print(f'Проведена тренировка {train} на {hour // 2} hours')
+    print(f'Проведена тренировка {train} на {hour / 2} hours')
     time.sleep(2)
 
 
