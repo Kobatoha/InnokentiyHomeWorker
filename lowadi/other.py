@@ -1,14 +1,9 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver import Keys, ActionChains
-import os
-import random
-from datetime import datetime
 import time
-from chrome_driver import newDRB
+from datetime import datetime
+from selenium.webdriver.common.by import By
 
 
-def check_ufo():
+def check_ufo(driver):
 
     good_ufo = {'vieillissement': 'очки роста'}
     bad_ufo = {'pomme': 'яблоко', 'carotte': 'морковь', 'classique': 'седло', 'mash': 'комбикорм',
@@ -42,7 +37,7 @@ def check_ufo():
         return
 
 
-def check_equus():
+def check_equus(driver):
     equus = int(driver.find_element(
         By.XPATH,
         '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
@@ -54,7 +49,7 @@ def check_equus():
         return 'Bad'
 
 
-def login_lowadi():
+def login_lowadi(driver):
     now = datetime.now().strftime('%H:%M:%S')
     print(f'{now}: Логинимся на lowadi.com')
     url = 'https://www.lowadi.com'
@@ -109,7 +104,7 @@ def login_lowadi():
         time.sleep(10)
 
 
-def xanthos():
+def xanthos(driver):
     """
     Ежедневная глажка 5 Ксанфов.
     Есть вероятность получить рог изобилия.
@@ -133,7 +128,7 @@ def xanthos():
         time.sleep(2)
 
 
-def topaz():
+def topaz(driver):
     """
     Ежедневная глажка 5 Топазов.
     Есть вероятность получить 10 пропусков.
@@ -157,7 +152,7 @@ def topaz():
         time.sleep(2)
 
 
-def givre():
+def givre(driver):
     """
     Ежедневная разморозка Морозницы.
     Есть вероятность получить Одеяло Гипноса.
@@ -177,7 +172,7 @@ def givre():
         time.sleep(2)
 
 
-def atelier():
+def atelier(driver):
     print(datetime.now().strftime('%H:%M:%S'), 'Проверяем мастерские..')
     url = 'https://www.lowadi.com/centre/atelier/'
     driver.get(url)
@@ -238,11 +233,11 @@ def atelier():
         print('Проверка мастерской провалилась')
 
 
-def refresh():
+def refresh(driver):
     driver.refresh()
     time.sleep(2)
 
 
-def quit_lowadi():
+def quit_lowadi(driver):
     print(f'{datetime.now().strftime("%H:%M:%S")}: закрываем chrome')
     driver.quit()

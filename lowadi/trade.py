@@ -1,21 +1,16 @@
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver import Keys, ActionChains
-import os
-import random
-from datetime import datetime
 import time
-from other import check_equus
+from selenium.webdriver.common.by import By
+from lowadi.other import check_equus, check_ufo
 
 
-def buy_marshadore():
-    check_ufo()
-    equus = check_equus()
+def buy_marshadore(driver):
+    check_ufo(driver)
+    equus = check_equus(driver)
 
     while equus == 'Good':
-        check_ufo()
+        check_ufo(driver)
         time.sleep(0.1)
-        equus = check_equus()
+        equus = check_equus(driver)
 
         url = ['https://www.lowadi.com/marche/vente/?chevalType=&chevalEspece=any-all&unicorn=2&pegasus=2&'
                'amountComparaison=g&amount=0&currency=soft&competencesComparaison=g&competences=0&race-cheval=&'
@@ -50,4 +45,5 @@ def buy_marshadore():
                 '/html/body/div[7]/main/section/section/div[3]/table/tbody/tr[1]/td[9]/div/div[1]'
              ).click()
             alert.accept()
+            print(f'Куплена лошадь за {first_price}')
         time.sleep(0.5)
