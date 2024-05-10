@@ -497,7 +497,7 @@ def childbirth(driver, current_url):
     ).click()
     time.sleep(1)
 
-    milk_horse(driver, age, 'дитё', 0)
+    milk_horse(driver, *age, 'дитё', 0)
     time.sleep(1)
 
     return_to_mother = driver.get(current_url)
