@@ -1,3 +1,5 @@
+import time
+import pretty_errors
 from selenium.webdriver.common.by import By
 import re
 
@@ -15,6 +17,22 @@ def flag_train_complete(driver, train='speed'):
     flag = int(re.search(r'\b(?:100|\d{1,2})\b', find_flag).group())
 
     return flag
+
+
+def flag_train_possible(driver, train='speed'):
+    discipline = {
+        'speed': '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[3]/button',
+        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[3]/button',
+        'dressage': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[3]/button'
+    }
+    find_flag = driver.find_element(
+        By.XPATH,
+        discipline[train]
+    ).get_attribute('data-tooltip')
+    if not find_flag:
+        return True
+    elif 'ее больше нельзя обучать.' in find_flag:
+        return False
 
 
 def blup_montains(driver, hour):
@@ -166,6 +184,53 @@ def blup_step_forest(driver, forest=190):
 
         grow_up(driver)
         time.sleep(2)
+
+
+def general_training(driver, energy=20):
+    if energy <= 29:
+        print('Энергии слишком мало')
+        return
+    else:
+        if not flag_train_possible(driver, 'speed'):
+            print('Кобыла слишком жеребая, тренировка невозможна')
+            return
+
+    train_programm = ['speed', 'dressage', 'galop']
+    speed = 8
+    dressage = 5
+    galop = 7
+
+    flag = 100
+    train = 'speed'
+
+    for train in train_programm:
+        flag = flag_train_complete(driver, train)
+        time.sleep(0.5)
+        print(flag)
+        if flag != 100:
+            break
+
+    if flag != 100:
+        if train == 'speed':
+            hour = (energy - 20) // speed
+            if hour <= flag:
+                blup_speed(driver, hour)
+            else:
+                blup_speed(driver, flag)
+        elif train == 'dressage':
+            hour = (energy - 20) // dressage
+            if hour <= flag:
+                blup_speed(driver, hour)
+            else:
+                blup_speed(driver, flag)
+        elif train == 'galop':
+            hour = (energy - 20) // galop
+            if hour <= flag:
+                blup_speed(driver, hour)
+            else:
+                blup_speed(driver, flag)
+
+    time.sleep(2)
 
 
 def train_blup(driver):

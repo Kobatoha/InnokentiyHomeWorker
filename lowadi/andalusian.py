@@ -106,8 +106,11 @@ def work_horse(horses=1000):
                         post_mating += male_horse(driver)
 
                     energy = get_energy(driver)
-                    hour = (energy - 20) // 8
+                    general_training(driver, energy)
+                    if get_energy(driver) < 20:
+                        get_doping(driver)[0].click()
 
+                next_horse(driver)
 
             except Exception as e:
 

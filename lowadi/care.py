@@ -1,4 +1,5 @@
 import time
+import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo, check_equus
 
