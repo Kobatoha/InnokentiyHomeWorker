@@ -332,7 +332,6 @@ def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
     lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
-    time.sleep(2)
 
 
 def female_horse(driver, current_url):
@@ -442,10 +441,6 @@ def male_horse(driver):
 
         print(f'Конь предложил случек: {num}')
 
-        training()
-
-        next_horse()
-
         return num
 
     except:
@@ -457,7 +452,7 @@ def male_horse(driver):
 
 def childbirth(driver, current_url):
     age = 'Несколько часов'
-    check_ufo()
+    check_ufo(driver)
     sex = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/img'
@@ -502,7 +497,7 @@ def childbirth(driver, current_url):
     ).click()
     time.sleep(1)
 
-    milk_horse(age, 'дитё', 0)
+    milk_horse(driver, age, 'дитё', 0)
     time.sleep(1)
 
     return_to_mother = driver.get(current_url)

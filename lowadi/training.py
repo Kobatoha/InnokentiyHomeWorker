@@ -206,7 +206,6 @@ def general_training(driver, energy=20):
     for train in train_programm:
         flag = flag_train_complete(driver, train)
         time.sleep(0.5)
-        print(flag)
         if flag != 100:
             break
 
@@ -216,20 +215,25 @@ def general_training(driver, energy=20):
             if hour <= flag:
                 blup_speed(driver, hour)
             else:
-                blup_speed(driver, flag)
+                hour = flag
+                blup_speed(driver, hour)
+
         elif train == 'dressage':
             hour = (energy - 20) // dressage
             if hour <= flag:
                 blup_speed(driver, hour)
             else:
-                blup_speed(driver, flag)
+                hour = flag
+                blup_speed(driver, hour)
         elif train == 'galop':
             hour = (energy - 20) // galop
             if hour <= flag:
                 blup_speed(driver, hour)
             else:
-                blup_speed(driver, flag)
+                hour = flag
+                blup_speed(driver, hour)
 
+    print(f'Проведена тренировка {train} на {hour // 2} hours')
     time.sleep(2)
 
 

@@ -2,8 +2,25 @@ from datetime import datetime
 import time
 from chrome_driver import newDRB
 import pretty_errors
-from lowadi.andalusian import *
+from lowadi.andalusian import work_horse
 from lowadi.other import login_lowadi
+
+
+def begin(driver):
+    login_lowadi(driver)
+    input('Включи впн')
+    time.sleep(5)
+
+
+def second_step(driver):
+    xanthos(driver)
+    time.sleep(5)
+    topaz(driver)
+    time.sleep(5)
+    givre(driver)
+    time.sleep(5)
+    atelier(driver)
+    time.sleep(5)
 
 
 if __name__ == '__main__':
@@ -19,18 +36,5 @@ if __name__ == '__main__':
         driver = newDRB()
         driver.set_window_size(1900, 1000)
 
-    login_lowadi(driver)
-    time.sleep(5)
-    xanthos(driver)
-    time.sleep(5)
-    topaz(driver)
-    time.sleep(5)
-    givre(driver)
-    time.sleep(5)
-    atelier(driver)
-    time.sleep(5)
-    work_horse()
-    time.sleep(5)
-    for i in range(3):
-        atelier()
-        time.sleep(60 * 180)
+    begin(driver)
+    work_horse(driver, 100)

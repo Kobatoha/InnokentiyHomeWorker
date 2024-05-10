@@ -13,7 +13,7 @@ from lowadi.trade import *
 from lowadi.training import *
 
 
-def work_horse(horses=1000):
+def work_horse(driver, horses=1000):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
     driver.get(url)
