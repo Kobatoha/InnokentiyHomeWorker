@@ -37,4 +37,4 @@ if __name__ == '__main__':
         driver.set_window_size(1900, 1000)
 
     begin(driver)
-    work_horse(driver, 100)
+    work_horse(driver, 1000)

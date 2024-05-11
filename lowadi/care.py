@@ -118,6 +118,7 @@ def get_sex(driver):
         '//*[@id="characteristics-body-content"]/table/tbody/tr[3]/td[1]').text
     return sex
 
+
 def get_food(driver):
     food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
     time.sleep(2)
@@ -193,13 +194,16 @@ def next_horse(driver):
 
 
 def milk_horse(driver, age, name, n):
-    print(f'№{n} Молочный жеребенок: {name}, начинаем уход.', *age)
-    clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
-    time.sleep(1)
-    food = driver.find_element(By.XPATH, '//*[@id="boutonAllaiter"]').click()
-    time.sleep(1)
-    sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
-    time.sleep(2)
+    try:
+        print(f'№{n} Молочный жеребенок: {name}, начинаем уход.', *age)
+        clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
+        time.sleep(1)
+        food = driver.find_element(By.XPATH, '//*[@id="boutonAllaiter"]').click()
+        time.sleep(1)
+        sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
+        time.sleep(2)
+    except:
+        pass
 
 
 def fourrage_horse(driver, age, name, n):
@@ -497,9 +501,10 @@ def childbirth(driver, current_url):
     ).click()
     time.sleep(1)
 
-    milk_horse(driver, *age, 'дитё', 0)
+    milk_horse(driver, age, 'дитё', 0)
     time.sleep(1)
 
     return_to_mother = driver.get(current_url)
+    time.sleep(2)
 
     return 1
