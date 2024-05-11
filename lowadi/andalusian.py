@@ -75,6 +75,10 @@ def work_horse(driver, horses=1000):
 
                 elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
                     fourrage_horse(driver, age, name, n)
+                    try:
+                        blup_montains(driver, hour=8)
+                    except:
+                        print('Еще не дорос')
                     time.sleep(1)
 
                 elif age == ['Возраст:', '2', 'года'] or age == ['Возраст:', '2', 'года', '2', 'мес.'] or age == \

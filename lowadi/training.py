@@ -56,6 +56,7 @@ def blup_montains(driver, hour):
         By.XPATH,
         '//*[@id="walk-montagne-submit"]/span/span/span'
     ).click()
+    print(f'Погуляли в горах {hour} hours')
     time.sleep(2)
 
 
@@ -74,6 +75,7 @@ def blup_forest(driver, hour):
         By.XPATH,
         '//*[@id="walk-foret-submit"]/span/span/span'
     ).click()
+    print(f'Погуляли в лесу {hour} hours')
     time.sleep(2)
 
 
