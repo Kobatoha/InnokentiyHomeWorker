@@ -3,11 +3,19 @@ import time
 from chrome_driver import newDRB
 import pretty_errors
 from lowadi.andalusian import work_horse
-from lowadi.other import login_lowadi
+from lowadi.other import *
 
 
 def begin(driver):
     login_lowadi(driver)
+    time.sleep(5)
+    xanthos(driver)
+    time.sleep(5)
+    topaz(driver)
+    time.sleep(5)
+    givre(driver)
+    time.sleep(5)
+    atelier(driver)
     input('Включи впн')
     time.sleep(5)
 

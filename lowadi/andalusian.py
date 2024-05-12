@@ -78,13 +78,13 @@ def work_horse(driver, horses=1000):
                     try:
                         blup_montains(driver, hour=8)
                     except:
-                        print('Еще не дорос')
+                        print('Еще не дорос до прогулок')
                     time.sleep(1)
 
                 elif age == ['Возраст:', '2', 'года'] or age == ['Возраст:', '2', 'года', '2', 'мес.'] or age == \
                         ['Возраст:', '2', 'года', '4', 'мес.']:
                     young_horse(driver, age, name, n)
-                    blup_montains(driver, hour=8)
+                    blup_montains(driver, hour=6)
                     get_doping(driver)[0].click()
 
                 elif (int(age[1]) > 2 and age[2] != 'мес.') or age == ['Возраст:', '2', 'года', '6', 'мес.'] or age == \
