@@ -135,6 +135,9 @@ def get_food(driver):
         elif 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
             choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
             time.sleep(1)
+        elif 'слишком толстый' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
+            time.sleep(1)
         else:
             choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
             time.sleep(1)
@@ -237,6 +240,9 @@ def get_stable(driver):
                 '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
                 '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
         ).text and equus == 'Good':
+            next_horse(driver)
+            return
+
             print('Лошадь нуждается в стойле, ищем подходящий КСК..')
 
             current_url = get_current_url(driver)
@@ -471,13 +477,13 @@ def childbirth(driver, current_url):
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Пуля {gen_potential}')
+        ).send_keys(f'Пирожок {gen_potential}')
 
     elif sex == 'femelle':
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Вишня {gen_potential}')
+        ).send_keys(f'Малина {gen_potential}')
 
     profile = driver.find_element(
         By.XPATH,
