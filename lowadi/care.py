@@ -72,6 +72,27 @@ def check_horse_complete(driver):
         print('error in check_horse_complete:', error)
 
 
+def check_young_horse_complete(driver):
+    try:
+        history = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[5]/div/div/div/div[1]/div/div/div/ul'
+        ).text.split('\n')
+        count = 0
+        for i in history:
+            if 'Полный уход' in i:
+                count += 1
+            elif 'съел(а)' in i:
+                count += 1
+            elif 'уложен(а) спать' in i:
+                count += 1
+        if count == 3:
+            return True
+        return False
+    except Exception as error:
+        print('error in check_horse_complete:', error)
+
+
 def get_current_url(driver):
     current_url = driver.find_element(
                 By.XPATH,
