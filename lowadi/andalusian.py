@@ -2,7 +2,7 @@ import os
 import random
 from datetime import datetime
 import time
-from chrome_driver import newDRB
+from get_driver import new_drb
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver import Keys, ActionChains
