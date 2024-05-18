@@ -135,3 +135,21 @@ def work_horse(driver, horses=1000):
     print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
           f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
 
+
+def train_blup(driver, url):
+    driver.get(url)
+    age = get_age_horse(driver)
+    name = get_name_horse(driver)
+    step = 1
+
+    while int(age[1]) < 6:
+        milk_horse(driver, age, name, step)
+        grow_up(driver)
+        age = get_age_horse(driver)
+        step += 1
+
+    while age != ['Возраст:', '1', 'год', '6', 'мес.']:
+        fourrage_horse(driver, age, name, step)
+        grow_up(driver)
+        age = get_age_horse(driver)
+        step += 1

@@ -1,6 +1,6 @@
 from datetime import datetime
 import time
-from get_driver import new_drb
+from get_driver import new_drb, new_brave_dr
 import pretty_errors
 from lowadi.andalusian import work_horse
 from lowadi.other import *
@@ -36,13 +36,13 @@ if __name__ == '__main__':
 
         print(f'{datetime.now().strftime("%H:%M:%S")}: запускаем chrome')
         driver = new_drb()
-        driver.set_window_size(1700, 1300)
+        driver.set_window_size(1900, 1000)
 
     except:
 
         time.sleep(30)
-        driver = new_drb()
-        driver.set_window_size(1900, 1000)
+        driver = new_brave_dr()
+        driver.set_window_size(1700, 1300)
 
     begin(driver)
     work_horse(driver, 2000)
