@@ -125,7 +125,10 @@ def work_horse(driver, horses=1000):
             except Exception as e:
 
                 print('Некакая error при уходе за лошадью:', e, current_url)
-                next_horse(driver)
+                try:
+                    next_horse(driver)
+                except:
+                    driver.refresh()
 
             n += 1
             print('-' * 50)
@@ -136,7 +139,7 @@ def work_horse(driver, horses=1000):
           f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
 
 
-def train_blup(driver, url):
+def train_blup_one_click(driver, url):
     driver.get(url)
     age = get_age_horse(driver)
     name = get_name_horse(driver)
@@ -149,31 +152,129 @@ def train_blup(driver, url):
     competitions_galop = 25
     competitions_trot = 25
 
-    while int(age[1]) < 6:
-        milk_horse(driver, age, name, step)
-        grow_up(driver)
-        age = get_age_horse(driver)
-        step += 1
 
-    while age != ['Возраст:', '1', 'год', '6', 'мес.']:
-        fourrage_horse(driver, age, name, step)
-        grow_up(driver)
-        age = get_age_horse(driver)
-        step += 1
 
+
+def train_blup_montains(driver, montains=200, dressage=100):
+    """
+    Обязательное наличие:
+     🛁 душа
+     💦 поилки
+     🥕 морковки
+     💊 смеси
+    :param dressage:
+    :param montains:
+    :param driver:
+    :return:
+    """
     age = get_age_horse(driver)
+    fourrage_age = [['Возраст:', '1', 'год', f'{x}', 'мес.'] for x in range(6, 12, 2)]
+    doping = [3, 5]
+    location = get_location_complex(driver)
+    if 'Montagne' in location:
+        montains -= 100
 
-    while age != ['Возраст:', '2', 'года']:
-        fourrage_horse(driver, age, name, step)
+    if montains >= 15:
         energy = get_energy(driver)
         hour = energy // 8
         blup_montains(driver, hour)
         montains -= hour
-        for i in range(3):
-            get_doping(driver)[i].click()
-            time.sleep(1)
+
+        if age in fourrage_age:
+
+            for i in range(doping[0]):
+                get_doping(driver)[i].click()
+                time.sleep(1)
+            fourrage_horse(driver, age, name, step)
+        else:
+            for i in range(doping[1]):
+                get_doping(driver)[i].click()
+                time.sleep(1)
+            blup_diet(driver)
+
         energy = get_energy(driver)
         hour = (energy - 20) // 8
         blup_montains(driver, hour)
         montains -= hour
+
+        if age not in fourrage_age:
+            energy = get_energy(driver)
+            hour = int((energy - 20) // 4.5)
+            blup_dressage(driver, hour)
+            dressage -= hour
+
         grow_up(driver)
+        return [montains, dressage]
+    elif 15 > montains >= 11:
+        energy = get_energy(driver)
+        hour = energy // 8
+        blup_montains(driver, hour)
+        montains -= hour
+        for i in range(doping[1]):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+        blup_diet(driver)
+        blup_montains(driver, montains)
+        montains -= montains
+        energy = get_energy(driver)
+        if montains == 0:
+            print(f'Прибавка к навыкам от прогулок в горах закончилась, осталость еще {energy - 20} свободной энергии')
+            hour = int((energy - 20) // 4.5)
+            blup_dressage(driver, hour)
+            dressage -= hour
+            grow_up(driver)
+
+        return [montains, dressage]
+
+    else:
+        blup_montains(driver, montains)
+        print('Прибавка к навыкам от прогулок в горах закончилась, остальную энергию вкинем в Выездку')
+        energy = get_energy(driver)
+        hour = int(energy // 4.5)
+        blup_dressage(driver, hour)
+        dressage -= hour
+        for i in range(doping[1]):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+        blup_diet(driver)
+        energy = get_energy(driver)
+        hour = int((energy - 20) // 4.5)
+        blup_dressage(driver, hour)
+        dressage -= hour
+        grow_up(driver)
+
+        return [0, dressage]
+
+
+def train_blup_speed(driver, speed=100, dressage=100):
+    """
+    Обязательное наличие:
+     🛁 душа
+     💦 поилки
+     🥕 морковки
+     💊 смеси
+    :param dressage:
+    :param speed:
+    :param driver:
+    :return:
+    """
+
+    if speed >= 15:
+        energy = get_energy(driver)
+        hour = int(energy // 7.5)
+        blup_speed(driver, hour)
+        speed -= hour
+
+        for i in range(5):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+
+        blup_diet(driver)
+
+        energy = get_energy(driver)
+        hour = int((energy - 20) // 7.2)
+        blup_speed(driver, hour)
+        speed -= hour
+
+        grow_up(driver)
+        return [montains, dressage]

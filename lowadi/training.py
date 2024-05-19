@@ -105,6 +105,7 @@ def blup_dressage(driver, hour):
         By.XPATH,
         '//*[@id="training-dressage-submit"]/span/span/span'
     ).click()
+    print(f'Тренировали выездку {hour} hours')
     time.sleep(2)
 
 
@@ -134,6 +135,7 @@ def blup_speed(driver, hour):
         By.XPATH,
         '//*[@id="training-vitesse-submit"]/span/span/span'
     ).click()
+    print(f'Тренировали скорость {hour} hours')
     time.sleep(2)
 
 
@@ -435,3 +437,4 @@ def train_blup(driver):
 
             step += 1
             time.sleep(2)
+
