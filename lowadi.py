@@ -42,7 +42,7 @@ if __name__ == '__main__':
 
         time.sleep(30)
         driver = new_brave_dr()
-        driver.set_window_size(1700, 1300)
+        driver.set_window_size(1700, 1360)
 
     begin(driver)
     work_horse(driver, 2000)

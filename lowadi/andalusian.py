@@ -141,6 +141,13 @@ def train_blup(driver, url):
     age = get_age_horse(driver)
     name = get_name_horse(driver)
     step = 1
+    speed = 100
+    dressage = 100
+    galop = 100
+    forest = 200
+    montains = 200
+    competitions_galop = 25
+    competitions_trot = 25
 
     while int(age[1]) < 6:
         milk_horse(driver, age, name, step)
@@ -153,3 +160,20 @@ def train_blup(driver, url):
         grow_up(driver)
         age = get_age_horse(driver)
         step += 1
+
+    age = get_age_horse(driver)
+
+    while age != ['Возраст:', '2', 'года']:
+        fourrage_horse(driver, age, name, step)
+        energy = get_energy(driver)
+        hour = energy // 8
+        blup_montains(driver, hour)
+        montains -= hour
+        for i in range(3):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+        energy = get_energy(driver)
+        hour = (energy - 20) // 8
+        blup_montains(driver, hour)
+        montains -= hour
+        grow_up(driver)

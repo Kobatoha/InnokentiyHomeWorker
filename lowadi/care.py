@@ -119,11 +119,18 @@ def get_name_horse(driver):
 
 def get_energy(driver):
     try:
-        energie = int(driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]'
-            '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
-        ).text)
+        try:
+            energie = int(driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]'
+                '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
+            ).text)
+        except:
+            energie = int(driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]'
+                '/div[2]/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
+            ).text)
     except:
         energie = int(driver.find_element(
             By.XPATH,
@@ -334,7 +341,7 @@ def blup_diet(driver):
     time.sleep(1)
     choice_oats = driver.find_element(By.XPATH, '//*[@id="oatsSlider"]/ol/li[13]').click()
     time.sleep(1)
-    get_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
+    click_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
     time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(2)
