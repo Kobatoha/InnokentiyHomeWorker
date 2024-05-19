@@ -101,6 +101,22 @@ def get_current_url(driver):
     return current_url
 
 
+def get_location_complex(driver):
+    try:
+        location = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[3]'
+            '/div/div/div/div/div/div[1]/div[1]/table/tbody/tr[1]/td/div[2]/div/div[2]/a'
+        ).get_attribute('class')
+    except:
+        location = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[1]/div[3]'
+            '/div/div/div/div/div/div[1]/div[1]/table/tbody/tr[1]/td/div[2]/div/div[2]/a'
+        ).get_attribute('class')
+    return location
+
+
 def get_age_horse(driver):
     age = driver.find_element(
         By.XPATH,
