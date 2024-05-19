@@ -14,7 +14,7 @@ def begin(driver):
     topaz(driver)
     time.sleep(5)
     givre(driver)
-    time.sleep(5)
+    time.sleep(60 * 130)
     atelier(driver)
     input('Включи впн')
     time.sleep(5)
