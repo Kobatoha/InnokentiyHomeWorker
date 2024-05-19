@@ -44,6 +44,7 @@ if __name__ == '__main__':
         driver = new_brave_dr()
         driver.set_window_size(1700, 1360)
         login_lowadi(driver)
+        atelier(driver)
 
     begin(driver)
     work_horse(driver, 2000)
