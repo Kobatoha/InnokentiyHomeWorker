@@ -139,6 +139,19 @@ def blup_speed(driver, hour):
     time.sleep(2)
 
 
+def get_competition_galop(driver):
+    click_competition = driver.find_element(
+        By.XPATH,
+        '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
+    ).click()
+    time.sleep(2)
+    run = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+    ).click()
+    time.sleep(2)
+
+
 def blup_galop(driver, hour):
     try:
         choice_galop = driver.find_element(
