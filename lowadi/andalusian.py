@@ -152,6 +152,10 @@ def train_blup_one_click(driver, url):
     competitions_galop = 25
     competitions_trot = 25
 
+    for i in range(3):
+        milk_horse(driver, age, name, step)
+        grow_up(driver)
+
 
 
 
@@ -276,5 +280,22 @@ def train_blup_speed(driver, speed=100, dressage=100):
         blup_speed(driver, hour)
         speed -= hour
 
+        energy = get_energy(driver)
+        hour = int((energy - 20) // 4.5)
+        blup_dressage(driver, hour)
+        dressage -= hour
+
         grow_up(driver)
-        return [montains, dressage]
+        return [speed, dressage]
+
+    elif 15 < speed > 12:
+        energy = get_energy(driver)
+        hour = int(energy // 7.5)
+        blup_speed(driver, hour)
+        speed -= hour
+
+        for i in range(5):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+
+        blup_diet(driver)
