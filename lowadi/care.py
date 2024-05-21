@@ -125,6 +125,15 @@ def get_age_horse(driver):
     return age
 
 
+def get_color(driver):
+    color = driver.find_element(
+        By.XPATH,
+        '//*[@id="characteristics-body-content"]/table/tbody/tr[4]/td[1]'
+    ).text.split(':')[-1].lstrip()
+
+    return color
+
+
 def get_name_horse(driver):
     name = driver.find_element(
         By.XPATH,
