@@ -299,3 +299,48 @@ def train_blup_speed(driver, speed=100, dressage=100):
             time.sleep(1)
 
         blup_diet(driver)
+
+
+def train_blup_dressage(driver, dressage=100):
+    """
+    Обязательное наличие:
+     🛁 душа
+     💦 поилки
+     🥕 морковки
+     💊 смеси
+    :param dressage:
+    :param driver:
+    :return:
+    """
+
+    if speed >= 15:
+        energy = get_energy(driver)
+        hour = int(energy // 4.8)
+        blup_dressage(driver, hour)
+        dressage -= hour
+
+        for i in range(5):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+
+        blup_diet(driver)
+
+        energy = get_energy(driver)
+        hour = int((energy - 20) // 4.5)
+        blup_dressage(driver, hour)
+        dressage -= hour
+
+        grow_up(driver)
+        return [dressage]
+
+    elif 15 < speed > 12:
+        energy = get_energy(driver)
+        hour = int(energy // 7.5)
+        blup_speed(driver, hour)
+        speed -= hour
+
+        for i in range(5):
+            get_doping(driver)[i].click()
+            time.sleep(1)
+
+        blup_diet(driver)
