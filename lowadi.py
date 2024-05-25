@@ -46,4 +46,4 @@ if __name__ == '__main__':
         atelier(driver)
 
     begin(driver)
-    work_horse(driver, 2000)
+    work_horse(driver, 1555)
