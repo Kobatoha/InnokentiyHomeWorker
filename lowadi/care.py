@@ -427,7 +427,7 @@ def female_horse(driver, current_url):
                 '/html/body/div[7]/main/section/section/form/button[1]/span/span'
             ).click()
             time.sleep(1)
-            price_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[6]/a').click()
+            gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
             time.sleep(1)
             get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
             time.sleep(1)
@@ -490,14 +490,14 @@ def male_horse(driver):
                         lower_price = driver.find_element(
                             By.XPATH,
                             '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[15]'
+                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[9]'
                         ).click()
                         time.sleep(1)
                     else:
                         lower_price = driver.find_element(
                             By.XPATH,
                             '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[2]'
+                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[4]'
                         ).click()
                         time.sleep(1)
                     complete = driver.find_element(

@@ -157,6 +157,21 @@ def train_blup_one_click(driver, url):
         grow_up(driver)
 
 
+def train_blup_25win(driver):
+    for _ in range(3):
+        get_doping(driver)[4].click()
+        time.sleep(1)
+        for _ in range(6):
+            get_competition_galop(driver)
+            time.sleep(0.5)
+
+        get_doping(driver)[0].click()
+        time.sleep(1)
+        blup_diet(driver)
+        grow_up(driver)
+        time.sleep(2)
+
+    get_competition_galop(driver)
 
 
 def train_blup_montains(driver, montains=200, dressage=100):
