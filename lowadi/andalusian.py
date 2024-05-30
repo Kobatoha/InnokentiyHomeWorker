@@ -151,9 +151,26 @@ def train_blup_one_click(driver, url):
     montains = 200
     competitions_galop = 25
     competitions_trot = 25
+    complete_blup = False
 
-    for i in range(3):
-        milk_horse(driver, age, name, step)
+    while not complete_blup:
+        age = get_age_horse(driver)
+
+        if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
+            milk_horse(driver, age, name, step)
+            time.sleep(1)
+            
+        elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):  
+            fourrage_horse(driver, age, name, step)
+            
+        elif age in [['Возраст:', '1', 'год', f'{x}', 'мес.'] for x in range(6, 12, 2)]:
+            train_blup_montains(driver, montains, dressage)
+                                
+                                
+        else:
+            blup_diet()
+
+        step += 1
         grow_up(driver)
 
 
