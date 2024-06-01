@@ -577,3 +577,39 @@ def childbirth(driver, current_url):
     time.sleep(2)
 
     return 1
+
+
+def sell_horse(driver):
+    options = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[3]/div/div[1]/button/span'
+    ).click()
+    time.sleep(1)
+    option_sale = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[1]/div/div[3]/div/div[2]/ul/li[2]/a'
+    ).click()
+    time.sleep(1)
+    direct_sale = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div/div/form/div[1]/div/div/div/div/div/p[3]/label/input'
+    ).click()
+    time.sleep(1)
+    equus_sale = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div/div/form/div[4]/div[2]/div/div/div/div/div/p[1]/label/input'
+    ).click()
+    amount = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div/div/form/div[4]/div[4]/div/div/div/div/div/div/p[1]/input'
+    )
+    time.sleep(1)
+    amount.clear()
+    time.sleep(1)
+    amount.send_keys('1999')
+    time.sleep(1)
+    agree_sale = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div/div/form/div[4]/button/span/span/span'
+    ).click()
+    time.sleep(2)
