@@ -654,6 +654,15 @@ def stable_options(driver):
     return options
 
 
+def check_open_mating(driver):
+    checked = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/label'
+    ).get_attribute('data-tooltip')
+    return checked
+
+
 def get_matting(driver):
     energie = get_energy(driver)
     mating = 25
@@ -681,6 +690,8 @@ def get_matting(driver):
         try:
             create_mating.click()
             time.sleep(1)
+            if 'Достигнут сегодняшний лимит открытых случек.' in check_open_mating(driver):
+                return 'limit'
             open_mating = driver.find_element(
                 By.XPATH,
                 '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
@@ -703,7 +714,7 @@ def get_matting(driver):
                 lower_price = driver.find_element(
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[4]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[6]'
                 ).click()
                 time.sleep(1)
             complete = driver.find_element(
@@ -713,7 +724,7 @@ def get_matting(driver):
             ).click()
             time.sleep(5)
 
-            num += 1
+            return 1
         except:
             pass
 
