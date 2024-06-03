@@ -21,7 +21,7 @@ def flag_train_complete(driver, train='speed'):
         return flag
 
 
-def flag_train_possible(driver, train='stamina'):
+def flag_train_possible(driver, train='jump'):
     discipline = {
         'stamina': '//*[@id="training-tab-main"]/div/table/tbody/tr[1]/td[3]/button',
         'speed': '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[3]/button',
@@ -29,6 +29,7 @@ def flag_train_possible(driver, train='stamina'):
         'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[3]/button',
         'trot': '//*[@id="training-tab-main"]/div/table/tbody/tr[5]/td[3]/button',
         'jump': '//*[@id="training-tab-main"]/div/table/tbody/tr[6]/td[3]/button'
+
     }
     find_flag = driver.find_element(
         By.XPATH,
@@ -56,7 +57,7 @@ def blup_montains(driver, hour):
         By.XPATH,
         '//*[@id="walk-montagne-submit"]/span/span/span'
     ).click()
-    print(f'Погуляли в горах {hour} hours')
+    print(f'Погуляли в горах {hour/2} hours')
     time.sleep(2)
 
 
@@ -214,11 +215,12 @@ def general_training(driver, energy=20):
         print('Энергии слишком мало')
         return
     else:
-        if not flag_train_possible(driver, 'stamina'):
+        if not flag_train_possible(driver, 'jump'):
             print('Кобыла слишком жеребая, тренировка невозможна')
             return
 
     train_programm = ['speed', 'dressage', 'galop']
+
     speed = 8
     dressage = 5
     galop = 7
@@ -233,6 +235,7 @@ def general_training(driver, energy=20):
             break
 
     if flag != 100:
+
         if train == 'speed':
             hour = (energy - 20) // speed
             if hour <= 100 - flag:
@@ -248,6 +251,7 @@ def general_training(driver, energy=20):
             else:
                 hour = 100 - flag
                 blup_dressage(driver, hour)
+
         elif train == 'galop':
             hour = (energy - 20) // galop
             if hour <= 100 - flag:
@@ -256,8 +260,42 @@ def general_training(driver, energy=20):
                 hour = 100 - flag
                 blup_galop(driver, hour)
 
+    else:
+        montains = 9
+        hour = (energy - 20) // montains
+        if not flag_montains_complete(driver):
+            blup_montains(driver, hour)
+
+
     print(f'Проведена тренировка {train} на {hour / 2} hours')
     time.sleep(2)
+
+
+def flag_montains_complete(driver):
+    driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonBalade-montagne"]'
+    ).click()
+    time.sleep(1)
+    driver.find_element(
+        By.XPATH,
+        '//*[@id="walkmontagneSlider"]/ol/li[2]/span'
+    ).click()
+    skills = driver.find_element(
+        By.XPATH,
+        '//*[@id="walk-montagne-form"]/table/tbody/tr[2]/td/ul'
+    ).text
+    time.sleep(1)
+    close = driver.find_element(
+        By.XPATH,
+        '//*[@id="agi-370662083001717443606"]/img'
+    ).click()
+    time.sleep(2)
+    if '+' in skills:
+        return False
+    else:
+        return True
+
 
 
 def train_blup(driver):
