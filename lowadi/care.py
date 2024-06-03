@@ -512,7 +512,7 @@ def male_horse(driver):
                 except:
                     return num
 
-        print(f'Конь предложил случек: {num}')
+        print(f'{name} предложил случек: {num}')
 
         return num
 
@@ -602,6 +602,7 @@ def get_servant_farm(driver):
 
 def servant_male_horse(driver):
     urls = get_servant_farm(driver)
+    num = 0
     for url in urls:
         driver.get(url)
         time.sleep(1)
@@ -612,7 +613,7 @@ def servant_male_horse(driver):
         time.sleep(1)
         get_doping(driver)[4].click()
         time.sleep(1)
-        male_horse(driver)
+        num += male_horse(driver)
         time.sleep(1)
         get_food(driver)
         time.sleep(1)
@@ -621,7 +622,100 @@ def servant_male_horse(driver):
             '//*[@id="boutonCoucher"]'
         ).click()
         time.sleep(2)
+    print(f'Мужские особи предложили случек: {num}')
 
+
+def stable_options(driver):
+    options = {'water': False, 'wash': False, 'carrot': False, 'mash': False}
+    for i in range(1, 5):
+        try:
+            option = driver.find_element(
+                By.XPATH,
+                f'//*[@id="center-tab-main"]/div[1]/table/tbody/tr[3]/td/div/div/div[2]/span[{i}]'
+            ).get_attribute('data-tooltip')
+            if option == 'Автопоилка доступна':
+                options['water'] = True
+            elif option == 'Наличие душевых':
+                options['wash'] = True
+        except:
+            pass
+    for i in range(1, 5):
+        try:
+            profit = driver.find_element(
+                By.XPATH,
+                f'//*[@id="center-tab-main"]/div[1]/table/tbody/tr[4]/td/div/div/div[2]/span[{i}]'
+            ).get_attribute('data-tooltip')
+            if 'морковь' in profit:
+                options['carrot'] = True
+            elif 'комбикорма' in profit:
+                options['mash'] = True
+        except:
+            pass
+    return options
+
+
+def get_matting(driver):
+    energie = get_energy(driver)
+    mating = 25
+    options = stable_options(driver)
+    genetic_potential = get_name_horse(driver).split()[1][:-3]
+    amount = {
+        10000: 3,
+        11000: 4,
+        12000: 5,
+        13000: 6,
+        14000: 7,
+        15000: 8,
+        16000: 9,
+        17000: 10,
+        18000: 11
+    }
+    if options['wash']:
+        mating = 22
+    if energie - mating >= 20:
+        create_mating = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
+        )
+        try:
+            create_mating.click()
+            time.sleep(1)
+            open_mating = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/input'
+            ).click()
+            choice_equus = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
+            ).click()
+            time.sleep(2)
+            if gp >= 15555:
+                lower_price = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[9]'
+                ).click()
+                time.sleep(1)
+            else:
+                lower_price = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[4]'
+                ).click()
+                time.sleep(1)
+            complete = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span'
+            ).click()
+            time.sleep(5)
+
+            num += 1
+        except:
+            pass
 
 
 def childbirth(driver, current_url):
