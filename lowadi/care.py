@@ -523,6 +523,69 @@ def male_horse(driver):
         return 0
 
 
+def get_servant_farm(driver):
+    driver.get('https://www.lowadi.com/elevage/chevaux/?elevage=1582713')
+    time.sleep(1)
+    driver.find_element(
+        By.XPATH,
+        '//*[@id="linkBlocRecherche"]'
+    ).click()
+    time.sleep(1)
+    clear_age = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchAge"]'
+    ).clear()
+    time.sleep(1)
+    send_age = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchAge"]'
+    ).send_keys('28')
+    time.sleep(1)
+    choice_month = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchUniteAge"]'
+    ).click()
+    time.sleep(0.5)
+    send_month = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchUniteAge"]/option[2]'
+    ).click()
+    time.sleep(1)
+    more_options = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchLink-criteres"]'
+    ).click()
+    time.sleep(1)
+    send_sex = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchSexe"]'
+    ).click()
+    time.sleep(0.5)
+    choice_sex = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchSexe"]/option[2]'
+    ).click()
+    time.sleep(1)
+    for _ in range(2):
+        not_in_sale = driver.find_element(
+            By.XPATH,
+            '//*[@id="horseSearchVenteCheckbox"]'
+        ).click()
+        time.sleep(0.2)
+    submit = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchSubmit"]/span/span'
+    ).click()
+    more_options = driver.find_element(
+        By.XPATH,
+        '//*[@id="horseSearchLink-criteres"]'
+    ).click()
+
+
+
+def servant_male_horse(driver):
+
+
 def childbirth(driver, current_url):
     age = 'Несколько часов'
     check_ufo(driver)
@@ -613,3 +676,5 @@ def sell_horse(driver):
         '/html/body/div[7]/main/section/section/div/div/form/div[4]/button/span/span/span'
     ).click()
     time.sleep(2)
+
+
