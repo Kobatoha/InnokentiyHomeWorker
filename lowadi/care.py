@@ -456,7 +456,7 @@ def male_horse(driver):
     mating = 25
     num = 0
     name = get_name_horse(driver)
-    gp = name.split()[1]
+    gp = int(name.split()[1][:-3])
 
     try:
 
@@ -576,6 +576,7 @@ def get_servant_farm(driver):
         By.XPATH,
         '//*[@id="horseSearchSubmit"]/span/span'
     ).click()
+    time.sleep(1)
     more_options = driver.find_element(
         By.XPATH,
         '//*[@id="horseSearchLink-criteres"]'
@@ -600,6 +601,27 @@ def get_servant_farm(driver):
 
 
 def servant_male_horse(driver):
+    urls = get_servant_farm(driver)
+    for url in urls:
+        driver.get(url)
+        time.sleep(1)
+        name = get_name_horse(driver)
+        genetic_potential = int(name.split()[1][:-3])
+        time.sleep(1)
+        get_doping(driver)[1].click()
+        time.sleep(1)
+        get_doping(driver)[4].click()
+        time.sleep(1)
+        male_horse(driver)
+        time.sleep(1)
+        get_food(driver)
+        time.sleep(1)
+        sleep = driver.find_element(
+            By.XPATH,
+            '//*[@id="boutonCoucher"]'
+        ).click()
+        time.sleep(2)
+
 
 
 def childbirth(driver, current_url):
