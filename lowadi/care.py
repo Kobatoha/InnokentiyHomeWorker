@@ -580,7 +580,23 @@ def get_servant_farm(driver):
         By.XPATH,
         '//*[@id="horseSearchLink-criteres"]'
     ).click()
+    time.sleep(1)
+    horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
+    print(f'Найдено {len(horses)} половозрелых мужчин')
+    urls = []
+    for j in range(len(horses)):
+        try:
+            name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
+            status = horses[j].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
+                j].get_attribute('data-tooltip')
+
+            url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
+            urls.append(url)
+        except:
+            pass
+
+    return urls
 
 
 def servant_male_horse(driver):
