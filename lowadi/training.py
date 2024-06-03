@@ -57,7 +57,7 @@ def blup_montains(driver, hour):
         By.XPATH,
         '//*[@id="walk-montagne-submit"]/span/span/span'
     ).click()
-    print(f'Погуляли в горах {hour/2} hours')
+    print(f'Погуляли в горах {hour / 2} hours')
     time.sleep(2)
 
 
@@ -76,7 +76,7 @@ def blup_forest(driver, hour):
         By.XPATH,
         '//*[@id="walk-foret-submit"]/span/span/span'
     ).click()
-    print(f'Погуляли в лесу {hour} hours')
+    print(f'Погуляли в лесу {hour / 2} hours')
     time.sleep(2)
 
 
@@ -106,7 +106,7 @@ def blup_dressage(driver, hour):
         By.XPATH,
         '//*[@id="training-dressage-submit"]/span/span/span'
     ).click()
-    print(f'Тренировали выездку {hour} hours')
+    print(f'Тренировали выездку {hour / 2} hours')
     time.sleep(2)
 
 
@@ -136,7 +136,7 @@ def blup_speed(driver, hour):
         By.XPATH,
         '//*[@id="training-vitesse-submit"]/span/span/span'
     ).click()
-    print(f'Тренировали скорость {hour} hours')
+    print(f'Тренировали скорость {hour/2} hours')
     time.sleep(2)
 
 
@@ -179,6 +179,7 @@ def blup_galop(driver, hour):
         By.XPATH,
         '//*[@id="training-galop-submit"]/span/span/span'
     ).click()
+    print(f'Тренировали галоп {hour / 2} hours')
     time.sleep(2)
 
 
@@ -221,6 +222,7 @@ def general_training(driver, energy=20):
 
     train_programm = ['speed', 'dressage', 'galop']
 
+    montains = 9
     speed = 8
     dressage = 5
     galop = 7
@@ -261,10 +263,11 @@ def general_training(driver, energy=20):
                 blup_galop(driver, hour)
 
     else:
-        montains = 9
         hour = (energy - 20) // montains
         if not flag_montains_complete(driver):
             blup_montains(driver, hour)
+        elif not flag_forest_complete(driver):
+            blup_forest(driver, hour)
 
 
     print(f'Проведена тренировка {train} на {hour / 2} hours')
@@ -288,7 +291,8 @@ def flag_montains_complete(driver):
     time.sleep(1)
     close = driver.find_element(
         By.XPATH,
-        '//*[@id="agi-370662083001717443606"]/img'
+        '/html/body/div[7]/main/section/section/div[5]/div/div[3]'
+        '/div[2]/div/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/a/img'
     ).click()
     time.sleep(2)
     if '+' in skills:
@@ -296,6 +300,32 @@ def flag_montains_complete(driver):
     else:
         return True
 
+
+def flag_forest_complete(driver):
+    driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonBalade-foret"]'
+    ).click()
+    time.sleep(1)
+    driver.find_element(
+        By.XPATH,
+        '//*[@id="walkforetSlider"]/ol/li[2]/span'
+    ).click()
+    skills = driver.find_element(
+        By.XPATH,
+        '//*[@id="walk-foret-form"]/table/tbody/tr[2]/td/ul'
+    ).text
+    time.sleep(1)
+    close = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]'
+        '/div/div[3]/div[2]/div/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/a/img'
+    ).click()
+    time.sleep(2)
+    if '+' in skills:
+        return False
+    else:
+        return True
 
 
 def train_blup(driver):
