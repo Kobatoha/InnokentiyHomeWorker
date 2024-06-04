@@ -31,16 +31,18 @@ def insert_table(connect, data: list) -> None:
     insert into andalusian 
     (name, birthday, sex, color, rare, armor, speed, dressage, galop, forest, montains, url) 
     values 
-    ({data[0]}, {data[1]}, {data[2]}, {data[3]}, {data[4]}, {data[5]}, {data[6]}, {data[7]}, {data[8]}, {data[9]}, 
-    {data[10]}, {data[11]})
+    ('{data[0]}', '{data[1]}', {data[2]}, '{data[3]}', {data[4]}, {data[5]}, {data[6]}, {data[7]}, {data[8]}, {data[9]}, 
+    {data[10]}, '{data[11]}')
     """
     connect.execute(query)
     connect.commit()
     print(f'INSERT: {data[0]} in andalusian team')
 
 
+database = r'C:\Users\Admin\Desktop\python\Innokentiy\lowadi\DataBase\andalusian.duckdb'
+
 if __name__ == '__main__':
-    database = r'C:\Users\Admin\Desktop\python\Innokentiy\lowadi\DataBase\andalusian.duckdb'
+
     conn = create_connection(database)
     create_table(conn)
     conn.close()
