@@ -28,15 +28,18 @@ def create_table(connect):
 
 def insert_table(connect, data: list) -> None:
     query = f"""
-    insert into andalusian 
+    INSERT INTO andalusian 
     (name, birthday, sex, color, rare, armor, speed, dressage, galop, forest, montains, url) 
-    values 
-    ('{data[0]}', '{data[1]}', {data[2]}, '{data[3]}', {data[4]}, {data[5]}, {data[6]}, {data[7]}, {data[8]}, {data[9]}, 
-    {data[10]}, '{data[11]}')
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """
-    connect.execute(query)
+    connect.execute(query, data)
     connect.commit()
     print(f'INSERT: {data[0]} in andalusian team')
+
+
+def view_table(connect):
+    result = connect.execute('select * from andalusian').fetchall()
+    return result
 
 
 database = r'C:\Users\Admin\Desktop\python\Innokentiy\lowadi\DataBase\andalusian.duckdb'
