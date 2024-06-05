@@ -11,6 +11,8 @@ from lowadi.other import *
 from lowadi.care import *
 from lowadi.trade import *
 from lowadi.training import *
+from lowadi.DataBase.andalusian_db import create_connection, insert_table, database
+from lowadi.DataBase.rare_color import andalusian
 
 
 def work_horse(driver, horses=1000):
@@ -29,11 +31,11 @@ def work_horse(driver, horses=1000):
     n = 1
     time.sleep(5)
 
-    equus = check_equus(driver)
-
     while horses != 0:
         check_ufo(driver)
         time.sleep(2)
+        if check_equus(driver) == 'Good':
+            spend_equus(driver)
         if check_horse_complete(driver):
 
             age = get_age_horse(driver)
@@ -119,6 +121,7 @@ def work_horse(driver, horses=1000):
                     general_training(driver, energy)
                     if get_energy(driver) < 20:
                         get_doping(driver)[0].click()
+                        time.sleep(1)
 
                 next_horse(driver)
 
@@ -376,3 +379,59 @@ def train_blup_dressage(driver, dressage=100):
             time.sleep(1)
 
         blup_diet(driver)
+
+
+def add_horse_database(driver):
+    """
+    name VARCHAR,
+    birthday DATE,
+    sex 1 == male, 0 == female,
+    color VARCHAR,
+    rare TINYINT,
+    armor, speed, dressage, galop, forest, montains True/False full,
+    url VARCHAR
+    :param driver:
+    :return:
+    """
+    name = get_name_horse(driver)
+    birthday = '-'.join(driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]'
+        '/div/div/div/div/table[1]/tbody[1]/tr/td/div/table/tbody/tr[4]/td[2]'
+    ).text.split()[-1].split('.')[::-1])
+    url = driver.current_url
+    sex = 0 if get_sex(driver).split()[-1] == 'кобыла' else 1
+    color = get_color(driver)
+    rare = andalusian[color]
+
+    try:
+        armor = True if driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]'
+            '/div/div[3]/div[4]/div/div/div/div/div/table/tbody/tr[1]/td[2]/a'
+        ).text == 'Галоп' else False
+    except:
+        armor = False
+
+    speed = True if flag_train_complete(driver, 'speed') == 100 else False
+    dressage = True if flag_train_complete(driver, 'dressage') == 100 else False
+    galop = True if flag_train_complete(driver, 'galop') == 100 else False
+
+    time.sleep(1)
+    try:
+        forest = flag_forest_complete(driver)
+    except:
+        forest = None
+
+    time.sleep(1)
+    try:
+        montains = flag_montains_complete(driver)
+    except:
+        montains = None
+
+    data = [name, birthday, sex, color, rare, armor, speed, dressage, galop, forest, montains, url]
+
+    with create_connection(database) as duck:
+        insert_table(duck, data)
+
+
