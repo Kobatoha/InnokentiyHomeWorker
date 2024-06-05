@@ -486,7 +486,7 @@ def male_horse(driver):
                         '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
                     ).click()
                     time.sleep(2)
-                    if gp >= 15555:
+                    if gp >= 11555:
                         lower_price = driver.find_element(
                             By.XPATH,
                             '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
@@ -497,7 +497,7 @@ def male_horse(driver):
                         lower_price = driver.find_element(
                             By.XPATH,
                             '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[4]'
+                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[2]'
                         ).click()
                         time.sleep(1)
                     complete = driver.find_element(
