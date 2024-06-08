@@ -131,7 +131,7 @@ def work_horse(driver, horses=1000):
                 try:
                     next_horse(driver)
                 except:
-                    driver.refresh()
+                    driver.get(current_url)
 
             n += 1
             print('-' * 50)
@@ -433,5 +433,4 @@ def add_horse_database(driver):
 
     with create_connection(database) as duck:
         insert_table(duck, data)
-
 
