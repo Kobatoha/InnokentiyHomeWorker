@@ -30,7 +30,7 @@ def check_ufo(driver):
                     driver.refresh()
                     time.sleep(1)
 
-            driver.refresh()
+            driver.get(driver.current_url)
             time.sleep(2)
 
     except:

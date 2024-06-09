@@ -752,7 +752,7 @@ def childbirth(driver, current_url):
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Малина {gen_potential}')
+        ).send_keys(f'Сметанка {gen_potential}')
 
     profile = driver.find_element(
         By.XPATH,
