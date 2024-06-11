@@ -117,10 +117,13 @@ def work_horse(driver, horses=1000):
                     elif 'конь' in sex:
                         post_mating += male_horse(driver)
 
+                    time.sleep(1)
                     energy = get_energy(driver)
                     general_training(driver, energy)
                     if get_energy(driver) < 20:
                         get_doping(driver)[0].click()
+                        time.sleep(1)
+                        get_doping(driver)[1].click()
                         time.sleep(1)
 
                 next_horse(driver)
