@@ -46,4 +46,5 @@ if __name__ == '__main__':
         atelier(driver)
 
     begin(driver)
+    login_lowadi(driver)
     work_horse(driver, 1555)

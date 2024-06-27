@@ -61,7 +61,7 @@ def spend_equus(driver):
         By.XPATH,
         '/html/body/div[7]/main/section/section/div[1]/ul/li[3]/div/a/img'
     ).click()
-    time.sleep(1)
+    time.sleep(3)
     iron = 10
     while equus > 10000:
         buy_iron = driver.find_element(
