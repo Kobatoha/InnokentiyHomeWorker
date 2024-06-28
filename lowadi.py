@@ -48,3 +48,7 @@ if __name__ == '__main__':
     begin(driver)
     login_lowadi(driver)
     work_horse(driver, 1555)
+
+    """
+    75 коней с гп 15к+ = 300 ежедневных случек
+    """
