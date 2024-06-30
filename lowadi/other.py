@@ -51,41 +51,45 @@ def check_equus(driver):
 
 
 def spend_equus(driver):
-    equus = int(driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
-    ).text.replace(' ', ''))
-    driver.get('https://www.lowadi.com/marche/boutique')
-    time.sleep(1)
-    resurses = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[1]/ul/li[3]/div/a/img'
-    ).click()
-    time.sleep(3)
-    iron = 10
-    while equus > 10000:
-        buy_iron = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[3]/td[5]/button/span/span/span/img'
-        ).click()
-        time.sleep(1)
-        choice_iron = driver.find_element(
-            By.XPATH,
-            '/html/body/div[11]/div/div/table/tbody/tr[1]/td[1]/select/option[21]'
-        ).click()
-        time.sleep(1)
-        confirm = driver.find_element(
-            By.XPATH,
-            '/html/body/div[11]/div/div/table/tbody/tr[1]/td[1]/button/span[2]'
-        ).click()
-        time.sleep(1)
+    try:
         equus = int(driver.find_element(
             By.XPATH,
             '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
         ).text.replace(' ', ''))
+        driver.get('https://www.lowadi.com/marche/boutique')
         time.sleep(1)
+        resurses = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/ul/li[3]/div/a/img'
+        ).click()
+        time.sleep(3)
+        iron = 10
+        while equus > 10000:
+            buy_iron = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[3]/td[5]/button/span/span/span/img'
+            ).click()
+            time.sleep(1)
+            choice_iron = driver.find_element(
+                By.XPATH,
+                '/html/body/div[11]/div/div/table/tbody/tr[1]/td[1]/select/option[21]'
+            ).click()
+            time.sleep(1)
+            confirm = driver.find_element(
+                By.XPATH,
+                '/html/body/div[11]/div/div/table/tbody/tr[1]/td[1]/button/span[2]'
+            ).click()
+            time.sleep(1)
+            equus = int(driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
+            ).text.replace(' ', ''))
+            time.sleep(1)
 
-    driver.back()
+        driver.back()
+    except:
+        time.sleep(3)
+        spend_equus(driver)
 
 
 def login_lowadi(driver):

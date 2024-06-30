@@ -453,6 +453,7 @@ def female_horse(driver, current_url):
 
 
 def male_horse(driver):
+    time.sleep(1)
     mating = 25
     num = 0
     name = get_name_horse(driver)
