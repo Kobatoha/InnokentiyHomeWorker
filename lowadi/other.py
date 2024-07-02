@@ -39,15 +39,20 @@ def check_ufo(driver):
 
 
 def check_equus(driver):
-    equus = int(driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
-    ).text.replace(' ', ''))
+    try:
+        equus = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/header/nav[1]/ul/li[8]/a/span/span[2]/strong'
+        ).text.replace(' ', ''))
 
-    if equus >= 10000:
-        return 'Good'
-    else:
-        return 'Bad'
+        if equus >= 10000:
+            return 'Good'
+        else:
+            return 'Bad'
+    except:
+        driver.refresh()
+        time.sleep(2)
+        check_equus(driver)
 
 
 def spend_equus(driver):

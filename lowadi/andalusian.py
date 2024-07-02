@@ -134,7 +134,10 @@ def work_horse(driver, horses=1000):
                 try:
                     next_horse(driver)
                 except:
-                    driver.get(current_url)
+                    try:
+                        driver.get(current_url)
+                    except:
+                        driver.back()
 
             n += 1
             print('-' * 50)
