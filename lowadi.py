@@ -14,8 +14,6 @@ def begin(driver):
     topaz(driver)
     time.sleep(5)
     givre(driver)
-    atelier(driver)
-    input('Включи впн')
     time.sleep(5)
 
 
