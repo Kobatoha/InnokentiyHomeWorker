@@ -46,6 +46,6 @@ database = r'C:\Users\Admin\Desktop\python\Innokentiy\lowadi\DataBase\andalusian
 
 if __name__ == '__main__':
 
-    conn = create_connection(database)
+    connect = create_connection(database)
     create_table(conn)
     conn.close()
