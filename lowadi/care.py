@@ -6,7 +6,7 @@ from lowadi.other import check_ufo, check_equus
 
 def get_farm(race: str):
     if race == 'andalusian':
-        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1582713'
+        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593197'
     else:
         farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=all-horses'
     return farm
