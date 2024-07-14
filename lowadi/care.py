@@ -386,6 +386,14 @@ def get_doping(driver):
     return [pat, water, carrot, mash, clean]
 
 
+def get_sleep(driver):
+    driver.find_element(
+        By.XPATH,
+        '//*[@id="boutonCoucher"]'
+    ).click()
+    time.sleep(1)
+
+
 def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=1):
     print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()

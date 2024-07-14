@@ -26,9 +26,6 @@ def new_brave_dr():
     chromedriver_path = r"C:\Users\Admin\Desktop\python\Innokentiy\chromedriver"
 
     chrome_options = uc.ChromeOptions()
-    chrome_options.add_argument(
-        "--load-extension=" +
-        rf"C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default\Extensions\{extension}\3.84.1_0")
     chrome_options.binary_location = brave_path
     chrome_options.add_argument("--single-process")
     chrome_options.headless = False

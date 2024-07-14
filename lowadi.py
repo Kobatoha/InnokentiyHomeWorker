@@ -37,7 +37,7 @@ if __name__ == '__main__':
 
     except:
 
-        time.sleep(30)
+        time.sleep(3)
         driver = new_brave_dr()
         driver.set_window_size(1700, 1360)
         login_lowadi(driver)
