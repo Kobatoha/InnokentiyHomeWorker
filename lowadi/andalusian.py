@@ -15,7 +15,7 @@ from lowadi.DataBase.andalusian_db import create_connection, insert_table, datab
 from lowadi.DataBase.rare_color import andalusian
 
 
-def work_horse(driver, horses=2000):
+def work_female(driver, horses=2000):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
     driver.get(url)
@@ -156,8 +156,6 @@ def work_male(driver, horses=500):
     while horses != 0:
         check_ufo(driver)
         time.sleep(2)
-        if check_equus(driver) == 'Good':
-            spend_equus(driver)
         if check_young_horse_complete(driver):
 
             age = get_age_horse(driver)
@@ -201,12 +199,21 @@ def work_male(driver, horses=500):
                     if check_young_horse_complete(driver):
                         next_horse(driver)
                     else:
-                        fourrage_horse(driver, age, name, n)
-                    try:
-                        blup_montains(driver, hour=8)
-                    except:
-                        print('Еще не дорос до прогулок')
-                    time.sleep(1)
+                        get_doping(driver)[1].click()
+                        time.sleep(1)
+
+                        get_food(driver)
+                        time.sleep(1)
+                        get_doping(driver)[4].click()
+                        time.sleep(1)
+                        get_sleep(driver)
+                        time.sleep(1)
+
+                        try:
+                            blup_montains(driver, hour=8)
+                        except:
+                            print('Еще не дорос до прогулок')
+                        time.sleep(1)
 
                 elif age == ['Возраст:', '2', 'года'] or age == ['Возраст:', '2', 'года', '2', 'мес.'] or age == \
                         ['Возраст:', '2', 'года', '4', 'мес.']:
