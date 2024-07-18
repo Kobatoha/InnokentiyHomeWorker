@@ -755,13 +755,13 @@ def childbirth(driver, current_url):
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Пирожок {gen_potential}')
+        ).send_keys(f'Лайм {gen_potential}')
 
     elif sex == 'femelle':
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Сметанка {gen_potential}')
+        ).send_keys(f'Гранат {gen_potential}')
 
     profile = driver.find_element(
         By.XPATH,

@@ -46,7 +46,7 @@ if __name__ == '__main__':
     begin(driver)
     login_lowadi(driver)
     work_female(driver, 2055)
-    work_male(driver, 500)
+    work_male(driver, 700)
 
     """
     75 коней с гп 15к+ = 300 ежедневных случек
