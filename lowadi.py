@@ -3,12 +3,11 @@ import time
 from get_driver import new_drb, new_brave_dr
 import pretty_errors
 from lowadi.andalusian import work_female, work_male
+from lowadi.heavyhorse import work_heavyhorse
 from lowadi.other import *
 
 
 def begin(driver):
-    login_lowadi(driver)
-    time.sleep(5)
     xanthos(driver)
     time.sleep(5)
     topaz(driver)
@@ -41,12 +40,13 @@ if __name__ == '__main__':
         driver = new_brave_dr()
         driver.set_window_size(1700, 1360)
         login_lowadi(driver)
+        begin(driver)
 
 
-    begin(driver)
     login_lowadi(driver)
+    work_heavyhorse(driver, 100)
     work_female(driver, 2055)
-    work_male(driver, 1000)
+    work_male(driver, 200)
 
     """
     75 коней с гп 15к+ = 300 ежедневных случек
