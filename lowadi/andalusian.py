@@ -199,15 +199,7 @@ def work_male(driver, horses=500):
                     if check_young_horse_complete(driver):
                         next_horse(driver)
                     else:
-                        get_doping(driver)[1].click()
-                        time.sleep(1)
-
-                        get_food(driver)
-                        time.sleep(1)
-                        get_doping(driver)[4].click()
-                        time.sleep(1)
-                        get_sleep(driver)
-                        time.sleep(1)
+                        fourrage_horse(driver, age, name, n)
 
                         try:
                             blup_montains(driver, hour=8)
@@ -267,7 +259,6 @@ def work_male(driver, horses=500):
 
     now = datetime.now().strftime('%d.%m %H:%M')
     print(f'\n{now} прогон мужиков окончен\n-- Предложено случек: {post_mating}')
-
 
 
 def train_blup_one_click(driver, url):
