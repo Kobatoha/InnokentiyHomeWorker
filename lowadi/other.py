@@ -89,7 +89,7 @@ def get_resurses(driver, name):
     return resurses[name]
 
 
-def spend_equus(driver, res='iron'):
+def spend_equus(driver, res='skin'):
     try:
         equus = int(driver.find_element(
             By.XPATH,
@@ -104,12 +104,9 @@ def spend_equus(driver, res='iron'):
         time.sleep(3)
         iron = 10
         while equus > 10000:
-            buy_iron = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[5]/td[5]/button/span/span/span/img'
-            ).click()
+            get_resurses(driver, res).click()
             time.sleep(1)
-            choice_iron = driver.find_element(
+            quality = driver.find_element(
                 By.XPATH,
                 '/html/body/div[11]/div/div/table/tbody/tr[1]/td[1]/select/option[21]'
             ).click()
@@ -199,6 +196,7 @@ def xanthos(driver):
         'https://www.lowadi.com/elevage/fiche/?id=1044960',
         'https://www.lowadi.com/elevage/fiche/?id=1046269'
     ]
+    print('Гладим Ксанфов')
     for url in urls:
         driver.get(url)
         time.sleep(2)
@@ -223,6 +221,7 @@ def topaz(driver):
         'https://www.lowadi.com/elevage/fiche/?id=4792032',
         'https://www.lowadi.com/elevage/fiche/?id=4789329'
     ]
+    print('Гладим Топазов')
     for url in urls:
         driver.get(url)
         time.sleep(2)
@@ -243,6 +242,7 @@ def givre(driver):
     urls = [
         'https://www.lowadi.com/elevage/fiche/?id=12086505'
     ]
+    print('Размораживаем Морозницу')
     for url in urls:
         driver.get(url)
         time.sleep(2)
@@ -254,12 +254,12 @@ def givre(driver):
         time.sleep(2)
 
 
-def atelier(driver):
+def atelier(driver, workshop=3):
     print(datetime.now().strftime('%H:%M:%S'), 'Проверяем мастерские..')
     url = 'https://www.lowadi.com/centre/atelier/'
     driver.get(url)
     try:
-        for _ in range(2):
+        for _ in range(workshop):
             try:
                 get_stable_1 = driver.find_element(
                     By.XPATH,
@@ -290,7 +290,7 @@ def atelier(driver):
                     print('Стойла не готовы, сваливаем')
                     return 0
 
-        for _ in range(2):
+        for _ in range(workshop):
             begin_stable = driver.find_element(
                 By.XPATH,
                 '/html/body/div[8]/main/section/section/form/table/tbody/tr[1]/td[6]/button/span/span/span'
