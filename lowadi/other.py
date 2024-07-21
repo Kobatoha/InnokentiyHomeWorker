@@ -55,7 +55,41 @@ def check_equus(driver):
         check_equus(driver)
 
 
-def spend_equus(driver):
+def get_resurses(driver, name):
+    resurses = {
+        'wood': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[2]/td[5]/button/span/span/span/img'
+        ),
+        'iron': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[3]/td[5]/button/span/span/span/img'
+        ),
+        'sand': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[4]/td[5]/button/span/span/span/img'
+        ),
+        'skin': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[5]/td[5]/button/span/span/span/img'
+        ),
+        'straw': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[7]/td[5]/button/span/span/span/img'
+        ),
+        'flax': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[8]/td[5]/button/span/span/span/img'
+        ),
+        'wheat': driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[10]/td[5]/button/span/span/span/img'
+        ),
+    }
+    return resurses[name]
+
+
+def spend_equus(driver, res='iron'):
     try:
         equus = int(driver.find_element(
             By.XPATH,
@@ -72,7 +106,7 @@ def spend_equus(driver):
         while equus > 10000:
             buy_iron = driver.find_element(
                 By.XPATH,
-                '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[3]/td[5]/button/span/span/span/img'
+                '/html/body/div[7]/main/section/section/div[1]/div/table/tbody/tr[5]/td[5]/button/span/span/span/img'
             ).click()
             time.sleep(1)
             choice_iron = driver.find_element(
