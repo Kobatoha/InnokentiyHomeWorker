@@ -112,6 +112,36 @@ def blup_dressage(driver, hour):
     return message
 
 
+def blup_stamina(driver, hour):
+    try:
+        choice_speed = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+    except:
+        choice_speed = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+
+    click_speed = driver.find_element(
+        By.XPATH,
+        f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(1)
+
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="training-vitesse-submit"]/span/span/span'
+    ).click()
+    print(f'Тренировали скорость {hour/2} hours')
+    time.sleep(2)
+
+
 def blup_speed(driver, hour):
     try:
         choice_speed = driver.find_element(
@@ -251,6 +281,68 @@ def general_training(driver, energy=20):
         elif not flag_forest_complete(driver):
             blup_forest(driver, hour)
 
+
+    print(f'Проведена тренировка {train} на {hour / 2} hours')
+    time.sleep(2)
+
+
+def general_training_marshadore(driver, energy=20):
+    if energy <= 29:
+        print('Энергии слишком мало')
+        return
+    else:
+        if not flag_train_possible(driver, 'jump'):
+            print('Кобыла слишком жеребая, тренировка невозможна')
+            return
+
+    train_programm = ['stamina', 'speed', 'dressage']
+
+    montains = 9
+    stamina = 8
+    speed = 8
+    dressage = 5
+
+    flag = 100
+    train = 'speed'
+
+    for train in train_programm:
+        flag = flag_train_complete(driver, train)
+        time.sleep(0.5)
+        if flag != 100:
+            break
+
+    if flag != 100:
+
+        if train == 'stamina':
+            hour = (energy - 20) // stamina
+            if hour <= 100 - flag:
+                blup_stamina(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_speed(driver, hour)
+
+        elif train == 'dressage':
+            hour = (energy - 20) // dressage
+            if hour <= 100 - flag:
+                blup_dressage(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_dressage(driver, hour)
+
+        elif train == 'galop':
+            hour = (energy - 20) // galop
+            if hour <= 100 - flag:
+                blup_galop(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_galop(driver, hour)
+
+    else:
+        hour = (energy - 20) // montains
+        if not flag_montains_complete(driver):
+            blup_montains(driver, hour)
+        elif not flag_forest_complete(driver):
+            blup_forest(driver, hour)
 
     print(f'Проведена тренировка {train} на {hour / 2} hours')
     time.sleep(2)
