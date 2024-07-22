@@ -18,9 +18,9 @@ from lowadi.DataBase.rare_color import andalusian
 def work_female(driver, horses=2000):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
-    driver.get(url)
 
-    current_url = ''
+    current_url = find_unworking_horse(driver, 'andalusian', 'female')
+    driver.get(current_url)
 
     children = 0
     get_mating = 0
