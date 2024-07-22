@@ -4,25 +4,27 @@ from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo, check_equus
 
 
-def get_farm(race: str):
+def get_farm(race: str, sex: str):
     farm = ''
-    if race == 'andalusian_female':
-        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593197'
-    elif race == 'andalusian_male':
-        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198'
+    if race == 'andalusian':
+        if sex == 'female':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593197'
+        elif sex == 'male':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198'
+        elif sex == 'unicorn':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
     elif race == 'heavy_horse':
         farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
-    elif race == 'andalusian_unicorn':
-        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
-    elif race == 'marshadore_female':
-        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1590179'
+    elif race == 'marshadore':
+        if sex == 'female':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1590179'
 
     return farm
 
 
-def find_unworking_horse(driver, race='andalusian_female'):
+def find_unworking_horse(driver, race='andalusian', sex='female'):
 
-    farm = get_farm(race)
+    farm = get_farm(race, sex)
 
     driver.get(farm)
     time.sleep(5)
