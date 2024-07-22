@@ -362,6 +362,24 @@ def train_blup(driver):
 
             else:
 
+                moral = get_moral(driver)
+
+                if 100 > moral >= 94:
+                    get_doping(driver)[4].click()
+                    time.sleep(2)
+                elif 100 > moral >= 84:
+                    get_doping(driver)[4].click()
+                    time.sleep(2)
+                    get_doping(driver)[3].click()
+                    time.sleep(2)
+                elif 100 > moral >= 80:
+                    get_doping(driver)[4].click()
+                    time.sleep(2)
+                    get_doping(driver)[3].click()
+                    time.sleep(2)
+                    get_doping(driver)[1].click()
+                    time.sleep(2)
+
                 energy = get_energy(driver)
                 train = blup_training(driver, energy)
 
