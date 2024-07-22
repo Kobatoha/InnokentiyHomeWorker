@@ -173,6 +173,29 @@ def get_energy(driver):
     return energie
 
 
+def get_moral(driver):
+    try:
+        try:
+            moral = int(driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[4]/div/div[2]/div[2]'
+                '/div[2]/div/div/div/div[2]/div/div[3]/div[3]/strong/span'
+            ).text)
+        except:
+            moral = int(driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[2]'
+                '/div[2]/div/div/div/div[2]/div/div[3]/div[3]/strong/span'
+            ).text)
+    except:
+        moral = int(driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]'
+            '/div[2]/div/div/div/div[2]/div/div[3]/div[3]/strong/span'
+        ).text)
+    return moral
+
+
 def get_sex(driver):
     sex = driver.find_element(
         By.XPATH,
@@ -375,7 +398,7 @@ def blup_diet(driver):
     choice_oats = driver.find_element(By.XPATH, '//*[@id="oatsSlider"]/ol/li[13]').click()
     time.sleep(1)
     click_food = driver.find_element(By.XPATH, '//*[@id="feed-button"]').click()
-    time.sleep(1)
+    time.sleep(2)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(2)
 
@@ -399,7 +422,7 @@ def get_sleep(driver):
         By.XPATH,
         '//*[@id="boutonCoucher"]'
     ).click()
-    time.sleep(1)
+    time.sleep(2)
 
 
 def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=1):
