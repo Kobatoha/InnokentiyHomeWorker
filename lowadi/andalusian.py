@@ -323,11 +323,15 @@ def train_blup(driver):
 
     current_url = get_current_url(driver)
     driver.get(current_url)
+    training = True
+    competitions = 25
+    equip = False
+    complete = False
 
     step = 1
     time.sleep(1)
 
-    while step != 50 or age != ['Возраст:', '10', 'лет']:
+    while complete is not True:
         age = get_age_horse(driver)
 
         try:
@@ -360,7 +364,8 @@ def train_blup(driver):
                 time.sleep(1)
                 grow_up(driver)
 
-            else:
+            elif training:
+                print(f'№{step} Взрослая лошадь: {name}, проводим тренировки.', *age)
 
                 moral = get_moral(driver)
 
@@ -381,9 +386,9 @@ def train_blup(driver):
                     time.sleep(2)
 
                 energy = get_energy(driver)
-                train = blup_training(driver, energy)
+                message = blup_training(driver, energy)
 
-                if train == 'dressage':
+                if message == 'dressage':
                     for i in range(3):
                         get_doping(driver)[i].click()
                         time.sleep(2)
@@ -404,18 +409,50 @@ def train_blup(driver):
                     energy = get_energy(driver)
                     message = blup_training(driver, energy - 20)
 
-                if 'Проведена тренировка' in message or 'Тренировали' in message:
+                if 'speed' in message or 'dressage' in message or 'galop' in message:
                     grow_up(driver)
+                    training = True
+                elif 'Проведена тренировка' in message or 'Тренировали' in message:
+                    grow_up(driver)
+                    training = True
                 else:
-                    pass
+                    training = False
+
+            elif not training:
+                if not equip:
+                    answer = input('Нужно снаряжение')
+                    equip = True
+
+                print(f'№{step} Взрослая лошадь: {name}, идем на соревнования.', *age)
+
+                energy = get_energy(driver)
+                competition_galop = 13.5
+
+                count = int(energy // 13.5)
+
+                for _ in range(count):
+                    get_competition_galop(driver)
+                    competitions -= 1
+                for i in range(2):
+                    get_doping(driver)[i].click()
+                    time.sleep(2)
+
+                get_doping(driver)[-1].click()
+                time.sleep(2)
+
+                blup_diet(driver)
+                time.sleep(2)
+
+                grow_up(driver)
+
+            skills = flag_complete_skill(driver, 'andalusian')
+            if 'complete' in skills[0] and 'complete' in skills[1] and 'complete' in skills[2]:
+                complete = True
 
         except Exception as e:
 
             print('Некакая error при уходе за лошадью:', e, current_url)
-            try:
-                driver.get(current_url)
-            except:
-                driver.back()
+            help = input('Нужна помощь Демиурга')
 
         step += 1
 

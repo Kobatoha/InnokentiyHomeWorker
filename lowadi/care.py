@@ -327,41 +327,41 @@ def get_stable(driver):
             next_horse(driver)
             return
 
-            print('Лошадь нуждается в стойле, ищем подходящий КСК..')
+        print('Лошадь нуждается в стойле, ищем подходящий КСК..')
 
-            current_url = get_current_url(driver)
+        current_url = get_current_url(driver)
 
+        time.sleep(2)
+        find_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
+            '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
+        ).click()
+        time.sleep(1)
+
+        check_ufo(driver)
+
+        two_mouth = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
+        ).click()
+        time.sleep(1)
+        low_price_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
+        )
+        if low_price_stable.text == '1200':
+            low_price_stable.click()
+            alert = driver.switch_to.alert
+            alert.accept()
+            print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
             time.sleep(2)
-            find_stable = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
-                '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-            ).click()
-            time.sleep(1)
 
-            check_ufo(driver)
+            return 1
+        else:
+            print(f'Стойло слишком дорогое, аж {low_price_stable.text}')
 
-            two_mouth = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
-            ).click()
-            time.sleep(1)
-            low_price_stable = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
-            )
-            if low_price_stable.text == '1200':
-                low_price_stable.click()
-                alert = driver.switch_to.alert
-                alert.accept()
-                print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
-                time.sleep(2)
-
-                return 1
-            else:
-                print(f'Стойло слишком дорогое, аж {low_price_stable.text}')
-
-                return 0
+            return 0
 
     except:
 
