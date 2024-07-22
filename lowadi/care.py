@@ -33,16 +33,34 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
         By.XPATH,
         '/html/body/div[7]/main/section/section/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li'
     )[1:])
-
+    url = ''
     print(f'Страниц во вкладке: {pages}')
+
+    if pages == 0:
+        horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
+
+        for j in range(len(horses)):
+            try:
+                name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
+                status = horses[j].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
+                    j].get_attribute('data-tooltip')
+
+                if status != 'Спит':
+                    print('Найдена необработанная лошадь')
+                    url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
+                    return url
+            except:
+                pass
+
     for i in range(2, pages + 2):
+
         page = driver.find_element(
             By.XPATH,
             f'/html/body/div[7]/main/section/section/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li[{i}]/a'
         ).click()
         print(f'Page: {i - 1}')
         time.sleep(2)
-        url = ''
+
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
         for j in range(len(horses)):
@@ -436,6 +454,7 @@ def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
     lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
+    time.sleep(2)
 
 
 def female_horse(driver, current_url):
@@ -705,120 +724,78 @@ def check_open_mating(driver):
     return checked
 
 
-def get_matting(driver):
-    energie = get_energy(driver)
-    mating = 25
-    options = stable_options(driver)
-    genetic_potential = get_name_horse(driver).split()[1][:-3]
-    amount = {
-        10000: 3,
-        11000: 4,
-        12000: 5,
-        13000: 6,
-        14000: 7,
-        15000: 8,
-        16000: 9,
-        17000: 10,
-        18000: 11
-    }
-    if options['wash']:
-        mating = 22
-    if energie - mating >= 20:
-        create_mating = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-            '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
-        )
-        try:
-            create_mating.click()
-            time.sleep(1)
-            if 'Достигнут сегодняшний лимит открытых случек.' in check_open_mating(driver):
-                return 'limit'
-            open_mating = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/input'
-            ).click()
-            choice_equus = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
-            ).click()
-            time.sleep(2)
-            if gp >= 15555:
-                lower_price = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[9]'
-                ).click()
-                time.sleep(1)
-            else:
-                lower_price = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[6]'
-                ).click()
-                time.sleep(1)
-            complete = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span'
-            ).click()
-            time.sleep(5)
-
-            return 1
-        except:
-            pass
-
-
-def childbirth(driver, current_url):
-    age = 'Несколько часов'
+def childbirth(driver, current_url, race):
+    '''
+    0 == ...
+    1 == Цитадель
+    :param driver:
+    :param current_url:
+    :param race:
+    :return:
+    '''
+    age = ['Возраст:', 'несколько', 'часов']
     check_ufo(driver)
+
+    races = {
+        'andalusian': [18, 'Гранат', 'Лайм'],
+        'unicorn': [15, 'Морожка', 'Ворожка'],
+        'heavy_horse': [3, 'Пончик', 'Эклер'],
+        'marshadore': [2, 'Марша', 'Маршель']
+    }
+
+    if race == 'unicorn':
+        profile = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/figure'
+        ).get_attribute('style')
+        if 'horn' not in profile:
+            race = 'andalusian'
+
     sex = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/img'
     ).get_attribute('alt')
+
     gen_potential = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[2]/tbody/tr[1]/td[2]/span').text
     print(f'Родился жеребенок! Пол: {sex}, ГП: {gen_potential}')
 
+    new_name = ''
+
     if sex == 'male':
 
+        new_name = f'{races[race][2]} {gen_potential}'
+
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Лайм {gen_potential}')
+        ).send_keys(new_name)
 
     elif sex == 'femelle':
+
+        new_name = f'{races[race][1]} {gen_potential}'
+
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
-        ).send_keys(f'Гранат {gen_potential}')
-
-    profile = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]/div[1]'
-    ).click()
-    time.sleep(1)
-    farm = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table[3]/tbody'
-        '/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]').click()
+        ).send_keys(new_name)
     time.sleep(2)
+
     get_farm = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[3]/tbody'
-        '/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]/select/option[2]'
+        f'/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]/select/option[{races[race][0]}]'
     ).click()
     time.sleep(1)
+
     complete = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/button'
     ).click()
     time.sleep(1)
 
-    milk_horse(driver, age, 'дитё', 0)
+    milk_horse(driver, age, new_name, 0)
     time.sleep(1)
 
     return_to_mother = driver.get(current_url)

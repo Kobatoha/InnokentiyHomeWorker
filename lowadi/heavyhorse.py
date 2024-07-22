@@ -16,11 +16,13 @@ from lowadi.training import *
 def work_heavyhorse(driver, horses=100):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
-    driver.get(url)
 
-    current_url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=74649683'
+    current_url = find_unworking_horse(driver, 'heavy_horse', '')
+    driver.get(current_url)
 
     n = 1
+    children = 0
+
     time.sleep(5)
 
     while horses != 0:
@@ -34,7 +36,7 @@ def work_heavyhorse(driver, horses=100):
 
             next_horse(driver)
 
-            print(f'№{n} Лошадь: {name}, уже получила уход.', *age)
+            print(f'№{n} Лошадь-тяжеловоз: {name}, уже получила уход.', *age)
             n += 1
             print('-' * 50)
             horses -= 1
@@ -60,7 +62,6 @@ def work_heavyhorse(driver, horses=100):
 
                 sex = get_sex(driver)
 
-
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
 
@@ -79,6 +80,17 @@ def work_heavyhorse(driver, horses=100):
 
                 elif (int(age[1]) > 2 and age[2] != 'мес.') or age == ['Возраст:', '2', 'года', '6', 'мес.'] or age == \
                         ['Возраст:', '2', 'года', '8', 'мес.'] or age == ['Возраст:', '2', 'года', '10', 'мес.']:
+
+                    try:
+
+                        if driver.find_element(By.XPATH, '//*[@id="alerteVeterinaireContent"]/table/tbody/tr/td[2]'):
+                            print('Ваша кобыла скоро родит!')
+                            call_doctor = driver.find_element(By.XPATH, '//*[@id="boutonVeterinaire"]').click()
+                            time.sleep(1)
+                            children += childbirth(driver, current_url, 'unicorn')
+
+                    except:
+                        pass
 
                     old_horse(driver, age, name, n)
                     time.sleep(1)
