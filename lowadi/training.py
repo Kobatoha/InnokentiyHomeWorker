@@ -106,8 +106,10 @@ def blup_dressage(driver, hour):
         By.XPATH,
         '//*[@id="training-dressage-submit"]/span/span/span'
     ).click()
-    print(f'Тренировали выездку {hour / 2} hours')
+    message = f'Тренировали выездку {hour / 2} hours'
     time.sleep(2)
+
+    return message
 
 
 def blup_speed(driver, hour):
@@ -272,6 +274,70 @@ def general_training(driver, energy=20):
 
     print(f'Проведена тренировка {train} на {hour / 2} hours')
     time.sleep(2)
+
+
+def blup_training(driver, energy=20):
+    train_programm = ['speed', 'dressage', 'galop']
+
+    montains = 8.1
+    speed = 7.2
+    dressage = 4.5
+    galop = 6.3
+
+    flag = 100
+    hour = 0
+    train = 'speed'
+
+    for train in train_programm:
+        flag = flag_train_complete(driver, train)
+        time.sleep(0.5)
+        if flag != 100:
+            break
+
+    if flag != 100:
+
+        if train == 'speed':
+            hour = energy // speed
+            if hour <= 100 - flag:
+                blup_speed(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_speed(driver, hour)
+
+        elif train == 'dressage':
+            hour = energy // dressage
+            if hour <= 100 - flag:
+                blup_dressage(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_dressage(driver, hour)
+
+        elif train == 'galop':
+            hour = energy // galop
+            if hour <= 100 - flag:
+                blup_galop(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_galop(driver, hour)
+
+        return train
+
+    else:
+        hour = energy // montains
+
+        if not flag_montains_complete(driver):
+            blup_montains(driver, hour)
+        elif not flag_forest_complete(driver):
+            blup_forest(driver, hour)
+        else:
+            hour = 0
+            train = ''
+    if train and hour:
+        message = f'Проведена тренировка {train} на {hour / 2} hours'
+    else:
+        message = f'Тренировка не требуется - скорость, выездка, галоп, горы и лес успешно пройдены'
+    time.sleep(2)
+    return message
 
 
 def flag_montains_complete(driver):
