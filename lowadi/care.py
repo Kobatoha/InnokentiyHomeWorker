@@ -5,14 +5,22 @@ from lowadi.other import check_ufo, check_equus
 
 
 def get_farm(race: str):
-    if race == 'andalusian':
+    farm = ''
+    if race == 'andalusian_female':
         farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593197'
-    else:
-        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=all-horses'
+    elif race == 'andalusian_male':
+        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198'
+    elif race == 'heavy_horse':
+        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
+    elif race == 'andalusian_unicorn':
+        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
+    elif race == 'marshadore_female':
+        farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1590179'
+
     return farm
 
 
-def find_unworking_horse(driver, race='andalusian'):
+def find_unworking_horse(driver, race='andalusian_female'):
 
     farm = get_farm(race)
 
@@ -82,7 +90,7 @@ def check_young_horse_complete(driver):
         for i in history:
             if 'Полный уход' in i:
                 count += 1
-            elif 'съел(а)' in i:
+            elif 'съел(а)' in i or 'молоко матери' in i:
                 count += 1
             elif 'уложен(а) спать' in i:
                 count += 1
@@ -90,7 +98,7 @@ def check_young_horse_complete(driver):
             return True
         return False
     except Exception as error:
-        print('error in check_horse_complete:', error)
+        print('error in check_young_horse_complete:', error)
 
 
 def get_current_url(driver):
