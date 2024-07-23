@@ -23,6 +23,7 @@ def marshadore_female(driver, horses=100):
     children = 0
     get_mating = 0
     post_mating = 0
+    stable = 0
 
     n = 1
     time.sleep(5)
@@ -66,6 +67,11 @@ def marshadore_female(driver, horses=100):
 
                 sex = get_sex(driver)
 
+                try:
+                    stable += get_stable(driver)
+                except:
+                    pass
+
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
 
@@ -103,6 +109,8 @@ def marshadore_female(driver, horses=100):
                     except:
                         pass
 
+                    get_mating += female_marshadore(driver, current_url)
+
                     get_doping(driver)[-1].click()
                     time.sleep(2)
                     get_food(driver)
@@ -135,13 +143,15 @@ def marshadore_female(driver, horses=100):
 
     now = datetime.now().strftime('%d.%m %H:%M')
     print(f'\n{now} прогон маршадорок окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
-          f'-- Предложено случек: {post_mating}')
+          f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
 
 
-def work_male(driver, horses=500):
+def marshadore_male(driver, horses=20):
     current_url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90938560'
+
     post_mating = 0
     stable = 0
+
     n = 1
     time.sleep(5)
 
@@ -156,7 +166,7 @@ def work_male(driver, horses=500):
 
             next_horse(driver)
 
-            print(f'№{n} Лошадь: {name}, уже получила уход.', *age)
+            print(f'№{n} Конь-маршадор: {name}, уже получил уход.', *age)
             n += 1
             print('-' * 50)
             horses -= 1
@@ -182,7 +192,10 @@ def work_male(driver, horses=500):
 
                 sex = get_sex(driver)
 
-                get_stable(driver)
+                try:
+                    stable += get_stable(driver)
+                except:
+                    pass
 
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
@@ -215,11 +228,11 @@ def work_male(driver, horses=500):
                     time.sleep(1)
 
                     if 'конь' in sex:
-                        post_mating += male_horse(driver)
+                        post_mating += male_marshadore(driver)
 
-                    get_food(driver)
-                    time.sleep(1)
                     get_doping(driver)[4].click()
+                    time.sleep(1)
+                    get_food(driver)
                     time.sleep(1)
                     get_sleep(driver)
                     time.sleep(1)

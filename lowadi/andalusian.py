@@ -15,7 +15,7 @@ from lowadi.DataBase.andalusian_db import create_connection, insert_table, datab
 from lowadi.DataBase.rare_color import andalusian
 
 
-def work_female(driver, horses=2000):
+def andalusian_female(driver, horses=2000):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
@@ -24,7 +24,6 @@ def work_female(driver, horses=2000):
 
     children = 0
     get_mating = 0
-    post_mating = 0
     stable = 0
     n = 1
     time.sleep(5)
@@ -68,7 +67,10 @@ def work_female(driver, horses=2000):
 
                 sex = get_sex(driver)
 
-                get_stable(driver)
+                try:
+                    stable += get_stable(driver)
+                except:
+                    pass
 
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
@@ -110,10 +112,7 @@ def work_female(driver, horses=2000):
                     old_horse(driver, age, name, n)
 
                     if 'кобыла' in sex:
-                        get_mating += female_horse(driver, current_url)
-
-                    elif 'конь' in sex:
-                        post_mating += male_horse(driver)
+                        get_mating += female_andalusian(driver, current_url)
 
                     time.sleep(1)
                     energy = get_energy(driver)
@@ -142,11 +141,11 @@ def work_female(driver, horses=2000):
             horses -= 1
 
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
-          f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
+    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}'
+          f'\n-- Куплено стойл: {stable}')
 
 
-def work_male(driver, horses=500):
+def andalusian_male(driver, horses=500):
     current_url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90938560'
     post_mating = 0
     stable = 0
@@ -164,7 +163,7 @@ def work_male(driver, horses=500):
 
             next_horse(driver)
 
-            print(f'№{n} Лошадь: {name}, уже получила уход.', *age)
+            print(f'№{n} Конь: {name}, уже получил уход.', *age)
             n += 1
             print('-' * 50)
             horses -= 1
@@ -190,7 +189,10 @@ def work_male(driver, horses=500):
 
                 sex = get_sex(driver)
 
-                get_stable(driver)
+                try:
+                    stable += get_stable(driver)
+                except:
+                    pass
 
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
@@ -223,7 +225,7 @@ def work_male(driver, horses=500):
                     time.sleep(1)
 
                     if 'конь' in sex:
-                        post_mating += male_horse(driver)
+                        post_mating += male_andalusian(driver)
 
                     get_food(driver)
                     time.sleep(1)
@@ -261,7 +263,7 @@ def work_male(driver, horses=500):
     print(f'\n{now} прогон мужиков окончен\n-- Предложено случек: {post_mating}')
 
 
-def work_unicorn(driver, horses=50):
+def andalusian_unicorn(driver, horses=50):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 

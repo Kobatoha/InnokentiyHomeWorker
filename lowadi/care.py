@@ -1,4 +1,5 @@
 import time
+import os
 import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo, check_equus
@@ -337,51 +338,38 @@ def young_horse(driver, age, name, n):
 
 def get_stable(driver):
     try:
-        equus = check_equus(driver)
-
         if 'Зарегистрируйте свою лошадь' in driver.find_element(
                 By.XPATH,
                 '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
                 '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-        ).text and equus == 'Good':
-            next_horse(driver)
-            return
+        ).text:
 
-        print('Лошадь нуждается в стойле, ищем подходящий КСК..')
+            print('Лошадь нуждается в стойле..')
 
-        current_url = get_current_url(driver)
+            current_url = get_current_url(driver)
 
-        time.sleep(2)
-        find_stable = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
-            '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
-        ).click()
-        time.sleep(1)
-
-        check_ufo(driver)
-
-        two_mouth = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[9]/a'
-        ).click()
-        time.sleep(1)
-        low_price_stable = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[1]/table/tbody/tr[1]/td[10]/button/span/span/span/span'
-        )
-        if low_price_stable.text == '1200':
-            low_price_stable.click()
-            alert = driver.switch_to.alert
-            alert.accept()
-            print(f'Стойло найдено за {low_price_stable.text}, продолжаем')
+            time.sleep(2)
+            find_stable = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
+                '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
+            ).click()
             time.sleep(2)
 
-            return 1
-        else:
-            print(f'Стойло слишком дорогое, аж {low_price_stable.text}')
+            check_ufo(driver)
 
-            return 0
+            reserv = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/ul/li[2]/div/a'
+            ).click()
+            time.sleep(2)
+
+            one_month = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[2]/table/tbody/tr[1]/td[9]/button/span/span/span'
+            ).click()
+
+            return 1
 
     except:
 
@@ -457,9 +445,8 @@ def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=
     time.sleep(2)
 
 
-def female_horse(driver, current_url):
+def ready_matt(driver):
     try:
-
         not_ready = driver.find_element(
             By.XPATH,
             '//*[@id="reproduction-body-content"]/div[1]/table/tbody/tr[1]/td'
@@ -467,7 +454,7 @@ def female_horse(driver, current_url):
         print(not_ready)
         time.sleep(1)
 
-        return 0
+        return False
 
     except:
 
@@ -476,30 +463,16 @@ def female_horse(driver, current_url):
                 '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]'
         ).text == 'Случить кобылу':
 
-            print('Нужна случка, идем на брачный рынок..')
-            check_ufo(driver)
-            driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
-            time.sleep(1)
-            master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
-            time.sleep(1)
-            get_offers = driver.find_element(
+            return [True, 0]
+
+        elif driver.find_element(
                 By.XPATH,
-                '/html/body/div[7]/main/section/section/form/button[1]/span/span'
-            ).click()
-            time.sleep(1)
-            gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
-            time.sleep(1)
-            get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
-            time.sleep(1)
+                '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]'
+        ).text == 'Открытые случки':
 
-            if 'Kolgotki' in driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[2]').text:
-                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-                time.sleep(1)
+            print('Кобыле продложена случка')
 
-            print('Кобыла успешно провела случку')
-            time.sleep(1)
-
-            return 1
+            return [True, 1]
 
         elif driver.find_element(
                 By.XPATH,
@@ -509,10 +482,46 @@ def female_horse(driver, current_url):
             print('Кобыла уже жеребая')
             time.sleep(1)
 
-            return 0
+            return False
 
 
-def male_horse(driver):
+def female_andalusian(driver, current_url):
+
+    matting = ready_matt(driver)
+
+    if matting and matting[1] == 0:
+
+        print('Нужна случка, идем на брачный рынок..')
+        check_ufo(driver)
+        driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
+        time.sleep(1)
+        master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
+        time.sleep(1)
+        get_offers = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/form/button[1]/span/span'
+        ).click()
+        time.sleep(1)
+        gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
+        time.sleep(1)
+        get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
+        time.sleep(1)
+
+        if 'Kolgotki' in driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[2]').text:
+            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+            time.sleep(1)
+
+        print('Кобыла успешно провела случку')
+        time.sleep(1)
+
+        return 1
+
+    else:
+
+        return 0
+
+
+def male_andalusian(driver):
     time.sleep(1)
     mating = 25
     num = 0
@@ -576,6 +585,78 @@ def male_horse(driver):
         print(f'{name} предложил случек: {num}')
 
         return num
+
+    except:
+
+        print('error male_horse')
+
+        return 0
+
+
+def female_marshadore(driver, current_url):
+    matting = ready_matt(driver)
+
+    if matting and matting[1] == 1:
+
+        male_name = driver.find_element(
+            By.XPATH,
+            '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+        ).text
+        print(f'Принимаем случку от {male_name}')
+
+        ok = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+        ).click()
+
+        check_ufo(driver)
+
+        mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+        time.sleep(1)
+
+        print('Кобыла успешно провела случку')
+        time.sleep(1)
+
+        return 1
+
+    elif matting and matting[1] == 0:
+
+        name = get_name_horse(driver)
+
+        with open('lowadi/marshadore.txt', 'r') as file:
+            names = file.readlines()
+
+        if name + '\n' not in names:
+            with open('lowadi/marshadore.txt', 'a') as file:
+                file.write(name + '\n')
+
+            print('Добавлена в очередь на ожидание случки')
+        else:
+            print('Уже в очереди на ожидание случки')
+
+        return 0
+
+    else:
+
+        return 0
+
+
+def male_marshadore(driver):
+
+    mating = 25
+    num = 0
+    name = get_name_horse(driver)
+    energy = get_energy(driver)
+    females = 1
+
+    try:
+        while energy >= 45:
+
+
+            print(f'{name} предложил случек: {num}')
+
+            return num
 
     except:
 

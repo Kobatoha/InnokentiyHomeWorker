@@ -62,6 +62,11 @@ def work_heavyhorse(driver, horses=100):
 
                 sex = get_sex(driver)
 
+                try:
+                    get_stable(driver)
+                except:
+                    pass
+
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
 
