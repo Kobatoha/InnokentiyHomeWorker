@@ -34,7 +34,7 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
 
     pages = len(driver.find_elements(
         By.XPATH,
-        '/html/body/div[7]/main/section/section/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li'
+        '/html/body/div[7]/main/section/section/div[2]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li'
     )[1:])
     url = ''
     print(f'Страниц во вкладке: {pages}')
