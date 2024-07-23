@@ -739,16 +739,16 @@ def childbirth(driver, current_url, race):
     races = {
         'andalusian': [18, 'Гранат', 'Лайм'],
         'unicorn': [15, 'Морожка', 'Ворожка'],
-        'heavy_horse': [3, 'Пончик', 'Эклер'],
-        'marshadore': [2, 'Марша', 'Маршель']
+        'heavy_horse': [6, 'Пончик', 'Эклер'],
+        'marshadore': [3, 'Марша', 'Маршель']
     }
 
     if race == 'unicorn':
-        profile = driver.find_element(
+        style = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div/figure'
         ).get_attribute('style')
-        if 'horn' not in profile:
+        if 'horn' not in style:
             race = 'andalusian'
 
     sex = driver.find_element(
@@ -772,6 +772,9 @@ def childbirth(driver, current_url, race):
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
         ).send_keys(new_name)
 
+        if race == 'marshadore':
+            races[race][0] = 4
+
     elif sex == 'femelle':
 
         new_name = f'{races[race][1]} {gen_potential}'
@@ -782,10 +785,17 @@ def childbirth(driver, current_url, race):
         ).send_keys(new_name)
     time.sleep(2)
 
-    get_farm = driver.find_element(
+    profile = driver.find_element(
         By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table[3]/tbody'
-        f'/tr/td[3]/div[2]/table/tbody/tr[2]/td[2]/select/option[{races[race][0]}]'
+        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]/div[1]/a'
+    ).click()
+    time.sleep(1)
+
+    xpath = (f'/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]'
+             f'/div[2]/table/tbody/tr[2]/td[2]/select/option[{races[race][0]}]')
+
+    get_farm = driver.find_element(
+        By.XPATH, xpath
     ).click()
     time.sleep(1)
 
