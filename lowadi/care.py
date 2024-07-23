@@ -14,8 +14,16 @@ def get_farm(race: str, sex: str):
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198'
         elif sex == 'unicorn':
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
+
+    if race == 'andalusian_elite':
+        if sex == 'female':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1586236'
+        elif sex == 'male':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593208'
+
     elif race == 'heavy_horse':
         farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
+
     elif race == 'marshadore':
         if sex == 'female':
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1590179'
