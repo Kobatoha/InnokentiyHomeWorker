@@ -59,7 +59,7 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
 
         page = driver.find_element(
             By.XPATH,
-            f'/html/body/div[7]/main/section/section/div[1]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li[{i}]/a'
+            f'/html/body/div[7]/main/section/section/div[2]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li[{i}]/a'
         ).click()
         print(f'Page: {i - 1}')
         time.sleep(2)
