@@ -4,7 +4,7 @@ from get_driver import new_drb, new_brave_dr
 import pretty_errors
 from lowadi.andalusian import andalusian_female, andalusian_male, andalusian_unicorn
 from lowadi.heavyhorse import work_heavyhorse
-from lowadi.marshadore import marshadore_female
+from lowadi.marshadore import marshadore_female, marshadore_male
 from lowadi.other import *
 
 
@@ -19,13 +19,18 @@ def begin(driver):
 
 if __name__ == '__main__':
     try:
-
+        '''
+        main comp + chrome
+        '''
         print(f'{datetime.now().strftime("%H:%M:%S")}: запускаем chrome')
         driver = new_drb()
         driver.set_window_size(1400, 1300)
+        login_lowadi(driver)
 
     except:
-
+        '''
+        notebook + brave
+        '''
         time.sleep(3)
         driver = new_brave_dr()
         driver.set_window_size(1700, 1360)
@@ -35,9 +40,10 @@ if __name__ == '__main__':
     login_lowadi(driver)
     work_heavyhorse(driver, 100)
     andalusian_unicorn(driver, 50)
-    andalusian_female(driver, 2055)
-    andalusian_male(driver, 200)
-    marshadore_female(driver, 100)
+    andalusian_female(driver, 1500)
+    andalusian_male(driver, 500)
+    marshadore_female(driver, 50)
+    marshadore_male(driver, 20)
 
     """
     75 коней с гп 15к+ = 4 х 75 = 300 ежедневных случек = 75 душевых и поилок = х2 набора случки\кач
