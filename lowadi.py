@@ -4,6 +4,7 @@ from get_driver import new_drb, new_brave_dr
 import pretty_errors
 from lowadi.andalusian import work_female, work_male, work_unicorn
 from lowadi.heavyhorse import work_heavyhorse
+from lowadi.marshadore import marshadore_female
 from lowadi.other import *
 
 
@@ -36,6 +37,7 @@ if __name__ == '__main__':
     work_unicorn(driver, 50)
     work_female(driver, 2055)
     work_male(driver, 200)
+    marshadore_female(driver, 100)
 
     """
     75 коней с гп 15к+ = 4 х 75 = 300 ежедневных случек = 75 душевых и поилок = х2 набора случки\кач

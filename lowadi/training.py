@@ -6,10 +6,14 @@ import re
 
 def flag_train_complete(driver, train='speed'):
     discipline = {
+        'stamina': '//*[@id="training-tab-main"]/div/table/tbody/tr[1]/td[2]',
         'speed': '//*[@id="training-tab-main"]/div/table/tbody/tr[2]/td[2]',
         'dressage': '//*[@id="training-tab-main"]/div/table/tbody/tr[3]/td[2]',
-        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]'
+        'galop': '//*[@id="training-tab-main"]/div/table/tbody/tr[4]/td[2]',
+        'trot': '//*[@id="training-tab-main"]/div/table/tbody/tr[5]/td[2]',
+        'jump': '//*[@id="training-tab-main"]/div/table/tbody/tr[6]/td[2]',
     }
+
     find_flag = driver.find_element(
         By.XPATH,
         discipline[train]
@@ -114,31 +118,31 @@ def blup_dressage(driver, hour):
 
 def blup_stamina(driver, hour):
     try:
-        choice_speed = driver.find_element(
+        choice_stamina = driver.find_element(
             By.XPATH,
             '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
-            '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
+            '/div[1]/div/table/tbody/tr[1]/td[3]/button/span'
         ).click()
         time.sleep(1)
     except:
-        choice_speed = driver.find_element(
+        choice_stamina = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
-            '/div[1]/div/table/tbody/tr[2]/td[3]/button/span'
+            '/div[1]/div/table/tbody/tr[1]/td[3]/button/span'
         ).click()
         time.sleep(1)
 
-    click_speed = driver.find_element(
+    click_stamina = driver.find_element(
         By.XPATH,
-        f'//*[@id="trainingVitesseSlider"]/ol/li[{hour + 1}]'
+        f'//*[@id="trainingEnduranceSlider"]/ol/li[{hour + 1}]'
     ).click()
     time.sleep(1)
 
     train = driver.find_element(
         By.XPATH,
-        '//*[@id="training-vitesse-submit"]/span/span/span'
+        '//*[@id="training-endurance-submit"]/span/span/span'
     ).click()
-    print(f'Тренировали скорость {hour/2} hours')
+    print(f'Тренировали выносливость {hour/2} hours')
     time.sleep(2)
 
 
@@ -303,7 +307,7 @@ def general_training_marshadore(driver, energy=20):
     dressage = 5
 
     flag = 100
-    train = 'speed'
+    train = 'stamina'
 
     for train in train_programm:
         flag = flag_train_complete(driver, train)
@@ -319,6 +323,14 @@ def general_training_marshadore(driver, energy=20):
                 blup_stamina(driver, hour)
             else:
                 hour = 100 - flag
+                blup_stamina(driver, hour)
+
+        elif train == 'speed':
+            hour = (energy - 20) // speed
+            if hour <= 100 - flag:
+                blup_speed(driver, hour)
+            else:
+                hour = 100 - flag
                 blup_speed(driver, hour)
 
         elif train == 'dressage':
@@ -328,14 +340,6 @@ def general_training_marshadore(driver, energy=20):
             else:
                 hour = 100 - flag
                 blup_dressage(driver, hour)
-
-        elif train == 'galop':
-            hour = (energy - 20) // galop
-            if hour <= 100 - flag:
-                blup_galop(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_galop(driver, hour)
 
     else:
         hour = (energy - 20) // montains

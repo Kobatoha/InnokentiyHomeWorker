@@ -13,8 +13,8 @@ from lowadi.trade import *
 from lowadi.training import *
 
 
-def marshadore_female(driver, horses=200):
-    print('Начинаем гонять маршадорек')
+def marshadore_female(driver, horses=100):
+    print('Начинаем гонять маршадорок')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
     current_url = find_unworking_horse(driver, 'marshadore', 'female')
@@ -103,12 +103,13 @@ def marshadore_female(driver, horses=200):
                     except:
                         pass
 
-                    old_horse(driver, age, name, n)
-
-                    time.sleep(1)
+                    get_doping(driver)[-1].click()
+                    time.sleep(2)
+                    get_food(driver)
+                    get_sleep(driver)
 
                     energy = get_energy(driver)
-                    general_training(driver, energy)
+                    general_training_marshadore(driver, energy)
                     if get_energy(driver) < 20:
                         get_doping(driver)[0].click()
                         time.sleep(1)
@@ -133,8 +134,8 @@ def marshadore_female(driver, horses=200):
             horses -= 1
 
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
-          f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
+    print(f'\n{now} прогон маршадорок окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}\n'
+          f'-- Предложено случек: {post_mating}')
 
 
 def work_male(driver, horses=500):

@@ -14,7 +14,7 @@ from lowadi.training import *
 
 
 def work_heavyhorse(driver, horses=100):
-    print('Начинаем гонять лошадулек')
+    print('Начинаем гонять тяжиков')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
 
     current_url = find_unworking_horse(driver, 'heavy_horse', '')
@@ -87,7 +87,7 @@ def work_heavyhorse(driver, horses=100):
                             print('Ваша кобыла скоро родит!')
                             call_doctor = driver.find_element(By.XPATH, '//*[@id="boutonVeterinaire"]').click()
                             time.sleep(1)
-                            children += childbirth(driver, current_url, 'unicorn')
+                            children += childbirth(driver, current_url, 'heavy_horse')
 
                     except:
                         pass
