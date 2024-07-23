@@ -40,10 +40,10 @@ if __name__ == '__main__':
     login_lowadi(driver)
     work_heavyhorse(driver, 100)
     andalusian_unicorn(driver, 50)
-    andalusian_female(driver, 1500)
+    andalusian_female(driver, 1200)
     andalusian_male(driver, 500)
     marshadore_female(driver, 50)
-    marshadore_male(driver, 20)
+    marshadore_male(driver, 40)
 
     """
     75 коней с гп 15к+ = 4 х 75 = 300 ежедневных случек = 75 душевых и поилок = х2 набора случки\кач

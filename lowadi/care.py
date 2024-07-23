@@ -356,7 +356,7 @@ def get_stable(driver):
                 '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
                 '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
             ).click()
-            time.sleep(2)
+            time.sleep(3)
 
             check_ufo(driver)
 
@@ -370,6 +370,7 @@ def get_stable(driver):
                 By.XPATH,
                 '/html/body/div[7]/main/section/section/div[2]/table/tbody/tr[1]/td[9]/button/span/span/span'
             ).click()
+            time.sleep(3)
 
             return 1
 
