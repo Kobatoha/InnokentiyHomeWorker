@@ -648,21 +648,68 @@ def male_marshadore(driver):
     num = 0
     name = get_name_horse(driver)
     energy = get_energy(driver)
-    females = 1
+
+    count = energy // mating
 
     try:
-        while energy >= 45:
+        while count != 0:
+            with open('lowadi/marshadore.txt', 'r') as file:
+                females = file.readlines()
 
+            if not females:
+                return num
 
-            print(f'{name} предложил случек: {num}')
+            use_mating = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
+            ).click()
+            time.sleep(2)
 
-            return num
+            choice_reservation = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
+            ).click()
+            time.sleep(2)
+
+            send_name = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
+            ).send_keys(f'{females[0][:-1]}')
+            time.sleep(1)
+
+            watch = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
+            ).click()
+            time.sleep(1)
+
+            complete = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
+            ).click()
+            time.sleep(3)
+
+            with open('lowadi/marshadore.txt', 'w') as file:
+                for female in females[1:]:
+                    file.write(female)
+
+            num += 1
+            count -= 1
+
+        print(f'{name} предложил случек: {num}')
+
+        return num
 
     except:
 
-        print('error male_horse')
+        print('error male_marshadore')
 
-        return 0
+        return num
 
 
 def get_servant_farm(driver):
@@ -740,31 +787,6 @@ def get_servant_farm(driver):
             pass
 
     return urls
-
-
-def servant_male_horse(driver):
-    urls = get_servant_farm(driver)
-    num = 0
-    for url in urls:
-        driver.get(url)
-        time.sleep(1)
-        name = get_name_horse(driver)
-        genetic_potential = int(name.split()[1][:-3])
-        time.sleep(1)
-        get_doping(driver)[1].click()
-        time.sleep(1)
-        get_doping(driver)[4].click()
-        time.sleep(1)
-        num += male_horse(driver)
-        time.sleep(1)
-        get_food(driver)
-        time.sleep(1)
-        sleep = driver.find_element(
-            By.XPATH,
-            '//*[@id="boutonCoucher"]'
-        ).click()
-        time.sleep(2)
-    print(f'Мужские особи предложили случек: {num}')
 
 
 def stable_options(driver):

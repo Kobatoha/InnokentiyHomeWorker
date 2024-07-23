@@ -238,7 +238,7 @@ def marshadore_male(driver, horses=20):
                     time.sleep(1)
 
                     energy = get_energy(driver)
-                    general_training(driver, energy)
+                    general_training_marshadore(driver, energy)
                     if get_energy(driver) < 20:
                         get_doping(driver)[0].click()
                         time.sleep(1)
