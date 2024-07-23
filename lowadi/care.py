@@ -19,6 +19,8 @@ def get_farm(race: str, sex: str):
     elif race == 'marshadore':
         if sex == 'female':
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1590179'
+        if sex == 'male':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1594304'
 
     return farm
 
