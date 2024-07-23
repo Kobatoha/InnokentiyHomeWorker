@@ -843,8 +843,9 @@ def childbirth(driver, current_url, race):
     check_ufo(driver)
 
     races = {
-        'andalusian': [18, 'Гранат', 'Лайм'],
-        'unicorn': [15, 'Морожка', 'Ворожка'],
+        'andalusian': [19, 'Гранат', 'Лайм'],
+        'andalusian_elite': [11, 'Явь', 'Морок'],
+        'unicorn': [17, 'Морожка', 'Ворожка'],
         'heavy_horse': [6, 'Пончик', 'Эклер'],
         'marshadore': [3, 'Марша', 'Маршель']
     }
@@ -880,6 +881,8 @@ def childbirth(driver, current_url, race):
 
         if race == 'marshadore':
             races[race][0] = 4
+        elif race == 'andalusian_elite':
+            races[race][0] = 12
 
     elif sex == 'femelle':
 
@@ -897,11 +900,10 @@ def childbirth(driver, current_url, race):
     ).click()
     time.sleep(1)
 
-    xpath = (f'/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]'
-             f'/div[2]/table/tbody/tr[2]/td[2]/select/option[{races[race][0]}]')
-
-    get_farm = driver.find_element(
-        By.XPATH, xpath
+    choice_farm = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]'
+        f'/div[2]/table/tbody/tr[2]/td[2]/select/option[{races[race][0]}]'
     ).click()
     time.sleep(1)
 

@@ -18,6 +18,11 @@ def marshadore_female(driver, horses=100):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
     current_url = find_unworking_horse(driver, 'marshadore', 'female')
+
+    if not current_url:
+        print('Все спят, гонять нечего <3')
+        return
+
     driver.get(current_url)
 
     children = 0
@@ -150,6 +155,11 @@ def marshadore_male(driver, horses=20):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=92114142'
 
     current_url = find_unworking_horse(driver, 'marshadore', 'male')
+
+    if not current_url:
+        print('Все спят, гонять нечего <3')
+        return
+
     driver.get(current_url)
 
     post_mating = 0

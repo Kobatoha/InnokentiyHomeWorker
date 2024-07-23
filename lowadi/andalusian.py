@@ -20,6 +20,11 @@ def andalusian_female(driver, horses=2000):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
     current_url = find_unworking_horse(driver, 'andalusian', 'female')
+
+    if not current_url:
+        print('Все спят, гонять нечего <3')
+        return
+
     driver.get(current_url)
 
     children = 0
@@ -146,7 +151,16 @@ def andalusian_female(driver, horses=2000):
 
 
 def andalusian_male(driver, horses=500):
-    current_url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90938560'
+    url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90938560'
+
+    current_url = find_unworking_horse(driver, 'andalusian', 'male')
+
+    if not current_url:
+        print('Все спят, гонять нечего <3')
+        return
+
+    driver.get(current_url)
+
     post_mating = 0
     stable = 0
     n = 1
@@ -268,6 +282,11 @@ def andalusian_unicorn(driver, horses=50):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
     current_url = find_unworking_horse(driver, 'andalusian', 'unicorn')
+
+    if not current_url:
+        print('Все спят, гонять нечего <3')
+        return
+
     driver.get(current_url)
 
     children = 0

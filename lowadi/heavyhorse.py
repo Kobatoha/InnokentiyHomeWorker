@@ -18,6 +18,11 @@ def work_heavyhorse(driver, horses=100):
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
 
     current_url = find_unworking_horse(driver, 'heavy_horse', '')
+
+    if not current_url:
+        print('Все спят, гонять нечего <3')
+        return
+
     driver.get(current_url)
 
     n = 1
