@@ -3,6 +3,7 @@ import time
 from get_driver import new_drb, new_brave_dr
 import pretty_errors
 from lowadi.andalusian import andalusian_female, andalusian_male, andalusian_unicorn
+from lowadi.andalusian import andalusian_elite_female, andalusian_elite_male
 from lowadi.heavyhorse import work_heavyhorse
 from lowadi.marshadore import marshadore_female, marshadore_male
 from lowadi.other import *
@@ -44,6 +45,9 @@ if __name__ == '__main__':
     andalusian_male(driver, 500)
     marshadore_female(driver, 50)
     marshadore_male(driver, 40)
+    andalusian_elite_female(driver, 30)
+    andalusian_elite_male(driver, 30)
+
 
     """
     75 коней с гп 15к+ = 4 х 75 = 300 ежедневных случек = 75 душевых и поилок = х2 набора случки\кач

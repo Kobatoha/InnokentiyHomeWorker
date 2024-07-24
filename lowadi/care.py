@@ -604,6 +604,125 @@ def male_andalusian(driver):
         return 0
 
 
+def female_andalusian_elite_mating(driver, current_url):
+    matting = ready_matt(driver)
+
+    if matting and matting[1] == 1:
+
+        male_name = driver.find_element(
+            By.XPATH,
+            '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+        ).text
+        print(f'Принимаем случку от {male_name}')
+
+        ok = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+        ).click()
+
+        check_ufo(driver)
+
+        mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+        time.sleep(1)
+
+        print('Кобыла успешно провела случку')
+        time.sleep(1)
+
+        return 1
+
+    elif matting and matting[1] == 0:
+
+        name = get_name_horse(driver)
+
+        with open('lowadi/andalusian.txt', 'r') as file:
+            names = file.readlines()
+
+        if name + '\n' not in names:
+            with open('lowadi/andalusian.txt', 'a') as file:
+                file.write(name + '\n')
+
+            print('Добавлена в очередь на ожидание случки')
+        else:
+            print('Уже в очереди на ожидание случки')
+
+        return 0
+
+    else:
+
+        return 0
+
+
+def male_andalusian_elite_mating(driver):
+
+    mating = 25
+    num = 0
+    name = get_name_horse(driver)
+    energy = get_energy(driver)
+
+    count = energy // mating
+
+    try:
+        while count != 0:
+            with open('lowadi/andalusian.txt', 'r') as file:
+                females = file.readlines()
+
+            if not females:
+                return num
+
+            use_mating = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
+            ).click()
+            time.sleep(2)
+
+            choice_reservation = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
+            ).click()
+            time.sleep(2)
+
+            send_name = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
+            ).send_keys(f'{females[0][:-1]}')
+            time.sleep(1)
+
+            watch = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
+            ).click()
+            time.sleep(1)
+
+            complete = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
+            ).click()
+            time.sleep(3)
+
+            with open('lowadi/andalusian.txt', 'w') as file:
+                for female in females[1:]:
+                    file.write(female)
+
+            num += 1
+            count -= 1
+
+        print(f'{name} предложил случек: {num}')
+
+        return num
+
+    except:
+
+        print('error male_andalusian_elite_mating')
+
+        return num
+
+
 def female_marshadore(driver, current_url):
     matting = ready_matt(driver)
 
