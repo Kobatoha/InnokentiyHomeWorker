@@ -263,13 +263,14 @@ def atelier(driver, workshop=3):
             try:
                 get_stable_1 = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[7]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
+                    '/html/body/div[7]/main/section/section/form/table/tbody/tr[6]/td[6]/a/span'
                 )
             except:
                 get_stable_1 = driver.find_element(
                     By.XPATH,
-                    '/html/body/div[8]/main/section/section/form/table/tbody/tr[3]/td[6]/a/span'
+                    '/html/body/div[8]/main/section/section/form/table/tbody/tr[6]/td[6]/a/span'
                 )
+
             match get_stable_1.text:
                 case 'Получить':
                     print('Стойла готовы, собираем')

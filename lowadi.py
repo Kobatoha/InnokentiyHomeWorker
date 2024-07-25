@@ -48,6 +48,8 @@ if __name__ == '__main__':
     andalusian_elite_female(driver, 30)
     andalusian_elite_male(driver, 30)
 
+    atelier(driver, 3)
+
 
     """
     75 коней с гп 15к+ = 4 х 75 = 300 ежедневных случек = 75 душевых и поилок = х2 набора случки\кач

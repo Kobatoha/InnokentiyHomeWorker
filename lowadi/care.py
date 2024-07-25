@@ -970,11 +970,11 @@ def childbirth(driver, current_url, race):
     check_ufo(driver)
 
     races = {
-        'andalusian': [19, 'Гранат', 'Лайм'],
-        'andalusian_elite': [11, 'Явь', 'Морок'],
-        'unicorn': [17, 'Морожка', 'Ворожка'],
-        'heavy_horse': [6, 'Пончик', 'Эклер'],
-        'marshadore': [3, 'Марша', 'Маршель']
+        'andalusian': [20, 'Гранат', 'Лайм'],
+        'andalusian_elite': [12, 'Явь', 'Морок'],
+        'unicorn': [18, 'Морожка', 'Ворожка'],
+        'heavy_horse': [7, 'Пончик', 'Эклер'],
+        'marshadore': [4, 'Марша', 'Маршель']
     }
 
     if race == 'unicorn':
@@ -1007,9 +1007,9 @@ def childbirth(driver, current_url, race):
         ).send_keys(new_name)
 
         if race == 'marshadore':
-            races[race][0] = 4
+            races[race][0] = 5
         elif race == 'andalusian_elite':
-            races[race][0] = 12
+            races[race][0] = 13
 
     elif sex == 'femelle':
 
