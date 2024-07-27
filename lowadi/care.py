@@ -957,6 +957,34 @@ def check_open_mating(driver):
     return checked
 
 
+def childbirth_without_stable(driver):
+    try:
+        button = driver.find_element(
+            By.XPATH,
+            '/html/body/div[11]/div/div/table/tbody/tr/td[2]/button/span/span/span'
+        )
+        if 'Зарегистрировать мою кобылу в КСК' == button.text:
+            button.click()
+            time.sleep(2)
+
+            check_ufo(driver)
+
+            reserv = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/ul/li[2]/div/a'
+            ).click()
+            time.sleep(2)
+
+            one_month = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[2]/table/tbody/tr[1]/td[9]/button/span/span/span'
+            ).click()
+            time.sleep(3)
+
+    except:
+        pass
+
+
 def childbirth(driver, current_url, race):
     '''
     0 == ...
