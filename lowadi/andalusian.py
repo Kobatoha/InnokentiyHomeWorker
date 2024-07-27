@@ -72,6 +72,8 @@ def andalusian_female(driver, horses=2000):
 
                 sex = get_sex(driver)
 
+                childbirth_without_stable(driver)
+
                 try:
                     stable += get_stable(driver)
                 except:
@@ -290,6 +292,7 @@ def andalusian_unicorn(driver, horses=50):
     driver.get(current_url)
 
     children = 0
+    stable = 0
 
     n = 1
     time.sleep(5)
@@ -331,6 +334,13 @@ def andalusian_unicorn(driver, horses=50):
                 name = get_name_horse(driver)
 
                 sex = get_sex(driver)
+
+                childbirth_without_stable(driver)
+
+                try:
+                    stable += get_stable(driver)
+                except:
+                    pass
 
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
@@ -444,6 +454,8 @@ def andalusian_elite_female(driver, horses=30):
                 name = get_name_horse(driver)
 
                 sex = get_sex(driver)
+
+                childbirth_without_stable(driver)
 
                 try:
                     stable += get_stable(driver)

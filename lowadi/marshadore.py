@@ -72,6 +72,8 @@ def marshadore_female(driver, horses=100):
 
                 sex = get_sex(driver)
 
+                childbirth_without_stable(driver)
+
                 try:
                     stable += get_stable(driver)
                 except:

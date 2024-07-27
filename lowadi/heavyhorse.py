@@ -27,6 +27,7 @@ def work_heavyhorse(driver, horses=100):
 
     n = 1
     children = 0
+    stable = 0
 
     time.sleep(5)
 
@@ -67,8 +68,10 @@ def work_heavyhorse(driver, horses=100):
 
                 sex = get_sex(driver)
 
+                childbirth_without_stable(driver)
+
                 try:
-                    get_stable(driver)
+                    stable += get_stable(driver)
                 except:
                     pass
 
