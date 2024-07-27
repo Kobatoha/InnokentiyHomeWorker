@@ -6,7 +6,7 @@ from functions import *
 
 def create_buttons(parent):
     driver_brave = QPushButton('', parent)
-    driver_brave.setGeometry(QRect(250, 150, 40, 40))
+    driver_brave.setGeometry(QRect(250, 10, 40, 40))
     driver_brave.setAutoFillBackground(False)
     driver_brave.setIcon(QIcon('images/icons8-brave-48.png'))
     driver_brave.setIconSize(QSize(30, 30))
@@ -14,7 +14,7 @@ def create_buttons(parent):
     driver_brave.clicked.connect(handle_driver_brave)
 
     driver_chrome = QPushButton('', parent)
-    driver_chrome.setGeometry(QRect(300, 150, 40, 40))
+    driver_chrome.setGeometry(QRect(300, 10, 40, 40))
     driver_chrome.setIcon(QIcon('images/icons8-chrome-48.png'))
     driver_chrome.setIconSize(QSize(30, 30))
     driver_chrome.clicked.connect(handle_driver_chrome)
