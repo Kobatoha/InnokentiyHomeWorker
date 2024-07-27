@@ -1,7 +1,6 @@
 from PyQt6.QtWidgets import QWidget, QPushButton, QVBoxLayout, QMainWindow, QProgressBar, QLineEdit, QLabel, QMenuBar
 from PyQt6.QtGui import QIcon, QPixmap, QFont
 from PyQt6.QtCore import QRect, QSize, Qt
-from functions import handle_btn1, handle_btn2, handle_btn3
 from buttons import create_buttons
 from labels import create_labels
 from line_edits import create_line_edits
