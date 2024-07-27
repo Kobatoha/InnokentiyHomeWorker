@@ -14,7 +14,7 @@ class MyApp(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle('Приложение с несколькими кнопками')
-        self.resize(350, 300)
+        self.resize(350, 400)
 
         with open('css/style.css', 'r') as f:
             self.setStyleSheet(f.read())

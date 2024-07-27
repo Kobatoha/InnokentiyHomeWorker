@@ -30,5 +30,9 @@ def handle_female_marshadore():
     print('Кнопка female_marshadore нажата!')
 
 
+def handle_male_marshadore():
+    print('Кнопка male_marshadore нажата!')
+
+
 def count_horses():
     return 1
