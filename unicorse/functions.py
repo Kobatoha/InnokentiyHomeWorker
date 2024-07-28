@@ -34,5 +34,9 @@ def handle_male_marshadore():
     print('Кнопка male_marshadore нажата!')
 
 
+def handle_heavy():
+    print('Кнопка heavy нажата!')
+
+
 def count_horses():
     return 1

@@ -67,3 +67,10 @@ def create_buttons(parent):
     male_marshadore.setIconSize(QSize(30, 30))
     male_marshadore.setObjectName('male_marshadore')
     male_marshadore.clicked.connect(handle_male_marshadore)
+
+    heavy = QPushButton('heavy', parent)
+    heavy.setGeometry(QRect(10, 360, 100, 40))
+    heavy.setIcon(QIcon('images/reproduction_v1713961017.png'))
+    heavy.setIconSize(QSize(30, 30))
+    heavy.setObjectName('heavy_horse')
+    heavy.clicked.connect(handle_heavy)
