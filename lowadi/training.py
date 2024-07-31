@@ -111,6 +111,7 @@ def blup_dressage(driver, hour):
         '//*[@id="training-dressage-submit"]/span/span/span'
     ).click()
     message = f'Тренировали выездку {hour / 2} hours'
+    print(message)
     time.sleep(2)
 
     return message
@@ -180,6 +181,27 @@ def get_competition_galop(driver):
     click_competition = driver.find_element(
         By.XPATH,
         '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
+    ).click()
+    time.sleep(5)
+    try:
+        run = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
+            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
+        ).click()
+    except:
+        run = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+        ).click()
+
+    time.sleep(3)
+
+
+def get_competition_trot(driver):
+    click_competition = driver.find_element(
+        By.XPATH,
+        '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[1]/a'
     ).click()
     time.sleep(5)
     try:
@@ -352,13 +374,17 @@ def general_training_marshadore(driver, energy=20):
     time.sleep(2)
 
 
-def blup_training(driver, energy=20):
-    train_programm = ['speed', 'dressage', 'galop']
+def blup_training(driver, energy=20, race='andalusian'):
+    if race == 'andalusian':
+        train_programm = ['speed', 'dressage', 'galop']
+    elif race == 'francy':
+        train_programm = ['speed', 'dressage', 'trot']
 
     montains = 8.1
     speed = 7.2
     dressage = 4.5
     galop = 6.3
+    trot = 6.3
 
     flag = 100
     hour = 0

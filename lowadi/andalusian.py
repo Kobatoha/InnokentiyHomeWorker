@@ -721,6 +721,7 @@ def add_horse_database(driver):
 def train_blup(driver):
     name = get_name_horse(driver)
     age = get_age_horse(driver)
+    race = 'andalusian'
 
     print(f'{datetime.now().strftime("%H:%M")} Начинаем качать [{name}] до 100 блюпа')
 
@@ -746,6 +747,7 @@ def train_blup(driver):
                 grow_up(driver)
 
             elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
+                print(f'№{step} Молодая лошадь: {name}, гуляем в горах.', *age)
 
                 try:
                     blup_montains(driver, hour=11)
@@ -789,7 +791,7 @@ def train_blup(driver):
                     time.sleep(2)
 
                 energy = get_energy(driver)
-                message = blup_training(driver, energy)
+                message = blup_training(driver, energy, race)
 
                 if message == 'dressage':
                     for i in range(3):
@@ -800,7 +802,11 @@ def train_blup(driver):
 
                     blup_diet(driver)
                     get_sleep(driver)
-                    message = blup_dressage(driver, 4)
+                    try:
+                        message = blup_dressage(driver, 4)
+                    except:
+                        energy = get_energy(driver)
+                        message = blup_training(driver, energy - 20, race)
 
                 else:
                     for i in range(5):
@@ -810,7 +816,7 @@ def train_blup(driver):
                     blup_diet(driver)
                     get_sleep(driver)
                     energy = get_energy(driver)
-                    message = blup_training(driver, energy - 20)
+                    message = blup_training(driver, energy - 20, race)
 
                 if 'speed' in message or 'dressage' in message or 'galop' in message:
                     grow_up(driver)
