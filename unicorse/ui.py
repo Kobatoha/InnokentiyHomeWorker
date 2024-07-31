@@ -9,12 +9,12 @@ from line_edits import create_line_edits
 class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        self.driver = None
         self.init_ui()
 
     def init_ui(self):
-        self.setWindowTitle('Приложение с несколькими кнопками')
-        self.resize(350, 400)
+        self.setWindowTitle('Unicorse')
+        self.resize(350, 410)
 
         with open('css/style.css', 'r') as f:
             self.setStyleSheet(f.read())
@@ -25,7 +25,7 @@ class MyApp(QMainWindow):
         layout = QVBoxLayout()
         central_widget.setLayout(layout)
 
-        create_buttons(central_widget)
+        create_buttons(central_widget, MyApp)
 
         create_labels(central_widget)
 
@@ -36,8 +36,7 @@ class MyApp(QMainWindow):
         font = QFont()
         font.setPointSize(9)
         font.setBold(True)
-        font.setItalic(False)
         progress_bar.setFont(font)
-        progress_bar.setProperty("value", 50)
-        progress_bar.setObjectName("progressBar")
+        progress_bar.setProperty("value", 22)
+        progress_bar.setObjectName("progress_bar")
 
