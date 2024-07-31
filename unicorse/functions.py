@@ -1,9 +1,16 @@
-def handle_driver_brave():
+import get_driver
+
+
+def handle_driver_brave(main_app):
     print('Кнопка driver_brave нажата!')
+    main_app.driver = get_driver.new_brave_dr()
+    print('Драйвер создан:', main_app.driver)
 
 
-def handle_driver_chrome():
+def handle_driver_chrome(main_app):
     print('Кнопка driver_chrome нажата!')
+    main_app.driver = get_driver.new_drb()
+    print('Драйвер создан:', main_app.driver)
 
 
 def handle_female_andalus():
@@ -22,8 +29,8 @@ def handle_competitions_andalus():
     print('Кнопка competitions_andalus нажата!')
 
 
-def handle_blup_andalus():
-    print('Кнопка blup_andalus нажата!')
+def handle_blup_baium():
+    print('Кнопка blup_baium нажата!')
 
 
 def handle_female_marshadore():
