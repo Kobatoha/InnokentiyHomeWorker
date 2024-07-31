@@ -2,7 +2,7 @@ from datetime import datetime
 import time
 from get_driver import new_drb, new_brave_dr
 import pretty_errors
-from lowadi.andalusian import andalusian_female, andalusian_male, andalusian_unicorn
+from lowadi.andalusian import andalusian_female, andalusian_male, andalusian_unicorn, train_blup
 from lowadi.andalusian import andalusian_elite_female, andalusian_elite_male
 from lowadi.heavyhorse import work_heavyhorse
 from lowadi.marshadore import marshadore_female, marshadore_male
@@ -42,13 +42,14 @@ if __name__ == '__main__':
     work_heavyhorse(driver, 100)
     andalusian_unicorn(driver, 50)
     andalusian_female(driver, 1200)
-    andalusian_male(driver, 500)
-    marshadore_female(driver, 50)
+    andalusian_male(driver, 300)
+    marshadore_female(driver, 100)
     marshadore_male(driver, 40)
     andalusian_elite_female(driver, 30)
     andalusian_elite_male(driver, 30)
 
     atelier(driver, 3)
+    train_blup(driver)
 
 
     """
