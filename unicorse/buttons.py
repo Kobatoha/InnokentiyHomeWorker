@@ -2,16 +2,17 @@ from PyQt6.QtWidgets import QPushButton
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import QRect, QSize
 from functions import *
+import get_driver
 
 
-def create_buttons(parent):
+def create_buttons(parent, main_app):
     driver_brave = QPushButton('', parent)
     driver_brave.setGeometry(QRect(250, 10, 40, 40))
     driver_brave.setAutoFillBackground(False)
     driver_brave.setIcon(QIcon('images/icons8-brave-48.png'))
     driver_brave.setIconSize(QSize(30, 30))
     driver_brave.setObjectName('driver_brave')
-    driver_brave.clicked.connect(handle_driver_brave)
+    driver_brave.clicked.connect(lambda: handle_driver_brave(main_app))
 
     driver_chrome = QPushButton('', parent)
     driver_chrome.setGeometry(QRect(300, 10, 40, 40))
@@ -47,12 +48,12 @@ def create_buttons(parent):
     competitions_andalus.setObjectName('competitions_andalus')
     competitions_andalus.clicked.connect(handle_competitions_andalus)
 
-    blup_andalus = QPushButton('andalusian', parent)
-    blup_andalus.setGeometry(QRect(10, 210, 100, 40))
-    blup_andalus.setIcon(QIcon('images/trophee_v1713961017.png'))
-    blup_andalus.setIconSize(QSize(30, 30))
-    blup_andalus.setObjectName('blup_andalus')
-    blup_andalus.clicked.connect(handle_blup_andalus)
+    blup_baium = QPushButton('blup baium', parent)
+    blup_baium.setGeometry(QRect(10, 210, 100, 40))
+    blup_baium.setIcon(QIcon('images/trophee_v1713961017.png'))
+    blup_baium.setIconSize(QSize(30, 30))
+    blup_baium.setObjectName('blup_baium')
+    blup_baium.clicked.connect(handle_blup_baium)
 
     female_marshadore = QPushButton('marsha', parent)
     female_marshadore.setGeometry(QRect(10, 260, 100, 40))
