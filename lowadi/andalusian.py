@@ -292,6 +292,8 @@ def andalusian_unicorn(driver, horses=50):
     driver.get(current_url)
 
     children = 0
+    get_mating = 0
+    post_mating = 0
     stable = 0
 
     n = 1
@@ -373,6 +375,12 @@ def andalusian_unicorn(driver, horses=50):
                         pass
 
                     old_horse(driver, age, name, n)
+
+                    if 'кобыла' in sex:
+                        get_mating += female_andalusian_unicorn_mating(driver, current_url)
+
+                    elif 'конь' in sex:
+                        post_mating += male_andalusian_unicorn_mating(driver)
 
                     time.sleep(1)
 
