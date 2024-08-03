@@ -437,7 +437,7 @@ def andalusian_elite_female(driver, horses=30):
 
             next_horse(driver)
 
-            print(f'№{n} Лошадь-маршадор: {name}, уже получила уход.', *age)
+            print(f'№{n} Лошадь-элитный андалуз: {name}, уже получила уход.', *age)
             n += 1
             print('-' * 50)
             horses -= 1
@@ -502,7 +502,7 @@ def andalusian_elite_female(driver, horses=30):
                             print('Ваша кобыла скоро родит!')
                             call_doctor = driver.find_element(By.XPATH, '//*[@id="boutonVeterinaire"]').click()
                             time.sleep(1)
-                            children += childbirth(driver, current_url, 'marshadore')
+                            children += childbirth(driver, current_url, 'andalusian_elite')
 
                     except:
                         pass
