@@ -30,6 +30,7 @@ def andalusian_female(driver, horses=2000):
     children = 0
     get_mating = 0
     stable = 0
+    lesson = True
     n = 1
     time.sleep(5)
 
@@ -117,6 +118,12 @@ def andalusian_female(driver, horses=2000):
                         pass
 
                     old_horse(driver, age, name, n)
+                    if lesson:
+                        get_lesson(driver)
+
+                    if 'заработок: 0' in get_history(driver, 'lesson') and lesson:
+                        lesson = False
+                        print('УРОЧНЫЙ ПРОГОН ОКОНЧЕН, можно врубать остальные заводы скакать')
 
                     if 'кобыла' in sex:
                         get_mating += female_andalusian(driver, current_url)

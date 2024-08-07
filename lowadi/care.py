@@ -475,6 +475,8 @@ def get_history(driver, event='lesson'):
     for message in history:
         if events[event] in message:
             return message
+        else:
+            return ''
 
 
 def ready_matt(driver):
