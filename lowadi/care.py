@@ -452,8 +452,29 @@ def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=
     time.sleep(2)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
+
+
+def get_lesson(driver):
     lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
-    time.sleep(2)
+    time.sleep(1)
+
+
+def get_history(driver, event='lesson'):
+    events = {
+        'lesson': 'урок верховой езды',
+        'mission': 'выполнила миссию',
+        'clean': 'Полный уход',
+        'food': 'съел(а)',
+        'sleep': 'уложен(а) спать',
+        'OR': 'нашли 1 очко роста'
+    }
+    history = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[5]/div/div/div/div[1]/div/div/div/ul'
+    ).text.split('\n')
+    for message in history:
+        if events[event] in message:
+            return message
 
 
 def ready_matt(driver):
