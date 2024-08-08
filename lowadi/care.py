@@ -629,7 +629,7 @@ def male_andalusian(driver):
         return 0
 
 
-def female_andalusian_elite_mating(driver, current_url):
+def female_andalusian_elite_mating(driver):
     matting = ready_matt(driver)
 
     if matting and matting[1] == 1:
@@ -660,11 +660,11 @@ def female_andalusian_elite_mating(driver, current_url):
 
         name = get_name_horse(driver)
 
-        with open('lowadi/andalusian.txt', 'r') as file:
+        with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
             names = file.readlines()
 
         if name + '\n' not in names:
-            with open('lowadi/andalusian.txt', 'a') as file:
+            with open('lowadi/Lists of horses/andalusian.txt', 'a') as file:
                 file.write(name + '\n')
 
             print('Добавлена в очередь на ожидание случки')
@@ -689,7 +689,7 @@ def male_andalusian_elite_mating(driver):
 
     try:
         while count != 0:
-            with open('lowadi/andalusian.txt', 'r') as file:
+            with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
                 females = file.readlines()
 
             if not females:
@@ -730,7 +730,7 @@ def male_andalusian_elite_mating(driver):
             ).click()
             time.sleep(3)
 
-            with open('lowadi/andalusian.txt', 'w') as file:
+            with open('lowadi/Lists of horses/andalusian.txt', 'w') as file:
                 for female in females[1:]:
                     file.write(female)
 
@@ -779,11 +779,11 @@ def female_marshadore(driver, current_url):
 
         name = get_name_horse(driver)
 
-        with open('lowadi/marshadore.txt', 'r') as file:
+        with open('lowadi/Lists of horses/marshadore.txt', 'r') as file:
             names = file.readlines()
 
         if name + '\n' not in names:
-            with open('lowadi/marshadore.txt', 'a') as file:
+            with open('lowadi/Lists of horses/marshadore.txt', 'a') as file:
                 file.write(name + '\n')
 
             print('Добавлена в очередь на ожидание случки')

@@ -3,7 +3,7 @@ import time
 from get_driver import new_drb, new_brave_dr
 import pretty_errors
 from lowadi.andalusian import andalusian_female, andalusian_male, andalusian_unicorn, train_blup
-from lowadi.andalusian import andalusian_elite_female, andalusian_elite_male
+from lowadi.andalusian import andalusian_elite_female, andalusian_male_reserve
 from lowadi.heavyhorse import work_heavyhorse
 from lowadi.marshadore import marshadore_female, marshadore_male
 from lowadi.other import *
@@ -39,16 +39,16 @@ if __name__ == '__main__':
         begin(driver)
 
     login_lowadi(driver)
-    work_heavyhorse(driver, 100)
+    work_heavyhorse(driver, 130)
     andalusian_unicorn(driver, 50)
     andalusian_female(driver, 1200)
     andalusian_male(driver, 300)
-    marshadore_female(driver, 100)
+    andalusian_male_reserve(driver, 130)
+    marshadore_female(driver, 130)
     marshadore_male(driver, 40)
     andalusian_elite_female(driver, 30)
-    andalusian_elite_male(driver, 30)
 
-    atelier(driver, 3)
+    atelier(driver, 4)
     train_blup(driver)
 
 
