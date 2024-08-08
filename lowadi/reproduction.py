@@ -195,6 +195,8 @@ def female_reproduction(driver, race='andalusian'):
                 print('[Andalusian Unicorn] Уже в очереди на ожидание случки')
 
             return 0
+    else:
+        return 0
 
 
 def male_reproduction(driver, race='andalusian'):
