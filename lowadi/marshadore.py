@@ -1,19 +1,12 @@
-import os
-import random
-from datetime import datetime
-import time
-from get_driver import new_drb
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver import Keys, ActionChains
 import pretty_errors
 from lowadi.other import *
 from lowadi.care import *
 from lowadi.trade import *
 from lowadi.training import *
+from lowadi.reproduction import *
 
 
-def marshadore_female(driver, horses=100):
+def marshadore_female(driver, horses=130):
     print('Начинаем гонять маршадорок')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
@@ -116,7 +109,7 @@ def marshadore_female(driver, horses=100):
                     except:
                         pass
 
-                    get_mating += female_marshadore(driver, current_url)
+                    get_mating += female_reproduction(driver, 'marshadore')
 
                     get_doping(driver)[-1].click()
                     time.sleep(2)
@@ -243,7 +236,7 @@ def marshadore_male(driver, horses=20):
                     time.sleep(1)
 
                     if 'конь' in sex:
-                        post_mating += male_marshadore(driver)
+                        post_mating += male_reproduction(driver, 'marshadore')
 
                     get_doping(driver)[4].click()
                     time.sleep(1)

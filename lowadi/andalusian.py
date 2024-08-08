@@ -1,18 +1,9 @@
-import os
-import random
-from datetime import datetime
-import time
-from get_driver import new_drb
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
-from selenium.webdriver import Keys, ActionChains
 import pretty_errors
 from lowadi.other import *
 from lowadi.care import *
 from lowadi.trade import *
 from lowadi.training import *
-from lowadi.DataBase.andalusian_db import create_connection, insert_table, database
-from lowadi.DataBase.rare_color import andalusian
+from lowadi.reproduction import *
 
 
 def andalusian_female(driver, horses=2000):
@@ -126,7 +117,7 @@ def andalusian_female(driver, horses=2000):
                         print('УРОЧНЫЙ ПРОГОН ОКОНЧЕН, можно врубать остальные заводы скакать')
 
                     if 'кобыла' in sex:
-                        get_mating += female_andalusian(driver, current_url)
+                        get_mating += female_reproduction(driver)
 
                     time.sleep(1)
                     energy = get_energy(driver)
@@ -159,7 +150,7 @@ def andalusian_female(driver, horses=2000):
           f'\n-- Куплено стойл: {stable}')
 
 
-def andalusian_male(driver, horses=500):
+def andalusian_male(driver, horses=300):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90938560'
 
     current_url = find_unworking_horse(driver, 'andalusian', 'male')
@@ -248,7 +239,7 @@ def andalusian_male(driver, horses=500):
                     time.sleep(1)
 
                     if 'конь' in sex:
-                        post_mating += male_andalusian(driver)
+                        post_mating += male_reproduction(driver)
 
                     get_food(driver)
                     time.sleep(1)
@@ -384,10 +375,10 @@ def andalusian_unicorn(driver, horses=50):
                     old_horse(driver, age, name, n)
 
                     if 'кобыла' in sex:
-                        get_mating += female_andalusian_unicorn_mating(driver, current_url)
+                        get_mating += female_reproduction(driver, 'andalusian_unicorn')
 
                     elif 'конь' in sex:
-                        post_mating += male_andalusian_unicorn_mating(driver)
+                        post_mating += male_reproduction(driver, 'andalusian_unicorn')
 
                     time.sleep(1)
 
@@ -514,7 +505,7 @@ def andalusian_elite_female(driver, horses=30):
                     except:
                         pass
 
-                    get_mating += female_andalusian_elite_mating(driver)
+                    get_mating += female_reproduction(driver, 'andalusian_elite')
 
                     get_doping(driver)[-1].click()
                     time.sleep(2)
@@ -641,7 +632,7 @@ def andalusian_male_reserve(driver, horses=20):
                     time.sleep(1)
 
                     if 'конь' in sex:
-                        post_mating += male_andalusian(driver)
+                        post_mating += male_reproduction(driver)
 
                     get_doping(driver)[4].click()
                     time.sleep(1)
@@ -677,60 +668,6 @@ def andalusian_male_reserve(driver, horses=20):
 
     now = datetime.now().strftime('%d.%m %H:%M')
     print(f'\n{now} прогон мужиков окончен\n-- Предложено случек: {post_mating}')
-
-
-def add_horse_database(driver):
-    """
-    name VARCHAR,
-    birthday DATE,
-    sex 1 == male, 0 == female,
-    color VARCHAR,
-    rare TINYINT,
-    armor, speed, dressage, galop, forest, montains True/False full,
-    url VARCHAR
-    :param driver:
-    :return:
-    """
-    name = get_name_horse(driver)
-    birthday = '-'.join(driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]'
-        '/div/div/div/div/table[1]/tbody[1]/tr/td/div/table/tbody/tr[4]/td[2]'
-    ).text.split()[-1].split('.')[::-1])
-    url = driver.current_url
-    sex = 0 if get_sex(driver).split()[-1] == 'кобыла' else 1
-    color = get_color(driver)
-    rare = andalusian[color]
-
-    try:
-        armor = True if driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div[5]'
-            '/div/div[3]/div[4]/div/div/div/div/div/table/tbody/tr[1]/td[2]/a'
-        ).text == 'Галоп' else False
-    except:
-        armor = False
-
-    speed = True if flag_train_complete(driver, 'speed') == 100 else False
-    dressage = True if flag_train_complete(driver, 'dressage') == 100 else False
-    galop = True if flag_train_complete(driver, 'galop') == 100 else False
-
-    time.sleep(1)
-    try:
-        forest = flag_forest_complete(driver)
-    except:
-        forest = None
-
-    time.sleep(1)
-    try:
-        montains = flag_montains_complete(driver)
-    except:
-        montains = None
-
-    data = [name, birthday, sex, color, rare, armor, speed, dressage, galop, forest, montains, url]
-
-    with create_connection(database) as duck:
-        insert_table(duck, data)
 
 
 def train_blup(driver):
