@@ -18,7 +18,9 @@ def get_farm(race: str, sex: str):
     if race == 'andalusian_elite':
         if sex == 'female':
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1586236'
-        elif sex == 'male':
+
+    elif race == 'andalusian_reserve':
+        if sex == 'male':
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593208'
 
     elif race == 'heavy_horse':

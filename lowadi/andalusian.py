@@ -551,10 +551,10 @@ def andalusian_elite_female(driver, horses=30):
           f'\n-- Куплено стойл: {stable}')
 
 
-def andalusian_elite_male(driver, horses=20):
-    url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=92660253'
+def andalusian_male_reserve(driver, horses=20):
+    url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=92509117'
 
-    current_url = find_unworking_horse(driver, 'andalusian_elite', 'male')
+    current_url = find_unworking_horse(driver, 'andalusian_reserve', 'male')
 
     if not current_url:
         print('Все спят, гонять нечего <3')
@@ -641,7 +641,7 @@ def andalusian_elite_male(driver, horses=20):
                     time.sleep(1)
 
                     if 'конь' in sex:
-                        post_mating += male_andalusian_elite_mating(driver)
+                        post_mating += male_andalusian(driver)
 
                     get_doping(driver)[4].click()
                     time.sleep(1)
