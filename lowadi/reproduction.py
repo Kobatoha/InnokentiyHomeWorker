@@ -2,8 +2,8 @@ import time
 import os
 import pretty_errors
 from selenium.webdriver.common.by import By
-from lowadi.other import check_ufo, check_equus
-from lowadi.care import get_name_horse
+from lowadi.other import check_ufo
+from lowadi.care import get_name_horse, get_energy
 
 
 def ready_matt(driver):
@@ -197,283 +197,134 @@ def female_reproduction(driver, race='andalusian'):
             return 0
 
 
-def male_andalusian(driver):
+def male_reproduction(driver, race='andalusian'):
+    lists_reproductions = {
+        'andalusian_elite': 'lowadi/Lists of horses/andalusian.txt',
+        'marshadore': 'lowadi/Lists of horses/marshadore.txt',
+        'andalusian_unicorn': 'lowadi/Lists of horses/andalusian_unicorn.txt'
+    }
     time.sleep(1)
     mating = 25
     num = 0
     name = get_name_horse(driver)
     gp = int(name.split()[1][:-3])
-
-    try:
-
-        for i in range(5):
-            energie = int(driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[2]/div[2]'
-                '/div/div/div/div[2]/div/div[1]/div[3]/strong/span'
-            ).text)
-            if energie - mating >= 20:
+    energy = get_energy(driver)
+    count = energy // mating
+    if race == 'andalusian':
+        try:
+            while count != 0:
                 create_mating = driver.find_element(
                     By.XPATH,
                     '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
                     '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
-                )
-                try:
-                    create_mating.click()
+                ).click()
+                time.sleep(1)
+
+                open_mating = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/input'
+                ).click()
+
+                choice_equus = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
+                ).click()
+                time.sleep(2)
+
+                if gp >= 17000:
+                    price = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[11]'
+                    ).click()
                     time.sleep(1)
-                    open_mating = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[1]/input'
-                    ).click()
-                    choice_equus = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select'
-                    ).click()
-                    time.sleep(2)
-                    if gp >= 11555:
-                        lower_price = driver.find_element(
-                            By.XPATH,
-                            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[13]'
-                        ).click()
-                        time.sleep(1)
-                    else:
-                        lower_price = driver.find_element(
-                            By.XPATH,
-                            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[9]'
-                        ).click()
-                        time.sleep(1)
-                    complete = driver.find_element(
-                        By.XPATH,
-                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span'
-                    ).click()
-                    time.sleep(5)
 
-                    num += 1
+                else:
+                    price = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[5]'
+                    ).click()
+                    time.sleep(1)
 
-                except:
+                complete = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span'
+                ).click()
+                time.sleep(5)
+
+                num += 1
+                count -= 1
+
+            print(f'[Andalusian] {name} предложил случек: {num}')
+
+            return num
+
+        except:
+
+            print('error male_reproduction (andalusian)')
+
+            return num
+    else:
+        try:
+            while count != 0:
+                with open(lists_reproductions[race], 'r') as file:
+                    females = file.readlines()
+
+                if not females:
                     return num
 
-        print(f'{name} предложил случек: {num}')
+                use_mating = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
+                ).click()
+                time.sleep(2)
 
-        return num
+                choice_reservation = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
+                ).click()
+                time.sleep(2)
 
-    except:
+                send_name = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
+                ).send_keys(f'{females[0][:-1]}')
+                time.sleep(1)
 
-        print('error male_horse')
+                watch = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
+                ).click()
+                time.sleep(1)
 
-        return 0
+                complete = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
+                ).click()
+                time.sleep(3)
 
+                with open(lists_reproductions[race], 'w') as file:
+                    for female in females[1:]:
+                        file.write(female)
 
-def male_andalusian_elite_mating(driver):
+                num += 1
+                count -= 1
 
-    mating = 25
-    num = 0
-    name = get_name_horse(driver)
-    energy = get_energy(driver)
+            print(f'[{race}] {name} предложил случек: {num}')
 
-    count = energy // mating
+            return num
 
-    try:
-        while count != 0:
-            with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
-                females = file.readlines()
+        except:
 
-            if not females:
-                return num
+            print('error male_reproduction')
 
-            use_mating = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
-            ).click()
-            time.sleep(2)
-
-            choice_reservation = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
-            ).click()
-            time.sleep(2)
-
-            send_name = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
-            ).send_keys(f'{females[0][:-1]}')
-            time.sleep(1)
-
-            watch = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
-            ).click()
-            time.sleep(1)
-
-            complete = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
-            ).click()
-            time.sleep(3)
-
-            with open('lowadi/Lists of horses/andalusian.txt', 'w') as file:
-                for female in females[1:]:
-                    file.write(female)
-
-            num += 1
-            count -= 1
-
-        print(f'{name} предложил случек: {num}')
-
-        return num
-
-    except:
-
-        print('error male_andalusian_elite_mating')
-
-        return num
-
-
-def male_marshadore(driver):
-
-    mating = 25
-    num = 0
-    name = get_name_horse(driver)
-    energy = get_energy(driver)
-
-    count = energy // mating
-
-    try:
-        while count != 0:
-            with open('lowadi/marshadore.txt', 'r') as file:
-                females = file.readlines()
-
-            if not females:
-                return num
-
-            use_mating = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
-            ).click()
-            time.sleep(2)
-
-            choice_reservation = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
-            ).click()
-            time.sleep(2)
-
-            send_name = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
-            ).send_keys(f'{females[0][:-1]}')
-            time.sleep(1)
-
-            watch = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
-            ).click()
-            time.sleep(1)
-
-            complete = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
-            ).click()
-            time.sleep(3)
-
-            with open('lowadi/marshadore.txt', 'w') as file:
-                for female in females[1:]:
-                    file.write(female)
-
-            num += 1
-            count -= 1
-
-        print(f'{name} предложил случек: {num}')
-
-        return num
-
-    except:
-
-        print('error male_marshadore')
-
-        return num
-
-
-def male_andalusian_unicorn_mating(driver):
-
-    mating = 25
-    num = 0
-    name = get_name_horse(driver)
-    energy = get_energy(driver)
-
-    count = energy // mating
-
-    try:
-        while count != 0:
-            with open('lowadi/andalusian_unicorn.txt', 'r') as file:
-                females = file.readlines()
-
-            if not females:
-                return num
-
-            use_mating = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
-            ).click()
-            time.sleep(2)
-
-            choice_reservation = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
-            ).click()
-            time.sleep(2)
-
-            send_name = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
-            ).send_keys(f'{females[0][:-1]}')
-            time.sleep(1)
-
-            watch = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
-            ).click()
-            time.sleep(1)
-
-            complete = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
-            ).click()
-            time.sleep(3)
-
-            with open('lowadi/andalusian_unicorn.txt', 'w') as file:
-                for female in females[1:]:
-                    file.write(female)
-
-            num += 1
-            count -= 1
-
-        print(f'{name} предложил случек: {num}')
-
-        return num
-
-    except:
-
-        print('error male_andalusian_unicorn_mating')
-
-        return num
+            return num
