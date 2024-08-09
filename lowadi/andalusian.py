@@ -403,7 +403,7 @@ def andalusian_unicorn(driver, horses=50):
     print(f'\n{now} прогон единорожек окончен\n-- Родилось жеребят: {children}\n')
 
 
-def andalusian_elite_female(driver, horses=30):
+def andalusian_elite_female(driver, horses=50):
     print('Начинаем гонять элитных андалузочек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90314563'
 
