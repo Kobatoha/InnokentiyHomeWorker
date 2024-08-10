@@ -45,7 +45,7 @@ if __name__ == '__main__':
     andalusian_male(driver, 300)
     andalusian_male_reserve(driver, 130)
     marshadore_female(driver, 130)
-    marshadore_male(driver, 40)
+    marshadore_male(driver, 20)
     andalusian_elite_female(driver, 30)
 
     atelier(driver, 4)
