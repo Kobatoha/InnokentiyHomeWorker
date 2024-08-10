@@ -146,7 +146,7 @@ def marshadore_female(driver, horses=130):
           f'-- Предложено случек: {post_mating}\n-- Куплено стойл: {stable}')
 
 
-def marshadore_male(driver, horses=20):
+def marshadore_male(driver, horses=15):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=92114142'
 
     current_url = find_unworking_horse(driver, 'marshadore', 'male')
