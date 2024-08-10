@@ -107,6 +107,8 @@ def work_heavyhorse(driver, horses=100):
 
                     old_horse(driver, age, name, n)
                     time.sleep(1)
+                    get_lesson(driver)
+                    time.sleep(1)
 
                 next_horse(driver)
 

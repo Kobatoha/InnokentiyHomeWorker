@@ -373,6 +373,9 @@ def andalusian_unicorn(driver, horses=50):
                         pass
 
                     old_horse(driver, age, name, n)
+                    time.sleep(1)
+                    get_lesson(driver)
+                    time.sleep(1)
 
                     if 'кобыла' in sex:
                         get_mating += female_reproduction(driver, 'andalusian_unicorn')
