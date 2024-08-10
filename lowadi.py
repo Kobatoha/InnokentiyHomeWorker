@@ -34,21 +34,21 @@ if __name__ == '__main__':
         '''
         time.sleep(3)
         driver = new_brave_dr()
-        driver.set_window_size(1700, 1360)
+        driver.set_window_size(1400, 1360)
         login_lowadi(driver)
         begin(driver)
 
     login_lowadi(driver)
-    work_heavyhorse(driver, 130)
+    work_heavyhorse(driver, 100)
     andalusian_unicorn(driver, 50)
     andalusian_female(driver, 1200)
-    andalusian_male(driver, 300)
-    andalusian_male_reserve(driver, 130)
-    marshadore_female(driver, 130)
+    andalusian_male(driver, 200)
+    marshadore_female(driver, 100)
     marshadore_male(driver, 20)
     andalusian_elite_female(driver, 30)
+    andalusian_male_reserve(driver, 150)
 
-    atelier(driver, 4)
+    atelier(driver, 3)
     train_blup(driver)
 
 
