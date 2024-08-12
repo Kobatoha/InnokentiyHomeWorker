@@ -61,6 +61,12 @@ def login_andalusian():
     driver.quit()
 
 
+def login_male_andalusian():
+    driver = create_driver_brave()
+    andalusian_elite_female(driver, 30)
+    andalusian_male_reserve(driver, 150)
+    driver.quit()
+
 crontab('34 5 * * *', func=login_begin)
 
 crontab('58 5 * * *', func=login_running)
