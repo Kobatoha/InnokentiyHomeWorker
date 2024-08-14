@@ -49,6 +49,8 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
     url = ''
     print(f'Страниц во вкладке: {pages}')
 
+    sleep_horses = 0
+
     if pages == 0:
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
@@ -61,7 +63,9 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
                 if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    return url
+                    return url, sleep_horses
+                sleep_horses += 1
+
             except:
                 pass
 
@@ -77,6 +81,7 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
         for j in range(len(horses)):
+            sleep_horses += 1
             try:
                 name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
                 status = horses[j].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
@@ -85,7 +90,8 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
                 if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    return url
+                    return url, sleep_horses
+
             except:
                 pass
 
