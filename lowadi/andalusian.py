@@ -10,7 +10,7 @@ def andalusian_female(driver, horses=2000):
     print('Начинаем гонять лошадулек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
-    current_url = find_unworking_horse(driver, 'andalusian', 'female')
+    current_url, horses = find_unworking_horse(driver, 'andalusian', 'female')
 
     if not current_url:
         print('Все спят, гонять нечего <3')

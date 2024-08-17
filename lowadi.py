@@ -7,7 +7,6 @@ from lowadi.andalusian import andalusian_elite_female, andalusian_male_reserve
 from lowadi.heavyhorse import work_heavyhorse
 from lowadi.marshadore import marshadore_female, marshadore_male
 from lowadi.other import *
-from aiocron import crontab
 
 
 def begin(driver):
@@ -62,7 +61,7 @@ def login_andalusian():
 
 
 def login_male_andalusian():
-    driver = create_driver_brave()
+    driver = create_driver_chrome()
     andalusian_male(driver, 200)
     andalusian_male_reserve(driver, 150)
     andalusian_elite_female(driver, 30)
@@ -71,25 +70,12 @@ def login_male_andalusian():
 
 
 def login_marshadore():
-    driver = create_driver_brave()
-    marshadore_female(driver, 100)
+    driver = create_driver_chrome()
+    marshadore_female(driver, 110)
     marshadore_male(driver, 20)
     driver.quit()
 
 
-crontab('34 5 * * *', func=login_begin)
-
-crontab('58 5 * * *', func=login_running)
-
-crontab('* * * * *', func=login_andalusian)
-
-# andalusian_male(driver, 200)
-# marshadore_female(driver, 100)
-# marshadore_male(driver, 20)
-# andalusian_elite_female(driver, 30)
-# andalusian_male_reserve(driver, 150)
-#
-# atelier(driver, 3)
 # train_blup(driver)
 
 
