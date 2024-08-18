@@ -1150,10 +1150,9 @@ def childbirth(driver, current_url, race):
 
     races = {
         'andalusian': [13, 'Гранат', 'Лайм'],
-        'andalusian_elite': [5, 'Явь', 'Морок'],
         'unicorn': [11, 'Морожка', 'Ворожка'],
         'heavy_horse': [21, 'Пончик', 'Эклер'],
-        'marshadore': [15, 'Марша', 'Маршель']
+        'marshadore': [21, 'Марша', 'Маршель']
     }
 
     if race == 'unicorn':
@@ -1184,11 +1183,6 @@ def childbirth(driver, current_url, race):
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
         ).send_keys(new_name)
-
-        if race == 'marshadore':
-            races[race][0] = 16
-        elif race == 'andalusian_elite':
-            races[race][0] = 4
 
     elif sex == 'femelle':
 
