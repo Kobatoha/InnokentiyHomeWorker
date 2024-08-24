@@ -406,7 +406,7 @@ def andalusian_unicorn(driver, horses=50):
     print(f'\n{now} прогон единорожек окончен\n-- Родилось жеребят: {children}\n')
 
 
-def andalusian_elite_female(driver, horses=50):
+def andalusian_elite_female(driver, horses=100):
     print('Начинаем гонять элитных андалузочек')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90314563'
 
@@ -416,7 +416,7 @@ def andalusian_elite_female(driver, horses=50):
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url)
+    driver.get(current_url[0])
 
     children = 0
     get_mating = 0
@@ -465,11 +465,6 @@ def andalusian_elite_female(driver, horses=50):
                 sex = get_sex(driver)
 
                 childbirth_without_stable(driver)
-
-                try:
-                    stable += get_stable(driver)
-                except:
-                    pass
 
                 if 'несколько' in age or age == ['Возраст:', '2', 'мес.'] or age == ['Возраст:', '4', 'мес.']:
                     milk_horse(driver, age, name, n)
