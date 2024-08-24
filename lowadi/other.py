@@ -137,7 +137,13 @@ def ufo_list():
         'pack-nyx': 'Набор Никты',
         'parchemin-ploutos': 'Папирус Плутоса',
         'sang-meduse': 'Кровь Медузы',
-        'baton-fertilite': 'Посох плодовитости'
+        'baton-fertilite': 'Посох плодовитости',
+        'bonnet-2x-noir-blanc': 'Черно-белый налобник 2**',
+        'bonnet-2x-noir-rose': 'Черно-розовый налобник 2**',
+        'tapis-classique-2x-vert': 'Зеленый классический вальтрап 2**',
+        'bande-2x-rose': 'Розовые бинты 2**',
+        'bande-2x-noir': 'Черные бинты 2**',
+        'bande-2x-vert': 'Зеленые бинты 2**',
     }
 
     good_ufo = {
