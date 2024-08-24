@@ -144,6 +144,7 @@ def ufo_list():
         'bande-2x-rose': 'Розовые бинты 2**',
         'bande-2x-noir': 'Черные бинты 2**',
         'bande-2x-vert': 'Зеленые бинты 2**',
+        'graines-pass': 'Семена пропуска'
     }
 
     good_ufo = {
