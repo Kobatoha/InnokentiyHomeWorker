@@ -159,7 +159,7 @@ def andalusian_male(driver, horses=300):
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url)
+    driver.get(current_url[0])
 
     post_mating = 0
     stable = 0
