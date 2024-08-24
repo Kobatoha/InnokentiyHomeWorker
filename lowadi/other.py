@@ -2,91 +2,123 @@ import time
 import pretty_errors
 from datetime import datetime
 from selenium.webdriver.common.by import By
+import random
 
 
 def personally_ufo_list():
     pufos = {
+        'Keanu Reeves': ['Набор Никты', 'https://www.lowadi.com/joueur/fiche/?id=13066244'],
+        'Delirium': ['Длани Морфея', 'https://www.lowadi.com/joueur/fiche/?id=14617033'],
         'rossi': ['Винтажное яблоко', 'https://www.lowadi.com/joueur/fiche/?id=11822262'],
+        'Мad Hatter': ['Винтажное яблоко', 'https://www.lowadi.com/joueur/fiche/?id=13149545'],
+        'Mignonette': ['Винтажное яблоко', 'https://www.lowadi.com/joueur/fiche/?id=16250375'],
+        'Lonn': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=14079930'],
+        'Mr.Robot': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=15290760'],
+        'микаэла.': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=13901654'],
+        'IrinaRoys': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=11684880'],
+        'Petunya': ['Посох плодовитости', 'https://www.lowadi.com/joueur/fiche/?id=11631646'],
+        'AlexNic': ['Посох плодовитости', 'https://www.lowadi.com/joueur/fiche/?id=15736714'],
+        'Фишка2': ['Посох плодовитости', 'https://www.lowadi.com/joueur/fiche/?id=11772648'],
+        'Илион': ['Кровь Медузы', 'https://www.lowadi.com/joueur/fiche/?id=12025847'],
+        'Landlord': ['Кровь Медузы', 'https://www.lowadi.com/joueur/fiche/?id=14295425'],
+        'xiao': ['Бонус-набор', 'https://www.lowadi.com/joueur/fiche/?id=13001842'],
+        'sdssd': ['Черная орхидея', 'https://www.lowadi.com/joueur/fiche/?id=16303641'],
+        'Nansy': ['Черная орхидея', 'https://www.lowadi.com/joueur/fiche/?id=11501551'],
+
+        'Layfhozich': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15709011'],
+        'Nadyas93': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12133906'],
+        'швар': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=13545002'],
+        'Сат': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=13244894'],
+        'Римуру': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=16072890'],
+        'Наяда': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=14673969'],
+        'Osinka': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12118685'],
+        'аrcher': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=16043043'],
+        '※Şwěèţ Đřęåm※': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15904190'],
+        'ДиЗа': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15688756'],
+        'НиаКриС': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12438693'],
+        'Novokem': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12134091'],
+        'Бревно': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15737187'],
+        'Ferrum': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=13075102'],
+        'Karamba.t': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=16274712'],
+        'АлинаХ': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12654035'],
+
+        'Anato': ['Черно-белый налобник 2**', 'https://www.lowadi.com/joueur/fiche/?id=13300548'],
+        'Талъинка': ['Черно-розовый налобник 2**', 'https://www.lowadi.com/joueur/fiche/?id=16234313'],
+        'шатенка': ['Зеленый классический вальтрап 2**', 'https://www.lowadi.com/joueur/fiche/?id=13252451'],
+        'Lorani': ['Розовые бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=12771917'],
+        'Night': ['Черные бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=11514153'],
+        'Северчанка': ['Зеленые бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=11874839'],
+        'sweta310': ['Розовые бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=13137754'],
+
+        'BlackDog': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=12764045'],
+        'Nene4ka': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=11722306'],
+        '.bluenevada': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=15883910'],
+        'annechka': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=11679256'],
+        'Авантюра new': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=15272090'],
+        'Магесса': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=12039911'],
+        'Boxerka 53': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=15811176'],
+        'marishka2006': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=13627601'],
+        'ENIGMA666': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=11797567'],
+        'Zero05': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=15828861'],
+        'сандравит': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=12473582'],
+        'Koshko': ['Богатство Креза', 'https://www.lowadi.com/joueur/fiche/?id=11593636'],
+        'галакси': ['Богатство Креза', 'https://www.lowadi.com/joueur/fiche/?id=11932942'],
+        'Aziza1992': ['Стрела Артемиды', 'https://www.lowadi.com/joueur/fiche/?id=12395746'],
+        'Olesya': ['Стрела Артемиды', 'https://www.lowadi.com/joueur/fiche/?id=15770180'],
+
+        'brosse': ['Корда', 'https://www.lowadi.com/joueur/fiche/?id=16113089'],
+        'Mckee': ['Корда', 'https://www.lowadi.com/joueur/fiche/?id=16140685'],
+        'Джули16': ['Шипы', 'https://www.lowadi.com/joueur/fiche/?id=11713598'],
+        'блумм111': ['Шипы', 'https://www.lowadi.com/joueur/fiche/?id=11872158'],
+        'дажд': ['Шпоры', 'https://www.lowadi.com/joueur/fiche/?id=11878569'],
+        'вилуна': ['Шпоры', 'https://www.lowadi.com/joueur/fiche/?id=11844856'],
+        'Ландыш': ['Ногавки', 'https://www.lowadi.com/joueur/fiche/?id=16191151'],
+        'Темный Властелин': ['3*** Классическая уздечка', 'https://www.lowadi.com/joueur/fiche/?id=14937887'],
+        'Eagles': ['3*** Классическое седло', 'https://www.lowadi.com/joueur/fiche/?id=12316969'],
+
+        'Джул': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=11616811'],
         'rainastik': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16296658'],
         'Leareth': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=11753215'],
         'Полина Окель': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16188853'],
         'Seong Hwa': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16244706'],
-        'Layfhozich': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15709011'],
-        'Nadyas93': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12133906'],
-        'швар': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=13545002'],
-        'sweta310': ['Розовые бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=13137754'],
-        'xiao': ['Бонус-набор', 'https://www.lowadi.com/joueur/fiche/?id=13001842'],
-        'Nene4ka': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=11722306'],
-        'Koshko': ['Богатство Креза', 'https://www.lowadi.com/joueur/fiche/?id=11593636'],
-        'brosse': ['Корда', 'https://www.lowadi.com/joueur/fiche/?id=16113089'],
-        'Mckee': ['Корда', 'https://www.lowadi.com/joueur/fiche/?id=16140685'],
-        'Roswell 47': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=11662957'],
-        'BlackDog': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=12764045'],
-        'marishka2006': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=13627601'],
-        'Сат': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=13244894'],
-        'Римуру': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=16072890'],
-        'Lynx_Estel': ['Кожа', 'https://www.lowadi.com/joueur/fiche/?id=11565583'],
-        'Karg': ['Фураж', 'https://www.lowadi.com/joueur/fiche/?id=11929873'],
-        'Multik': ['Семена яблок', 'https://www.lowadi.com/joueur/fiche/?id=15139966'],
-        'Lonn': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=14079930'],
-        'Mr.Robot': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=15290760'],
         'THE METRO': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16302609'],
         'Markiz de Pomm': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12619435'],
-        'Baykuş': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=11565254'],
-        'Keanu Reeves': ['Набор Никты', 'https://www.lowadi.com/joueur/fiche/?id=13066244'],
         'Деким': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16168931'],
-        'Темный Властелин': ['3*** Классическая уздечка', 'https://www.lowadi.com/joueur/fiche/?id=14937887'],
-        'Северчанка': ['Зеленые бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=11874839'],
-        'DieHatz': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=16126633'],
-        'Джул': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=11616811'],
-        'Eagles': ['3*** Классическое седло', 'https://www.lowadi.com/joueur/fiche/?id=12316969'],
-        'микаэла.': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=13901654'],
-        'Наяда': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=14673969'],
-        'галакси': ['Богатство Креза', 'https://www.lowadi.com/joueur/fiche/?id=11932942'],
-        'annechka': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=11679256'],
-        'Aziza1992': ['Стрела Артемиды', 'https://www.lowadi.com/joueur/fiche/?id=12395746'],
         'Лэйлика': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13317932'],
         'Newly': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13362034'],
-        'Delirium': ['Длани Морфея', 'https://www.lowadi.com/joueur/fiche/?id=14617033'],
-        'Илион': ['Кровь Медузы', 'https://www.lowadi.com/joueur/fiche/?id=12025847'],
-        'Olesya': ['Стрела Артемиды', 'https://www.lowadi.com/joueur/fiche/?id=15770180'],
-        'Lorani': ['Розовые бинты 2**', 'https://www.lowadi.com/joueur/fiche/?id=12771917'],
-        'Osinka': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12118685'],
-        'sdssd': ['Черная орхидея', 'https://www.lowadi.com/joueur/fiche/?id=16303641'],
         'Догма': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13641807'],
-        'Мad Hatter': ['Винтажное яблоко', 'https://www.lowadi.com/joueur/fiche/?id=13149545'],
         'Лилеанна': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12044566'],
         'Му-му': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12053829'],
         'Хурма1234': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16220563'],
         'Юрашик': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13212747'],
         'Texxi': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16239148'],
         'Tschassa': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13415996'],
-        'ENIGMA666': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=11797567'],
         'Ангелина1402': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13460763'],
         'panky.': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13059769'],
-        'шатенка': ['Зеленый классический вальтрап 2**', 'https://www.lowadi.com/joueur/fiche/?id=13252451'],
-        'аrcher': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=16043043'],
-        'IrinaRoys': ['Слезы Афродиты', 'https://www.lowadi.com/joueur/fiche/?id=11684880'],
-        'Джули16': ['Шипы', 'https://www.lowadi.com/joueur/fiche/?id=11713598'],
-        'Авантюра new': ['Одеяло Гипноса', 'https://www.lowadi.com/joueur/fiche/?id=15272090'],
-        '※Şwěèţ Đřęåm※': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15904190'],
         'Lapsiinja_LV': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=13398767'],
         'Солнышко я': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12786727'],
-        'ДиЗа': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=15688756'],
-        'Anato': ['Черно-белый налобник 2**', 'https://www.lowadi.com/joueur/fiche/?id=13300548'],
         'Mister Rebel': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16209035'],
-        'Zero05': ['Лира Аполлона', 'https://www.lowadi.com/joueur/fiche/?id=15828861'],
-        'Petunya': ['Посох плодовитости', 'https://www.lowadi.com/joueur/fiche/?id=11631646'],
-        'дажд': ['Шпоры', 'https://www.lowadi.com/joueur/fiche/?id=11878569'],
         'ASPERa': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=11995496'],
-        'Ольга1703': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=11718336'],
-        'Novokem': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12134091'],
-        'Katja': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12874091'],
-        'вилуна': ['Шпоры', 'https://www.lowadi.com/joueur/fiche/?id=11844856'],
-        'Vashaki': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16018857'],
-        'НиаКриС': ['Папирус Плутоса', 'https://www.lowadi.com/joueur/fiche/?id=12438693'],
         'GЕRDА': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16308583'],
-        'додик': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=15355092']
+        'додик': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=15355092'],
+        'Vashaki': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16018857'],
+        'Katja': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12874091'],
+        'Lula': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12882945'],
+        '~Багирка~': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=11597486'],
+        'wIK': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=15558355'],
+        'ОльКо': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=11555235'],
+        'Dragonija': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16275746'],
+        'Meteliz': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16303327'],
+        'Тигра': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16316021'],
+        'Sumi': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16294726'],
+        'Dz. Ell.': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=12756991'],
+        'dwaekki': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16282135'],
+        'Vaylis.': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16150528'],
+        'Noch': ['Очки роста', 'https://www.lowadi.com/joueur/fiche/?id=16168849'],
+
+        'Roswell 47': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=11662957'],
+        'Baykuş': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=11565254'],
+        'Ольга1703': ['Семена пропуска', 'https://www.lowadi.com/joueur/fiche/?id=11718336']
     }
 
     return pufos
@@ -134,7 +166,7 @@ def find_rating_urls(driver):
         url = user.get_attribute('href')
         urls.append(url)
 
-    return urls
+    return set(urls)
 
 
 def find_personally_pufo_hands(driver):
@@ -176,13 +208,17 @@ def check_personally_ufo(driver):
     for url in pufos:
         driver.get(pufos[url][1])
         time.sleep(2)
-        if driver.find_element(By.XPATH, '//*[@id="Ufo_0"]'):
-            alarm = input('Я что-то нашел на персональной странице игрока с Индивидуальными НЛО, нужна помощь!')
+        try:
+            if driver.find_element(By.XPATH, '//*[@id="Ufo_0"]'):
+                alarm = input('Я что-то нашел на персональной странице игрока с Индивидуальными НЛО, нужна помощь!')
 
-    finded_ufo = driver.find_element(
-        By.XPATH,
-        '/html/body/div[12]'
-    ).text.split('\n')[1]
+                finded_ufo = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[12]'
+                ).text.split('\n')[1]
+                print(finded_ufo)
+        except:
+            pass
 
 
 def check_ufo(driver):
