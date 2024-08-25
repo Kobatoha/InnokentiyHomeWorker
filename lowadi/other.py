@@ -218,12 +218,14 @@ def check_personally_ufo(driver):
         try:
             if driver.find_element(By.XPATH, '//*[@id="Ufo_0"]'):
                 alarm = input('Я что-то нашел на персональной странице игрока с Индивидуальными НЛО, нужна помощь!')
+                if alarm == 'yes':
 
-                finded_ufo = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[12]'
-                ).text.split('\n')[1]
-                print(finded_ufo)
+                    finded_ufo = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[12]'
+                    ).text.split('\n')[1]
+                    print(finded_ufo)
+                    return
         except:
             pass
 
