@@ -194,6 +194,7 @@ def find_personally_pufo_hands(driver):
 
 def find_personally_pufo_in_rating(driver):
     urls = find_rating_urls(driver)
+    datas = []
     for url in urls:
         driver.get(url)
         table = driver.find_element(
@@ -207,7 +208,7 @@ def find_personally_pufo_in_rating(driver):
                 pufo = tr[8:]
         if pufo:
             result = {nickname: [pufo, url]}
-            print(result)
+            datas.append([url, pufo])
 
 
 def check_personally_ufo(driver):
