@@ -7,6 +7,7 @@ from lowadi.andalusian import andalusian_elite_female, andalusian_male_reserve
 from lowadi.heavyhorse import work_heavyhorse
 from lowadi.marshadore import marshadore_female, marshadore_male
 from lowadi.other import *
+from lowadi.states import *
 
 
 def begin(driver):
@@ -62,9 +63,9 @@ def login_andalusian():
 
 def login_male_andalusian():
     driver = create_driver_chrome()
+    andalusian_elite_female(driver, 100)
     andalusian_male(driver, 200)
     andalusian_male_reserve(driver, 150)
-    andalusian_elite_female(driver, 30)
 
     driver.quit()
 
@@ -77,9 +78,3 @@ def login_marshadore():
 
 
 # train_blup(driver)
-
-
-"""
-75 коней с гп 15к+ = 4 х 75 = 300 ежедневных случек = 75 душевых и поилок = х2 набора случки\кач
-80 лугов нужно под 2000 стойл = 160 на два набора, пока один под пастбища, другой восстанавливает плодородность
-"""
