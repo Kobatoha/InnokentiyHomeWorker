@@ -14,7 +14,7 @@ def new_drb():
     caps["pageLoadStrategy"] = "eager"
     chromeOptions.add_argument(
         "--load-extension=" +
-        rf"C:\Users\Admin\AppData\Local\Google\Chrome\User Data\Default\Extensions\{extension}\3.84.1_0")
+        rf"C:\Users\user\PycharmProjects\InnokentiyHomeWorker\browsec")
     chromeOptions.headless = False
     driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
 
@@ -23,7 +23,7 @@ def new_drb():
 
 def new_brave_dr():
     brave_path = "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe"
-    chromedriver_path = r"C:\Users\Admin\Desktop\python\Innokentiy\chromedriver"
+    chromedriver_path = r"C:\Users\user\PycharmProjects\InnokentiyHomeWorker\chromedriver.exe"
 
     chrome_options = uc.ChromeOptions()
     chrome_options.binary_location = brave_path
