@@ -73,7 +73,7 @@ def login_male_andalusian():
 def login_marshadore():
     driver = create_driver_chrome()
     marshadore_female(driver, 110)
-    marshadore_male(driver, 20)
+    marshadore_male(driver, 5)
     driver.quit()
 
 
