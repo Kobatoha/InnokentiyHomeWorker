@@ -668,10 +668,9 @@ def andalusian_male_reserve(driver, horses=20):
     print(f'\n{now} прогон мужиков окончен\n-- Предложено случек: {post_mating}')
 
 
-def train_blup(driver):
+def train_blup(driver, race='andalusian'):
     name = get_name_horse(driver)
     age = get_age_horse(driver)
-    race = 'andalusian'
 
     print(f'{datetime.now().strftime("%H:%M")} Начинаем качать [{name}] до 100 блюпа')
 

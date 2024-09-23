@@ -77,4 +77,4 @@ def login_marshadore():
     driver.quit()
 
 
-# train_blup(driver)
+train_blup(driver)
