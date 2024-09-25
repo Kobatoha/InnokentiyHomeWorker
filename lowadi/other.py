@@ -3,6 +3,10 @@ import pretty_errors
 from datetime import datetime
 from selenium.webdriver.common.by import By
 import random
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 def personally_ufo_list():
@@ -379,6 +383,9 @@ def login_lowadi(driver):
     print(f'{now}: Логинимся на lowadi.com')
     url = 'https://www.lowadi.com'
 
+    username = os.getenv("LOWADI_USERNAME")
+    password = os.getenv("LOWADI_PASSWORD")
+
     driver.get(url)
 
     try:
@@ -395,10 +402,10 @@ def login_lowadi(driver):
         time.sleep(2)
         if driver.find_element(By.XPATH, '//*[@id="login"]').text == '':
             print(f'Вводим логин..')
-            login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys('Kolgotki')
+            login = driver.find_element(By.XPATH, '//*[@id="login"]').send_keys(username)
             time.sleep(1)
             print(f'Вводим пароль..')
-            password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys('Sirok123')
+            password = driver.find_element(By.XPATH, '//*[@id="password"]').send_keys(password)
             time.sleep(1)
         print(f'Входим')
         connect = driver.find_element(
