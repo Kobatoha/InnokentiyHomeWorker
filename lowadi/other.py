@@ -455,6 +455,8 @@ def xanthos(driver):
     print('Гладим Ксанфов')
     for url in urls:
         driver.get(url)
+        check_ufo(driver)
+        driver.refresh()
         time.sleep(2)
         pat_xanthos = driver.find_element(
             By.XPATH,
@@ -480,6 +482,8 @@ def topaz(driver):
     print('Гладим Топазов')
     for url in urls:
         driver.get(url)
+        check_ufo(driver)
+        driver.refresh()
         time.sleep(2)
         pat_topaz = driver.find_element(
             By.XPATH,
