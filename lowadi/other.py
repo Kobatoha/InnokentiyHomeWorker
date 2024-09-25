@@ -389,8 +389,11 @@ def login_lowadi(driver):
     driver.get(url)
 
     try:
-        print('Принимаем cookie')
-        driver.find_element(By.XPATH, '/html/body/aside/div/article/div/div[2]/div/div/div[3]/form/button').click()
+        print('НЕ принимаем cookie')
+        driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/aside/div/article/div/div[2]/div/div/div[2]/form/button'
+        ).click()
 
     except:
         print('Принять cookie не просили')
