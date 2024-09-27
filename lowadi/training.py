@@ -379,12 +379,15 @@ def blup_training(driver, energy=20, race='andalusian'):
         train_programm = ['speed', 'dressage', 'galop']
     elif race == 'francy':
         train_programm = ['speed', 'dressage', 'trot']
+    elif race == 'goland':
+        train_programm = ['speed', 'dressage', 'jump']
 
     montains = 8.1
     speed = 7.2
     dressage = 4.5
     galop = 6.3
     trot = 6.3
+    jump = 6.3
 
     flag = 100
     hour = 0
