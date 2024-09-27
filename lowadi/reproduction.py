@@ -3,7 +3,7 @@ import os
 import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo
-from lowadi.care import get_name_horse, get_energy
+from lowadi.care import get_name_horse, get_energy, push_mating_for_name
 
 
 def ready_matt(driver):
@@ -46,7 +46,7 @@ def ready_matt(driver):
             return False
 
 
-def female_reproduction(driver, race='andalusian'):
+def female_reproduction(driver, race='andalusian', male_url=''):
     matting = ready_matt(driver)
 
     if matting and matting[1] == 1:
@@ -70,6 +70,29 @@ def female_reproduction(driver, race='andalusian'):
             time.sleep(1)
 
             print('[Andalusian Elite] Кобыла успешно приняла предложенную случку')
+            time.sleep(1)
+
+            return 1
+
+        elif race == 'andalusian_blup':
+            male_name = driver.find_element(
+                By.XPATH,
+                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+            ).text
+            print(f'[Andalusian Blup] Принимаем случку от {male_name}')
+
+            ok = driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[5]'
+                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+            ).click()
+
+            check_ufo(driver)
+
+            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+            time.sleep(1)
+
+            print('[Andalusian Blup] Кобыла успешно приняла предложенную случку')
             time.sleep(1)
 
             return 1
@@ -161,6 +184,19 @@ def female_reproduction(driver, race='andalusian'):
                 print('[Andalusian Elite] Добавлена в очередь на ожидание случки')
             else:
                 print('[Andalusian Elite] Уже в очереди на ожидание случки')
+
+            return 0
+
+        elif race == 'andalusian_blup':
+            if male_url:
+                name = get_name_horse(driver)
+                driver.get(male_url)
+                push_mating_for_name(driver, name)
+                driver.back()
+
+                print('[Andalusian Blup] Случка прокинута на кобылу')
+            else:
+                print('[Andalusian Blup] Нет ссылки на коня')
 
             return 0
 

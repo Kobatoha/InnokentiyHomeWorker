@@ -1152,7 +1152,8 @@ def childbirth(driver, current_url, race):
         'andalusian': [13, 'Гранат', 'Лайм'],
         'unicorn': [11, 'Морожка', 'Ворожка'],
         'heavy_horse': [21, 'Пончик', 'Эклер'],
-        'marshadore': [21, 'Марша', 'Маршель']
+        'marshadore': [21, 'Марша', 'Маршель'],
+        'andalusian_blup': [0, 'female', 'male']
     }
 
     if race == 'unicorn':
