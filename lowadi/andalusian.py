@@ -729,7 +729,7 @@ def train_blup(driver, race='andalusian', child=False):
                         print('Ваша кобыла скоро родит!')
                         call_doctor = driver.find_element(By.XPATH, '//*[@id="boutonVeterinaire"]').click()
                         time.sleep(1)
-                        childbirth(driver, current_url, 'andalusian_blup')
+                        childbirth(driver, current_url, race='andalusian_blup')
                 except:
                     pass
 
