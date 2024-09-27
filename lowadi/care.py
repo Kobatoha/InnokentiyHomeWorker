@@ -1258,3 +1258,41 @@ def sell_horse(driver):
     time.sleep(2)
 
 
+def push_mating_for_name(driver, female_name=''):
+    if female_name:
+        use_mating = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[1]/div[1]/table/tbody/tr/td[3]/a'
+        ).click()
+        time.sleep(2)
+
+        choice_reservation = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/ul/li[3]/input'
+        ).click()
+        time.sleep(2)
+
+        send_name = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/input'
+        ).send_keys(f'{female_name}')
+        time.sleep(1)
+
+        watch = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[2]/div[2]/button/span/span/span'
+        ).click()
+        time.sleep(1)
+
+        complete = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+            '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[3]/button/span/span/span'
+        ).click()
+        time.sleep(3)
+    else:
+        print('No name horse')
