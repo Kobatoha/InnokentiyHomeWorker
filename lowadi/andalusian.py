@@ -130,6 +130,10 @@ def andalusian_female(driver, horses=2000):
                         get_doping(driver)[1].click()
                         time.sleep(1)
 
+                    energy = get_energy(driver)
+                    if energy >= 60:
+                        get_lesson(driver)
+
                 next_horse(driver)
 
             except Exception as e:
