@@ -1,7 +1,10 @@
-import requests
+import aiohttp
+import asyncio
 import datetime
+
 import os
 from dotenv import load_dotenv
+
 
 load_dotenv()
 
@@ -9,16 +12,18 @@ TOKEN = os.getenv("TELEGRAM_TOKEN")
 BASE_URL = f'https://api.telegram.org/bot{TOKEN}/'
 
 
-def get_updates():
+async def get_updates(session):
     """Функция для получения обновлений (сообщений) от Telegram API"""
-    url = BASE_URL + 'getUpdates'
-    response = requests.get(url)
-    return response.json()
+    async with session.get(BASE_URL + 'getUpdates') as response:
+        return await response.json()
 
 
-def send_message(chat_id, text):
+async def send_message(session, chat_id, text):
     """Отправка сообщения пользователю"""
     url = BASE_URL + f'sendMessage?chat_id={chat_id}&text={text}'
-    requests.get(url)
+    async with session.get(url) as response:
+        return await response.json()
+
+
 
 
