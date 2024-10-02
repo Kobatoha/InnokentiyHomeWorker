@@ -46,7 +46,7 @@ def ready_matt(driver):
             return False
 
 
-def female_reproduction(driver, race='andalusian', male_url=''):
+def female_reproduction(driver, race='andalusian', male_url=None):
     matting = ready_matt(driver)
 
     if matting and matting[1] == 1:
@@ -199,6 +199,17 @@ def female_reproduction(driver, race='andalusian', male_url=''):
                 print('[Andalusian Blup] Нет ссылки на коня')
 
             return 0
+
+        elif race == 'francais_blup':
+            if male_url:
+                name = get_name_horse(driver)
+                driver.get(male_url)
+                push_mating_for_name(driver, name)
+                driver.back()
+
+                print('[Andalusian Blup] Случка прокинута на кобылу')
+            else:
+                input('[Andalusian Blup] Нет ссылки на коня, давайте сами')
 
         elif race == 'marshadore':
             name = get_name_horse(driver)
