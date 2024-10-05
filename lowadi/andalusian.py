@@ -509,7 +509,7 @@ def andalusian_elite_female(driver, horses=100):
                     except:
                         pass
 
-                    get_mating += female_reproduction(driver, 'andalusian')
+                    get_mating += female_reproduction(driver, 'andalusian_elite')
 
                     get_doping(driver)[-1].click()
                     time.sleep(2)
