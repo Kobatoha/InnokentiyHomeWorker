@@ -1223,6 +1223,22 @@ def childbirth(driver, current_url, race):
     return 1
 
 
+def energy_of_items(driver):
+    options = stable_options(driver)
+    water, carrot, mash = 2, 0, 0
+    matting = 25
+    if options['water']:
+        water = 8
+    if options['carrot']:
+        carrot = 8
+    if options['mash']:
+        mash = 10
+    if options['wash']:
+        matting = 22.5
+
+    return water, carrot, mash, matting
+
+
 def sell_horse(driver):
     options = driver.find_element(
         By.XPATH,
