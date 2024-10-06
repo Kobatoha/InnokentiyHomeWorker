@@ -320,7 +320,7 @@ def get_resurses(driver, name):
     return resurses[name]
 
 
-def spend_equus(driver, res='skin'):
+def spend_equus(driver, res='wood'):
     try:
         equus = int(driver.find_element(
             By.XPATH,
