@@ -3,7 +3,7 @@ import os
 import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo
-from lowadi.care import get_name_horse, get_energy, push_mating_for_name
+from lowadi.care import get_name_horse, get_energy, push_mating_for_name, stable_options
 
 
 def ready_matt(driver):
@@ -377,3 +377,6 @@ def male_reproduction(driver, race='andalusian'):
             print('error male_reproduction')
 
             return num
+
+
+

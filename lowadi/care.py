@@ -1136,6 +1136,18 @@ def childbirth_without_stable(driver):
         pass
 
 
+def childbirth_farms(driver, place=''):
+    all_farm = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]'
+        f'/div[2]/table/tbody/tr[2]/td[2]/select'
+    )
+    farms = all_farm.find_elements(By.TAG_NAME, 'option')
+    for farm in farms:
+        if place in farm.text:
+            return farm
+
+
 def childbirth(driver, current_url, race):
     '''
     0 == ...
@@ -1149,11 +1161,15 @@ def childbirth(driver, current_url, race):
     check_ufo(driver)
 
     races = {
-        'andalusian': [13, 'Гранат', 'Лайм'],
-        'unicorn': [11, 'Морожка', 'Ворожка'],
-        'heavy_horse': [21, 'Пончик', 'Эклер'],
-        'marshadore': [21, 'Марша', 'Маршель'],
-        'andalusian_blup': [1, 'female', 'male']
+        'andalusian': ['Подземелье', 'Сливки', 'Томат'],
+        'andalusian_elite': ['...', 'rename', 'rename'],
+        'unicorn': ['9-й этаж [ᴜɴɪᴄᴏʀɴ]', 'Морожка', 'Ворожка'],
+        'heavy_horse': ['Серп и Молот', 'Пончик', 'Эклер'],
+        'marshadore': ['Катакомбы', 'Марша', 'Маршель'],
+        'andalusian_blup': ['...', 'rename', 'rename'],
+        'without_corn': ['Безрожье', 'безрожка', 'безрожик'],
+        'francais': ['', '', ''],
+        'gold': ['', '', '']
     }
 
     if race == 'unicorn':
@@ -1162,7 +1178,7 @@ def childbirth(driver, current_url, race):
             '/html/body/div[7]/main/section/section/div/figure'
         ).get_attribute('style')
         if 'horn' not in style:
-            race = 'andalusian'
+            race = 'without_corn'
 
     sex = driver.find_element(
         By.XPATH,
@@ -1201,11 +1217,8 @@ def childbirth(driver, current_url, race):
     ).click()
     time.sleep(1)
 
-    choice_farm = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[3]'
-        f'/div[2]/table/tbody/tr[2]/td[2]/select/option[{races[race][0]}]'
-    ).click()
+    choice_farm = childbirth_farms(driver, races[race][0])
+    choice_farm.click()
     time.sleep(1)
 
     complete = driver.find_element(

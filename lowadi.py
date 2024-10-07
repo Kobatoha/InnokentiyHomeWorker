@@ -76,5 +76,3 @@ def login_marshadore():
     marshadore_male(driver, 5)
     driver.quit()
 
-
-train_blup(driver)
