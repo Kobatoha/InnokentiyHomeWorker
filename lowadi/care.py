@@ -1168,8 +1168,8 @@ def childbirth(driver, current_url, race):
         'marshadore': ['Катакомбы', 'Марша', 'Маршель'],
         'andalusian_blup': ['...', 'rename', 'rename'],
         'without_corn': ['Безрожье', 'безрожка', 'безрожик'],
-        'francais': ['', '', ''],
-        'gold': ['', '', '']
+        'francais': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'fr', 'fr'],
+        'gold': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ', 'fr', 'fr']
     }
 
     if race == 'unicorn':
