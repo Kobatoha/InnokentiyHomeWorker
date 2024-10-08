@@ -23,7 +23,7 @@ def work_heavyhorse(driver, horses=100):
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url)
+    driver.get(current_url[0])
 
     n = 1
     children = 0

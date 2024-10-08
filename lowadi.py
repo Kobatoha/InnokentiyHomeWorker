@@ -50,8 +50,8 @@ def login_begin():
 
 def login_running():
     driver = create_driver_brave()
-    work_heavyhorse(driver, 100)
-    andalusian_unicorn(driver, 50)
+    work_heavyhorse(driver, 180)
+    andalusian_unicorn(driver, 100)
     driver.quit()
 
 
