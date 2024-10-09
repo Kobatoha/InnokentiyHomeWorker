@@ -3,7 +3,7 @@ import os
 import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo
-from lowadi.care import get_name_horse, get_energy, push_mating_for_name, stable_options
+from lowadi.care import get_name_horse, get_energy, push_mating_for_name, stable_options, get_color
 
 
 def ready_matt(driver):
@@ -170,6 +170,35 @@ def female_reproduction(driver, race='andalusian', male_url=None):
             time.sleep(1)
 
             return 1
+
+        elif race == 'andalusian_creme':
+            name = get_name_horse(driver)
+            color = get_color(driver)
+            creme = ''
+
+            if color == 'Соловая (Паломино)':
+                creme = 'palomino'
+            elif color == 'Кремелло':
+                creme = 'cremello'
+
+            try:
+                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'r') as file:
+                    names = file.readlines()
+            except FileNotFoundError:
+                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'w') as file:
+                    pass
+                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'r') as file:
+                    names = file.readlines()
+
+            if name + '\n' not in names:
+                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'a') as file:
+                    file.write(name + '\n')
+
+                print('[Andalusian Creme] Добавлена в очередь на ожидание случки')
+            else:
+                print('[Andalusian Creme] Уже в очереди на ожидание случки')
+
+            return 0
 
         elif race == 'andalusian_elite':
             name = get_name_horse(driver)

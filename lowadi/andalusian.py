@@ -468,11 +468,11 @@ def andalusian_female_creme(driver, horses=200):
     stable = 0
     lesson = True
     n = 1
-    time.sleep(5)
+    time.sleep(2)
 
     while horses != 0:
         check_ufo(driver)
-        time.sleep(2)
+        time.sleep(1)
 
         if check_horse_complete(driver):
 
@@ -563,7 +563,7 @@ def andalusian_female_creme(driver, horses=200):
                     if 'кобыла' in sex:
                         if check_equus(driver) == 'Good':
                             spend_equus(driver)
-                        get_mating += female_reproduction(driver)
+                        get_mating += female_reproduction(driver, 'andalusian_creme')
 
                     time.sleep(1)
                     energy = get_energy(driver)
