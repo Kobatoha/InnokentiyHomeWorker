@@ -463,7 +463,9 @@ def get_sleep(driver):
     time.sleep(2)
 
 
-def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=1):
+def old_horse(driver, age=None, name='horse', n=1):
+    if age is None:
+        age = ['Возраст:', '2', 'года']
     print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
     time.sleep(1)
