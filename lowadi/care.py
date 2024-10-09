@@ -14,6 +14,14 @@ def get_farm(race: str, sex: str):
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198'
         elif sex == 'unicorn':
             farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
+        elif sex == 'black':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1600331'
+        elif sex == 'lava':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1600332'
+        elif sex == 'creme':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1600333'
+        elif sex == 'mouse':
+            farm = 'https://www.lowadi.com/elevage/chevaux/?elevage=1600375'
 
     if race == 'andalusian_elite':
         if sex == 'female':
@@ -40,19 +48,21 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
     farm = get_farm(race, sex)
 
     driver.get(farm)
-    time.sleep(5)
+    time.sleep(3)
 
     pages = len(driver.find_elements(
         By.XPATH,
         '/html/body/div[7]/main/section/section/div[2]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li'
     )[1:])
+    if pages == 0:
+        pages += 1
     url = ''
     print(f'Страниц во вкладке: {pages}')
 
     all_horses = pages * 200
     sleep_horses = 0
 
-    if pages == 0:
+    if pages == 1:
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
         for j in range(len(horses)):
@@ -64,7 +74,7 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
                 if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    return url, sleep_horses
+                    return url, len(horses) - sleep_horses
                 sleep_horses += 1
 
             except:
@@ -91,7 +101,7 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
                 if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    return url, all_horses - sleep_horses
+                    # return url, all_horses - sleep_horses
 
             except:
                 pass
@@ -456,9 +466,9 @@ def get_sleep(driver):
 def old_horse(driver, age=['Возраст:', '2', 'года'], name='horse', n=1):
     print(f'№{n} Взрослая лошадь: {name}, начинаем уход.', *age)
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]').click()
-    time.sleep(2)
+    time.sleep(1)
     get_food(driver)
-    time.sleep(2)
+    time.sleep(1)
     sleep = driver.find_element(By.XPATH, '//*[@id="boutonCoucher"]').click()
     time.sleep(1)
 
