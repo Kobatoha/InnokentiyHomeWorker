@@ -101,7 +101,7 @@ def find_unworking_horse(driver, race='andalusian', sex='female'):
                 if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    # return url, all_horses - sleep_horses
+                    return url, all_horses - sleep_horses
 
             except:
                 pass
