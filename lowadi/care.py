@@ -1338,3 +1338,18 @@ def push_mating_for_name(driver, female_name=''):
         time.sleep(3)
     else:
         print('No name horse')
+
+
+def andalusian_male_color_mating(driver):
+    color = get_color(driver)
+    race = 'andalusian'
+    if color == 'Рыжая с лавовой гривой':
+        race = 'andalusian_red'
+    elif color == 'Огненно-рыжая с лавовой гривой':
+        race = 'andalusian_fire_red'
+    elif color == 'Кремелло':
+        race = 'andalusian_cremello'
+    elif color == 'Соловая (Паломино)':
+        race = 'andalusian_palomino'
+    return race
+

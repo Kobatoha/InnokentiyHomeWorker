@@ -3,7 +3,8 @@ import os
 import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo
-from lowadi.care import get_name_horse, get_energy, push_mating_for_name, stable_options, get_color
+from lowadi.care import (get_name_horse, get_energy, push_mating_for_name, stable_options, get_color,
+                         andalusian_male_color_mating)
 
 
 def ready_matt(driver):
@@ -351,6 +352,7 @@ def female_reproduction(driver, race='andalusian', male_url=None):
 
 
 def male_reproduction(driver, race='andalusian'):
+    race = andalusian_male_color_mating(driver)
     lists_reproductions = {
         'andalusian_elite': 'lowadi/Lists of horses/andalusian.txt',
         'marshadore': 'lowadi/Lists of horses/marshadore.txt',

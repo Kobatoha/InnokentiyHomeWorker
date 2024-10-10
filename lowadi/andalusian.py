@@ -414,7 +414,7 @@ def andalusian_female_lava(driver, horses=200):
                     if 'кобыла' in sex:
                         if check_equus(driver) == 'Good':
                             spend_equus(driver)
-                        get_mating += female_reproduction(driver)
+                        get_mating += female_reproduction(driver, race='andalusian_lava')
 
                     time.sleep(1)
                     energy = get_energy(driver)
@@ -750,13 +750,13 @@ def andalusian_female_mouse(driver, horses=200):
 def andalusian_male(driver, horses=300):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=90938560'
 
-    current_url = find_unworking_horse(driver, 'andalusian', 'male')
+    current_url, horses = find_unworking_horse(driver, 'andalusian', 'male')
 
     if not current_url:
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url[0])
+    driver.get(current_url)
 
     post_mating = 0
     stable = 0
