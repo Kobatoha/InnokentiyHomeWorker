@@ -12,9 +12,6 @@ def new_drb():
     chromeOptions = uc.ChromeOptions()
     caps = DesiredCapabilities().CHROME
     caps["pageLoadStrategy"] = "eager"
-    chromeOptions.add_argument(
-        "--load-extension=" +
-        rf"C:\Users\user\PycharmProjects\InnokentiyHomeWorker\browsec")
     chromeOptions.headless = False
     driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
 
