@@ -100,6 +100,9 @@ def blup_dressage(driver, hour):
         ).click()
         time.sleep(1)
 
+    if hour >= 21:
+        hour = 20
+
     click_dressage = driver.find_element(
         By.XPATH,
         f'//*[@id="trainingDressageSlider"]/ol/li[{hour + 1}]'
@@ -177,6 +180,15 @@ def blup_speed(driver, hour):
     time.sleep(2)
 
 
+def choice_competition(driver, race='andalusian'):
+    if race == 'andalusian':
+        get_competition_galop(driver)
+    elif race == 'francy':
+        get_competition_trot(driver)
+    elif race == 'goland':
+        get_competition_jump(driver)
+
+
 def get_competition_galop(driver):
     click_competition = driver.find_element(
         By.XPATH,
@@ -202,6 +214,27 @@ def get_competition_trot(driver):
     click_competition = driver.find_element(
         By.XPATH,
         '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[1]/a'
+    ).click()
+    time.sleep(5)
+    try:
+        run = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
+            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
+        ).click()
+    except:
+        run = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+        ).click()
+
+    time.sleep(3)
+
+
+def get_competition_jump(driver):
+    click_competition = driver.find_element(
+        By.XPATH,
+        '//*[@id="competition-body-content"]/table/tbody/tr[2]/td[3]/a'
     ).click()
     time.sleep(5)
     try:
@@ -246,6 +279,66 @@ def blup_galop(driver, hour):
         '//*[@id="training-galop-submit"]/span/span/span'
     ).click()
     print(f'Тренировали галоп {hour / 2} hours')
+    time.sleep(2)
+
+
+def blup_trot(driver, hour):
+    try:
+        choice_trot = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[5]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+    except:
+        choice_trot = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[5]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+
+    click_trot = driver.find_element(
+        By.XPATH,
+        f'//*[@id="trainingTrotSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(1)
+
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="training-tort-submit"]/span/span/span'
+    ).click()
+    print(f'Тренировали рысь {hour / 2} hours')
+    time.sleep(2)
+
+
+def blup_jump(driver, hour):
+    try:
+        choice_jump = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[6]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+    except:
+        choice_jump = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div/div/div'
+            '/div[1]/div/table/tbody/tr[6]/td[3]/button/span'
+        ).click()
+        time.sleep(1)
+
+    click_jump = driver.find_element(
+        By.XPATH,
+        f'//*[@id="trainingSautSlider"]/ol/li[{hour + 1}]'
+    ).click()
+    time.sleep(1)
+
+    train = driver.find_element(
+        By.XPATH,
+        '//*[@id="training-saut-submit"]/span/span/span'
+    ).click()
+    print(f'Тренировали прыжки {hour / 2} hours')
     time.sleep(2)
 
 
@@ -425,6 +518,22 @@ def blup_training(driver, energy=20, race='andalusian'):
                 hour = 100 - flag
                 blup_galop(driver, hour)
 
+        elif train == 'trot':
+            hour = energy // trot
+            if hour <= 100 - flag:
+                blup_trot(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_trot(driver, hour)
+
+        elif train == 'jump':
+            hour = energy // jump
+            if hour <= 100 - flag:
+                blup_jump(driver, hour)
+            else:
+                hour = 100 - flag
+                blup_jump(driver, hour)
+
         return train
 
     else:
@@ -559,6 +668,8 @@ def flag_complete_skill(driver, race):
                 return [stamina, speed, dressage]
             elif race == 'curly':
                 return [stamina, speed, trot]
+            elif race == 'goland':
+                return [speed, dressage, jump]
 
         except:
             pass

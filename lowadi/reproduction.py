@@ -312,9 +312,20 @@ def female_reproduction(driver, race='andalusian', male_url=None):
                 push_mating_for_name(driver, name)
                 driver.back()
 
-                print('[Andalusian Blup] Случка прокинута на кобылу')
+                print('[Francais Blup] Случка прокинута на кобылу')
             else:
-                input('[Andalusian Blup] Нет ссылки на коня, давайте сами')
+                input('[Francais Blup] Нет ссылки на коня, давайте сами')
+
+        elif race == 'goland_blup':
+            if male_url:
+                name = get_name_horse(driver)
+                driver.get(male_url)
+                push_mating_for_name(driver, name)
+                driver.back()
+
+                print('[Goland Blup] Случка прокинута на кобылу')
+            else:
+                input('[Goland Blup] Нет ссылки на коня, давайте сами')
 
         elif race == 'marshadore':
             name = get_name_horse(driver)

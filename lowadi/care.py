@@ -1181,7 +1181,7 @@ def childbirth(driver, current_url, race):
         'andalusian_blup': ['...', 'rename', 'rename'],
         'without_corn': ['Безрожье', 'безрожка', 'безрожик'],
         'francais': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'fr', 'fr'],
-        'gold': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ', 'fr', 'fr']
+        'goland': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ', 'goldy', 'gold']
     }
 
     if race == 'unicorn':
