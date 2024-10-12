@@ -1269,14 +1269,15 @@ def andalusian_male_reserve(driver, horses=20):
     print(f'\n{now} прогон мужиков окончен\n-- Предложено случек: {post_mating}')
 
 
-def train_blup(driver, race='andalusian', child=False):
+def train_blup(driver, race='andalusian', child=False, male_mating=''):
     name = get_name_horse(driver)
     age = get_age_horse(driver)
 
     print(f'{datetime.now().strftime("%H:%M")} Начинаем качать [{name}] до 100 блюпа')
 
     if child is True:
-        get_male_url = input('Дайте ссылку на коня для случек')
+        if not male_mating:
+            male_mating = input('Дайте ссылку на коня для случек')
 
     current_url = get_current_url(driver)
     driver.get(current_url)
@@ -1300,10 +1301,16 @@ def train_blup(driver, race='andalusian', child=False):
                 grow_up(driver)
 
             elif (int(age[1]) < 2 and 'год' in age[2]) or (int(age[1]) >= 6 and age[2] == 'мес.'):
-                print(f'№{step} Молодая лошадь: {name}, гуляем в горах.', *age)
 
                 try:
+                    check_montains = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[8]/main/section/section/div[5]'
+                        '/div/div[3]/div[1]/div/div/div/div/div/div[1]/div/div/div[3]/a'
+                    )
+                    print(f'№{step} Молодая лошадь: {name}, гуляем в горах.', *age)
                     blup_montains(driver, hour=11)
+
                     for i in range(3):
                         get_doping(driver)[i].click()
                         time.sleep(1)
@@ -1328,14 +1335,17 @@ def train_blup(driver, race='andalusian', child=False):
                         print('Ваша кобыла скоро родит!')
                         call_doctor = driver.find_element(By.XPATH, '//*[@id="boutonVeterinaire"]').click()
                         time.sleep(1)
-                        childbirth(driver, current_url, race='andalusian_blup')
+                        childbirth(driver, current_url, race)
                 except:
                     pass
 
                 if child is True:
-                    for i in range(2):
-                        female_reproduction(driver, race='andalusian_blup', male_url=get_male_url)
-                        time.sleep(1)
+                    try:
+                        for i in range(2):
+                            female_reproduction(driver, f'{race}_blup', male_url=male_mating)
+                            time.sleep(1)
+                    except:
+                        pass
 
                 print(f'№{step} Взрослая лошадь: {name}, проводим тренировки.', *age)
 
@@ -1386,7 +1396,7 @@ def train_blup(driver, race='andalusian', child=False):
                         energy = get_energy(driver)
                         message = blup_training(driver, energy - 20, race)
 
-                    if 'speed' in message or 'dressage' in message or 'galop' in message:
+                    if message in ['speed', 'dressage', 'galop', 'trot', 'jump']:
                         grow_up(driver)
                         training = True
                     elif 'Проведена тренировка' in message or 'Тренировали' in message:
@@ -1419,12 +1429,11 @@ def train_blup(driver, race='andalusian', child=False):
                 print(f'№{step} Взрослая лошадь: {name}, идем на соревнования.', *age)
 
                 energy = get_energy(driver)
-                competition_galop = 13.5
 
                 count = int(energy // 13.5)
 
                 for _ in range(count):
-                    get_competition_galop(driver)
+                    choice_competition(driver, race)
                     competitions -= 1
                 for i in range(2):
                     get_doping(driver)[i].click()
@@ -1438,7 +1447,7 @@ def train_blup(driver, race='andalusian', child=False):
 
                 grow_up(driver)
 
-            skills = flag_complete_skill(driver, 'andalusian')
+            skills = flag_complete_skill(driver, race)
             if 'complete' in skills[0] and 'complete' in skills[1] and 'complete' in skills[2]:
                 complete = True
 
