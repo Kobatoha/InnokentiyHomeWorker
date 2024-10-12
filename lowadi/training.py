@@ -2,6 +2,7 @@ import time
 import pretty_errors
 from selenium.webdriver.common.by import By
 import re
+from competitions import *
 
 
 def flag_train_complete(driver, train='speed'):
@@ -187,69 +188,6 @@ def choice_competition(driver, race='andalusian'):
         get_competition_trot(driver)
     elif race == 'goland':
         get_competition_jump(driver)
-
-
-def get_competition_galop(driver):
-    click_competition = driver.find_element(
-        By.XPATH,
-        '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
-    ).click()
-    time.sleep(5)
-    try:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
-            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-    except:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-
-    time.sleep(3)
-
-
-def get_competition_trot(driver):
-    click_competition = driver.find_element(
-        By.XPATH,
-        '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[1]/a'
-    ).click()
-    time.sleep(5)
-    try:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
-            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-    except:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-
-    time.sleep(3)
-
-
-def get_competition_jump(driver):
-    click_competition = driver.find_element(
-        By.XPATH,
-        '//*[@id="competition-body-content"]/table/tbody/tr[2]/td[3]/a'
-    ).click()
-    time.sleep(5)
-    try:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
-            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-    except:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-
-    time.sleep(3)
 
 
 def blup_galop(driver, hour):
