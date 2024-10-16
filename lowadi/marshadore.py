@@ -128,7 +128,7 @@ def marshadore_female(driver, horses=130):
 
             except Exception as e:
 
-                print('Некакая error при уходе за лошадью:', e, current_url)
+                print('Некакая error при уход е за лошадью:', e, current_url)
                 try:
                     next_horse(driver)
                 except:
