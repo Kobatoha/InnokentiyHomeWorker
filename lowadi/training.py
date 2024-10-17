@@ -2,7 +2,7 @@ import time
 import pretty_errors
 from selenium.webdriver.common.by import By
 import re
-from competitions import *
+from lowadi.competitions import *
 
 
 def flag_train_complete(driver, train='speed'):
