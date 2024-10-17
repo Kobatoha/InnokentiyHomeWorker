@@ -363,7 +363,8 @@ def female_reproduction(driver, race='andalusian', male_url=None):
 
 
 def male_reproduction(driver, race='andalusian'):
-    race = andalusian_male_color_mating(driver)
+    if race == 'andalusian':
+        race = andalusian_male_color_mating(driver)
     lists_reproductions = {
         'andalusian_elite': 'lowadi/Lists of horses/andalusian.txt',
         'marshadore': 'lowadi/Lists of horses/marshadore.txt',
