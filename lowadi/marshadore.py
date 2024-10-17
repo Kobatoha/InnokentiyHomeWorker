@@ -1,7 +1,11 @@
+import time
+
 import pretty_errors
 from lowadi.other import *
 from lowadi.care import *
 from lowadi.trade import *
+from lowadi.competitions import *
+
 from lowadi.training import *
 from lowadi.reproduction import *
 
@@ -10,13 +14,13 @@ def marshadore_female(driver, horses=130):
     print('Начинаем гонять маршадорок')
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=19637945'
 
-    current_url = find_unworking_horse(driver, 'marshadore', 'female')
+    current_url, horses = find_unworking_horse(driver, 'marshadore', 'female')
 
     if not current_url:
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url[0])
+    driver.get(current_url)
 
     children = 0
     get_mating = 0
@@ -112,7 +116,7 @@ def marshadore_female(driver, horses=130):
                     get_mating += female_reproduction(driver, 'marshadore')
 
                     get_doping(driver)[-1].click()
-                    time.sleep(2)
+                    time.sleep(1)
                     get_food(driver)
                     get_sleep(driver)
 
@@ -122,6 +126,11 @@ def marshadore_female(driver, horses=130):
                         get_doping(driver)[0].click()
                         time.sleep(1)
                         get_doping(driver)[1].click()
+                        time.sleep(1)
+
+                    energy = get_energy(driver)
+                    if energy >= 70:
+                        get_lesson(driver)
                         time.sleep(1)
 
                 next_horse(driver)
@@ -149,13 +158,13 @@ def marshadore_female(driver, horses=130):
 def marshadore_male(driver, horses=15):
     url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=92114142'
 
-    current_url = find_unworking_horse(driver, 'marshadore', 'male')
+    current_url, horses = find_unworking_horse(driver, 'marshadore', 'male')
 
     if not current_url:
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url[0])
+    driver.get(current_url)
 
     post_mating = 0
     stable = 0
