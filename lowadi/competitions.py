@@ -1,7 +1,105 @@
 import time
 import pretty_errors
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 import re
+from lowadi.care import get_current_url
+from lowadi.other import check_ufo
+
+
+def choice_specialisation(driver, _type='classique'):
+    try:
+        if _type == 'classique':
+            try:
+                driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[4]'
+                    '/div/div/div/div/div/div/div/ul/li[1]/span[3]/form/button/span/span'
+                ).click()
+            except:
+                driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[4]'
+                    '/div/div/div/div/div/div/div/ul/li[1]/span[3]/form/button/span/span'
+                ).click()
+            time.sleep(1)
+
+        elif _type == 'western':
+            try:
+                driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[4]'
+                    '/div/div/div/div/div/div/div/ul/li[2]/span[3]/form/button/span/span'
+                ).click()
+            except:
+                driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[4]'
+                    '/div/div/div/div/div/div/div/ul/li[2]/span[3]/form/button/span/span'
+                ).click()
+            time.sleep(1)
+
+        alert = driver.switch_to.alert
+        alert.accept()
+
+    except:
+        pass
+
+
+def get_stable_with_equip(driver):
+    try:
+        if 'Зарегистрируйте свою лошадь' in driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
+                '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
+        ).text:
+
+            print('Лошадь нуждается в стойле со снаряжением..')
+
+            current_url = get_current_url(driver)
+
+            find_stable = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[1]'
+                '/div[2]/div/div/div[2]/div/div[2]/div/div/span/span[2]/a'
+            ).click()
+            time.sleep(3)
+
+            check_ufo(driver)
+
+            options = {
+                'days': '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[3]/a',
+                'selle': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[5]',
+                'bride': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[6]',
+                'tapis': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[7]',
+                'classic': '//*[@id="classiqueLabel"]'
+            }
+
+            for i in options:
+                driver.find_element(By.XPATH, options[i]).click()
+                time.sleep(2)
+
+            find = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[1]/form/button[1]/span/span/span'
+            ).click()
+            time.sleep(2)
+
+            first_offer = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[1]/table/tbody'
+                '/tr[1]/td[7]/button/span/span/span/span/strong'
+            )
+            print(f'Стоимость стойла с амунницией за 3 дня составляет: {first_offer.text} экю')
+
+            first_offer.click()
+
+            return 1
+
+    except:
+
+        return 0
 
 
 def get_competition_galop(driver):
