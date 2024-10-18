@@ -406,6 +406,22 @@ def get_stable(driver):
         return 0
 
 
+def about_stable(driver):
+    try:
+        name_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[1]/div[3]'
+            '/div/div/div/div/div/div[1]/div[1]/table/tbody/tr[1]/td/div[2]/div/div[2]'
+        ).text
+    except:
+        name_stable = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[1]/div[3]'
+            '/div/div/div/div/div/div[1]/div[1]/table/tbody/tr[1]/td/div[2]/div/div[2]'
+        ).text
+    return name_stable
+
+
 def death_horse(driver):
     try:
 
