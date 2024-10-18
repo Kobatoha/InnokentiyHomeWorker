@@ -8,6 +8,49 @@ from lowadi.care import get_current_url
 from lowadi.other import check_ufo
 
 
+def equiped_horse(driver, _type='publick'):
+    try:
+        driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[4]/div/div/div/div/div/a/span[1]'
+        ).click()
+        time.sleep(2)
+
+        equip = {
+            'tapis': ['/html/body/div[11]/span/div/div[1]/div[2]/div[2]',
+                      '/html/body/div[11]/span/div/div[1]/form/div[1]/div'],
+            'selle': ['/html/body/div[11]/span/div/div[1]/div[2]/div[3]',
+                      '/html/body/div[11]/span/div/div[1]/form/div[2]/div'],
+            'bride': ['/html/body/div[11]/span/div/div[1]/div[2]/div[4]',
+                      '/html/body/div[11]/span/div/div[1]/form/div[3]/div']
+        }
+
+        for i in equip:
+            item = driver.find_element(
+                By.XPATH,
+                equip[i][0]
+            )
+
+            item.click()
+            offers = driver.find_elements(
+                By.XPATH,
+                equip[i][1]
+            )
+            for offer in offers:
+                if 'Предлагается конноспортивным комплексом!' in offer.text:
+                    print(item.text, ':', offer.text)
+                    offer.click()
+
+            time.sleep(1)
+
+        agree = driver.find_element(
+            By.XPATH,
+            '/html/body/div[11]/span/div/button/span/span/span'
+        ).click()
+    except:
+        print('error')
+
+
 def choice_specialisation(driver, _type='classique'):
     try:
         if _type == 'classique':
