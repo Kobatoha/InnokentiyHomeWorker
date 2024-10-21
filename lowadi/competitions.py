@@ -237,8 +237,7 @@ def find_fast_competition(driver, _type='public', _eclair=False):
         else:
             eclair = False
 
-        if eclair and last_place:
-            return td_elements[7]
+        return td_elements[7]
 
 
 
