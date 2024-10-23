@@ -8,22 +8,66 @@ from lowadi.care import get_current_url
 from lowadi.other import check_ufo
 
 
-def equiped_horse(driver, _type='publick'):
+def check_equip(driver):
+    equip = False
     try:
-        driver.find_element(
+        equipement = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[4]/div/div/div/div/div/a/span[1]'
-        ).click()
-        time.sleep(2)
+            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[1]'
+            '/tbody[2]/tr/td/div/div/table/tbody/tr/td[1]/div/div'
+        ).text
+        if 'пока нельзя надеть снаряжение' in equipement:
+            equip = False
 
-        equip = {
-            'tapis': ['/html/body/div[11]/span/div/div[1]/div[2]/div[2]',
-                      '/html/body/div[11]/span/div/div[1]/form/div[1]/div'],
-            'selle': ['/html/body/div[11]/span/div/div[1]/div[2]/div[3]',
-                      '/html/body/div[11]/span/div/div[1]/form/div[2]/div'],
-            'bride': ['/html/body/div[11]/span/div/div[1]/div[2]/div[4]',
-                      '/html/body/div[11]/span/div/div[1]/form/div[3]/div']
-        }
+        equipement = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[1]'
+                '/tbody[2]/tr/td/div/div/table/tbody/tr/td[1]/div/div[2]/div[2]/ul/li[1]/a'
+            ).get_attribute('data-tooltip')
+        if 'Нет вальтрапа' in equipement:
+            equip = False
+        else:
+            equip = True
+
+    except:
+        return equip
+
+    return equip
+
+
+def equiped_horse(driver, _type='public'):
+
+    try:
+        try:
+            driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[4]/div/div/div/div/div/a/span[1]'
+            ).click()
+            time.sleep(2)
+
+            equip = {
+                'tapis': ['/html/body/div[11]/span/div/div[1]/div[2]/div[2]',
+                          '/html/body/div[11]/span/div/div[1]/form/div[1]/div'],
+                'selle': ['/html/body/div[11]/span/div/div[1]/div[2]/div[3]',
+                          '/html/body/div[11]/span/div/div[1]/form/div[2]/div'],
+                'bride': ['/html/body/div[11]/span/div/div[1]/div[2]/div[4]',
+                          '/html/body/div[11]/span/div/div[1]/form/div[3]/div']
+            }
+        except:
+            driver.find_element(
+                By.XPATH,
+                '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[4]/div/div/div/div/div/a/span[1]'
+            ).click()
+            time.sleep(2)
+
+            equip = {
+                'tapis': ['/html/body/div[12]/span/div/div[1]/div[2]/div[2]',
+                          '/html/body/div[11]/span/div/div[1]/form/div[1]/div'],
+                'selle': ['/html/body/div[12]/span/div/div[1]/div[2]/div[3]',
+                          '/html/body/div[11]/span/div/div[1]/form/div[2]/div'],
+                'bride': ['/html/body/div[12]/span/div/div[1]/div[2]/div[4]',
+                          '/html/body/div[11]/span/div/div[1]/form/div[3]/div']
+            }
 
         for i in equip:
             item = driver.find_element(
@@ -47,6 +91,8 @@ def equiped_horse(driver, _type='publick'):
             By.XPATH,
             '/html/body/div[11]/span/div/button/span/span/span'
         ).click()
+        time.sleep(1)
+
     except:
         print('error')
 
@@ -67,6 +113,7 @@ def choice_specialisation(driver, _type='classique'):
                     '/div/div/div/div/div/div/div/ul/li[1]/span[3]/form/button/span/span'
                 ).click()
             time.sleep(1)
+            print(f'Выбрали специализацию {_type}')
 
         elif _type == 'western':
             try:
@@ -82,9 +129,11 @@ def choice_specialisation(driver, _type='classique'):
                     '/div/div/div/div/div/div/div/ul/li[2]/span[3]/form/button/span/span'
                 ).click()
             time.sleep(1)
+            print(f'Выбрали специализацию {_type}')
 
         alert = driver.switch_to.alert
         alert.accept()
+        time.sleep(1)
 
     except:
         pass
@@ -138,6 +187,7 @@ def get_stable_with_equip(driver):
 
             first_offer.click()
 
+            time.sleep(1)
             return 1
 
     except:
@@ -145,25 +195,43 @@ def get_stable_with_equip(driver):
         return 0
 
 
+def choice_competition(driver, race='andalusian'):
+    if race == 'andalusian':
+       cost = get_competition_galop(driver)
+    elif race == 'francais':
+       cost = get_competition_trot(driver)
+    elif race == 'goland':
+       cost = get_competition_jump(driver)
+
+    return cost
+
+
 def get_competition_galop(driver):
     click_competition = driver.find_element(
         By.XPATH,
         '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
     ).click()
-    time.sleep(5)
+    time.sleep(3)
     try:
+        cost = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[7]'
+        ).text.split(' ')[0]
         run = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
-            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[8]'
         ).click()
     except:
+        cost = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[2]/table/tbody/tr[1]/td[7]'
+        ).text.split(' ')[0]
         run = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
         ).click()
 
-    time.sleep(3)
+    return float(cost)
 
 
 def get_competition_trot(driver):
@@ -173,12 +241,20 @@ def get_competition_trot(driver):
     ).click()
     time.sleep(5)
     try:
+        cost = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[7]'
+        ).text.split(' ')[0]
         run = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
             '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
         ).click()
     except:
+        cost = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[2]/td[7]'
+        ).text.split(' ')[0]
         run = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
