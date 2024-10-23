@@ -504,8 +504,11 @@ def old_horse(driver, age=None, name='horse', n=1):
 
 
 def get_lesson(driver):
-    lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
-    time.sleep(1)
+    try:
+        lesson = driver.find_element(By.XPATH, '//*[@id="mission-tab-0"]/div/div/div[2]').click()
+        time.sleep(1)
+    except:
+        pass
 
 
 def get_history(driver, event='lesson'):
