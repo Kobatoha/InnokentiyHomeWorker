@@ -184,15 +184,6 @@ def blup_speed(driver, hour):
     time.sleep(2)
 
 
-def choice_competition(driver, race='andalusian'):
-    if race == 'andalusian':
-        get_competition_galop(driver)
-    elif race == 'francy':
-        get_competition_trot(driver)
-    elif race == 'goland':
-        get_competition_jump(driver)
-
-
 def blup_galop(driver, hour):
     try:
         choice_galop = driver.find_element(
