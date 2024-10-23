@@ -408,7 +408,7 @@ def male_reproduction(driver, race='andalusian'):
                     price = driver.find_element(
                         By.XPATH,
                         '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[11]'
+                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[8]'
                     ).click()
                     time.sleep(1)
 
