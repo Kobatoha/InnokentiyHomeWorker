@@ -3,8 +3,7 @@ import os
 import pretty_errors
 from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo
-from lowadi.care import (get_name_horse, get_energy, push_mating_for_name, stable_options, get_color,
-                         andalusian_male_color_mating)
+from lowadi.care import get_name_horse, get_energy, push_mating_for_name, get_color, andalusian_male_color_mating
 
 
 def ready_matt(driver):
