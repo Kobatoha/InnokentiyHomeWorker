@@ -23,7 +23,8 @@ def get_farm(race: str, sex: str):
             'blup': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593203',
             'male': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198',
             'reserve': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593208',
-            'north': 'https://www.lowadi.com/elevage/chevaux/?elevage=1596383'
+            'north': 'https://www.lowadi.com/elevage/chevaux/?elevage=1596383',
+            'unicorn': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
         },
         'goland': {
             'blup': 'https://www.lowadi.com/elevage/chevaux/?elevage=1595755',
@@ -859,14 +860,14 @@ def push_mating_for_name(driver, female_name=''):
 
 def andalusian_male_color_mating(driver):
     color = get_color(driver)
-    race = 'andalusian'
+    sex = 'male'
     if color == 'Рыжая с лавовой гривой':
-        race = 'andalusian_red'
+        sex = 'red'
     elif color == 'Огненно-рыжая с лавовой гривой':
-        race = 'andalusian_fire_red'
+        sex = 'fire_red'
     elif color == 'Кремелло':
-        race = 'andalusian_cremello'
+        sex = 'cremello'
     elif color == 'Соловая (Паломино)':
-        race = 'andalusian_palomino'
-    return race
+        sex = 'palomino'
+    return sex
 
