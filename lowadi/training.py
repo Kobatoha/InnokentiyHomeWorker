@@ -48,22 +48,25 @@ def flag_train_possible(driver, train='jump'):
 
 
 def blup_montains(driver, hour):
-    choice_mountains = driver.find_element(
-        By.XPATH,
-        '//*[@id="boutonBalade-montagne"]'
-    ).click()
-    time.sleep(1)
-    choice_hours = driver.find_element(
-        By.XPATH,
-        f'//*[@id="walkmontagneSlider"]/ol/li[{hour + 1}]'
-    ).click()
-    time.sleep(1)
-    train = driver.find_element(
-        By.XPATH,
-        '//*[@id="walk-montagne-submit"]/span/span/span'
-    ).click()
-    print(f'Погуляли в горах {hour / 2} hours')
-    time.sleep(2)
+    try:
+        choice_mountains = driver.find_element(
+            By.XPATH,
+            '//*[@id="boutonBalade-montagne"]'
+        ).click()
+        time.sleep(1)
+        choice_hours = driver.find_element(
+            By.XPATH,
+            f'//*[@id="walkmontagneSlider"]/ol/li[{hour + 1}]'
+        ).click()
+        time.sleep(1)
+        train = driver.find_element(
+            By.XPATH,
+            '//*[@id="walk-montagne-submit"]/span/span/span'
+        ).click()
+        print(f'Погуляли в горах {hour / 2} hours')
+        time.sleep(2)
+    except:
+        print('Еще не дорос до прогулок')
 
 
 def blup_forest(driver, hour):

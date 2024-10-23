@@ -36,6 +36,9 @@ def get_farm(race: str, sex: str):
         'marshadore': {
             'female': 'https://www.lowadi.com/elevage/chevaux/?elevage=1590179',
             'male': 'https://www.lowadi.com/elevage/chevaux/?elevage=1594304'
+        },
+        'heavyhorse': {
+            'all': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
         }
     }
 
@@ -63,7 +66,7 @@ def find_unworking_horse(driver, race='andalusian', sex='basic'):
 
     if pages == 1:
         horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
-
+        all_horses = len(horses)
         for j in range(len(horses)):
             try:
                 name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
@@ -73,37 +76,41 @@ def find_unworking_horse(driver, race='andalusian', sex='basic'):
                 if status != 'Спит':
                     print('Найдена необработанная лошадь')
                     url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    return url, len(horses) - sleep_horses
+
+                    return url, all_horses - sleep_horses
                 sleep_horses += 1
 
             except:
                 pass
 
-    for i in range(2, pages + 2):
+    else:
+        for i in range(2, pages + 2):
 
-        page = driver.find_element(
-            By.XPATH,
-            f'/html/body/div[7]/main/section/section/div[2]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li[{i}]/a'
-        ).click()
-        print(f'Page: {i - 1}')
-        time.sleep(2)
+            page = driver.find_element(
+                By.XPATH,
+                f'/html/body/div[7]/main/section/section/div[2]/div[2]/div[2]/div/div[1]/div[2]/div/ul/li[{i}]/a'
+            ).click()
+            print(f'Page: {i - 1}')
+            time.sleep(2)
 
-        horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
+            horses = driver.find_elements(By.XPATH, '//*[@class="damier-cell grid-cell width-25"]')
 
-        for j in range(len(horses)):
-            sleep_horses += 1
-            try:
-                name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
-                status = horses[j].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
-                    j].get_attribute('data-tooltip')
+            for j in range(len(horses)):
+                sleep_horses += 1
+                try:
+                    name = horses[j].find_element(By.CLASS_NAME, 'horsename').text
+                    status = horses[j].find_elements(By.XPATH, '//*[@class="cheval-status spacer-small-left"]/span[1]')[
+                        j].get_attribute('data-tooltip')
 
-                if status != 'Спит':
-                    print('Найдена необработанная лошадь')
-                    url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
-                    return url, all_horses - sleep_horses
+                    if status != 'Спит':
+                        print('Найдена необработанная лошадь')
+                        url = horses[j].find_element(By.CLASS_NAME, 'horsename').get_attribute('href')
+                        return url, all_horses - sleep_horses
 
-            except:
-                pass
+                except:
+                    pass
+
+    return url, all_horses - sleep_horses
 
 
 def check_horse_complete(driver):
@@ -253,37 +260,41 @@ def get_sex(driver):
 
 
 def get_food(driver):
-    food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
-    time.sleep(2)
-    recommend = int(driver.find_element(
-        By.XPATH,
-        '//*[@id="feeding"]/table[1]/tbody/tr[2]/td[1]/span[2]/strong'
-    ).text)
-
     try:
+        food = driver.find_element(By.XPATH, '//*[@id="boutonAllaiter"]').click()
+    except:
+        food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
+        time.sleep(2)
+        recommend = int(driver.find_element(
+            By.XPATH,
+            '//*[@id="feeding"]/table[1]/tbody/tr[2]/td[1]/span[2]/strong'
+        ).text)
 
-        if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
-            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
-            time.sleep(1)
-        elif 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
-            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
-            time.sleep(1)
-        elif 'слишком толстый' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
-            choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
-            time.sleep(1)
-        else:
+        try:
+
+            if 'недостаточный вес' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+                choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[21]').click()
+                time.sleep(1)
+            elif 'слишком толстая' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+                choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
+                time.sleep(1)
+            elif 'слишком толстый' in driver.find_element(By.XPATH, '//*[@id="messageBoxInline"]').text:
+                choice_food = driver.find_element(By.XPATH, '//*[@id="haySlider"]/ol/li[2]').click()
+                time.sleep(1)
+            else:
+                choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
+                time.sleep(1)
+
+        except:
+
             choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
             time.sleep(1)
+        feed = driver.find_element(
+            By.XPATH,
+            '//*[@id="feed-button"]/span/span/span'
+            ).click()
 
-    except:
-
-        choice_food = driver.find_element(By.XPATH, f'//*[@id="haySlider"]/ol/li[{recommend + 1}]').click()
-        time.sleep(1)
-    feed = driver.find_element(
-        By.XPATH,
-        '//*[@id="feed-button"]/span/span/span'
-        ).click()
-    time.sleep(2)
+    time.sleep(1)
 
 
 def grow_up(driver):
@@ -458,13 +469,15 @@ def blup_diet(driver):
 
 def get_doping(driver):
     '''
-
     :return: pat, water, carrot, mash, clean
     '''
     pat = driver.find_element(By.XPATH, '//*[@id="boutonCaresser"]')
     water = driver.find_element(By.XPATH, '//*[@id="boutonBoire"]')
     carrot = driver.find_element(By.XPATH, '//*[@id="boutonCarotte"]')
-    mash = driver.find_element(By.XPATH, '//*[@id="boutonMash"]')
+    try:
+        mash = driver.find_element(By.XPATH, '//*[@id="boutonMash"]')
+    except:
+        mash = None
     clean = driver.find_element(By.XPATH, '//*[@id="boutonPanser"]')
 
     return [pat, water, carrot, mash, clean]

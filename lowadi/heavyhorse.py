@@ -17,13 +17,13 @@ def work_heavyhorse(driver, horses=100):
     print('Начинаем гонять тяжиков')
     url = 'https://www.lowadi.com/elevage/chevaux/?elevage=1593200'
 
-    current_url = find_unworking_horse(driver, 'heavy_horse', '')
+    current_url, horses = find_unworking_horse(driver, 'heavyhorse', 'all')
 
     if not current_url:
         print('Все спят, гонять нечего <3')
         return
 
-    driver.get(current_url[0])
+    driver.get(current_url)
 
     n = 1
     children = 0
