@@ -46,333 +46,327 @@ def ready_matt(driver):
             return False
 
 
-def female_reproduction(driver, race='andalusian', male_url=None):
+def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
     matting = ready_matt(driver)
 
     if matting and matting[1] == 1:
 
-        if race == 'andalusian_elite':
-            male_name = driver.find_element(
-                By.XPATH,
-                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
-            ).text
-            print(f'[Andalusian Elite] Принимаем случку от {male_name}')
+        if race == 'andalusian':
+            if sex == 'elite':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'[Andalusian Elite] Принимаем случку от {male_name}')
 
-            ok = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-            ).click()
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
 
-            check_ufo(driver)
+                check_ufo(driver)
 
-            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-            time.sleep(1)
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
 
-            print('[Andalusian Elite] Кобыла успешно приняла предложенную случку')
-            time.sleep(1)
+                print('[Andalusian Elite] Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
 
-            return 1
+                return 1
 
-        elif race == 'andalusian_creme':
-            male_name = driver.find_element(
-                By.XPATH,
-                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
-            ).text
-            print(f'[Andalusian Creme] Принимаем случку от {male_name}')
+            elif sex == 'creme':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'[Andalusian Creme] Принимаем случку от {male_name}')
 
-            ok = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-            ).click()
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
 
-            check_ufo(driver)
+                check_ufo(driver)
 
-            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-            time.sleep(1)
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
 
-            print('[Andalusian Creme] Кобыла успешно приняла предложенную случку')
-            time.sleep(1)
+                print('[Andalusian Creme] Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
 
-            return 1
+                return 1
 
-        elif race == 'andalusian_lava':
-            male_name = driver.find_element(
-                By.XPATH,
-                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
-            ).text
-            print(f'[Andalusian Creme] Принимаем случку от {male_name}')
+            elif sex == 'lava':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'[Andalusian Lava] Принимаем случку от {male_name}')
 
-            ok = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-            ).click()
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
 
-            check_ufo(driver)
+                check_ufo(driver)
 
-            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-            time.sleep(1)
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
 
-            print('[Andalusian Creme] Кобыла успешно приняла предложенную случку')
-            time.sleep(1)
+                print('[Andalusian Lava] Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
 
-            return 1
+                return 1
 
-        elif race == 'andalusian_blup':
-            male_name = driver.find_element(
-                By.XPATH,
-                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
-            ).text
-            print(f'[Andalusian Blup] Принимаем случку от {male_name}')
+            elif sex == 'blup':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'[Andalusian Blup] Принимаем случку от {male_name}')
 
-            ok = driver.find_element(
-                By.XPATH,
-                '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-            ).click()
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
 
-            check_ufo(driver)
+                check_ufo(driver)
 
-            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-            time.sleep(1)
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
 
-            print('[Andalusian Blup] Кобыла успешно приняла предложенную случку')
-            time.sleep(1)
+                print('[Andalusian Blup] Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
 
-            return 1
+                return 1
+
+            elif sex == 'unicorn':
+                pass
 
         elif race == 'marshadore':
-            male_name = driver.find_element(
-                By.XPATH,
-                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
-            ).text
-            print(f'[Marshadore] Принимаем случку от {male_name}')
+            if sex == 'female':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'[Marshadore] Принимаем случку от {male_name}')
 
-            ok = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-            ).click()
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
 
-            check_ufo(driver)
+                check_ufo(driver)
 
-            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-            time.sleep(1)
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
 
-            print('[Marshadore] Кобыла успешно приняла предложенную случку')
-            time.sleep(1)
+                print('[Marshadore] Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
 
-            return 1
-
-        elif race == 'andalusian_unicorn':
-            male_name = driver.find_element(
-                By.XPATH,
-                '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
-            ).text
-            print(f'[Andalusian Unicorn] Принимаем случку от {male_name}')
-
-            ok = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-            ).click()
-
-            check_ufo(driver)
-
-            mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
-            time.sleep(1)
-
-            print('[Andalusian Unicorn] Кобыла успешно приняла предложенную случку')
-            time.sleep(1)
-
-            return 1
+                return 1
 
     elif matting and matting[1] == 0:
 
         if race == 'andalusian':
-            print('В эфире обычная андалузка, идем на брачный рынок..')
-            check_ufo(driver)
-            driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
-            time.sleep(1)
-            master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
-            time.sleep(1)
-            get_offers = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/form/button[1]/span/span'
-            ).click()
-            time.sleep(1)
-            gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
-            time.sleep(1)
-            get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
-            time.sleep(1)
-
-            if 'Kolgotki' in driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[2]').text:
-                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+            if sex == 'basic':
+                print('В эфире обычная андалузка, идем на брачный рынок..')
+                check_ufo(driver)
+                driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
+                time.sleep(1)
+                master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
+                time.sleep(1)
+                get_offers = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/form/button[1]/span/span'
+                ).click()
+                time.sleep(1)
+                gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
+                time.sleep(1)
+                get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
                 time.sleep(1)
 
-            print('[Andalusian] Кобыла успешно провела случку')
-            time.sleep(1)
+                if 'Kolgotki' in driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[2]').text:
+                    mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                    time.sleep(1)
 
-            return 1
+                print('[Andalusian] Кобыла успешно провела случку')
+                time.sleep(1)
 
-        elif race == 'andalusian_creme':
-            name = get_name_horse(driver)
-            color = get_color(driver)
-            creme = ''
+                return 1
 
-            if color == 'Соловая (Паломино)':
-                creme = 'palomino'
-            elif color == 'Кремелло':
-                creme = 'cremello'
-
-            try:
-                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'r') as file:
-                    names = file.readlines()
-            except FileNotFoundError:
-                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'w') as file:
-                    pass
-                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'r') as file:
-                    names = file.readlines()
-
-            if name + '\n' not in names:
-                with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'a') as file:
-                    file.write(name + '\n')
-
-                print('[Andalusian Creme] Добавлена в очередь на ожидание случки')
-            else:
-                print('[Andalusian Creme] Уже в очереди на ожидание случки')
-
-            return 0
-
-        elif race == 'andalusian_lava':
-            name = get_name_horse(driver)
-            color = get_color(driver)
-            lava = ''
-
-            if color == 'Огненно-рыжая с лавовой гривой':
-                lava = 'fire-red'
-            elif color == 'Рыжая с лавовой гривой':
-                lava = 'red'
-
-            try:
-                with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'r') as file:
-                    names = file.readlines()
-            except FileNotFoundError:
-                with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'w') as file:
-                    pass
-                with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'r') as file:
-                    names = file.readlines()
-
-            if name + '\n' not in names:
-                with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'a') as file:
-                    file.write(name + '\n')
-
-                print('[Andalusian Lava] Добавлена в очередь на ожидание случки')
-            else:
-                print('[Andalusian Lava] Уже в очереди на ожидание случки')
-
-            return 0
-
-        elif race == 'andalusian_elite':
-            name = get_name_horse(driver)
-
-            with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
-                names = file.readlines()
-
-            if name + '\n' not in names:
-                with open('lowadi/Lists of horses/andalusian.txt', 'a') as file:
-                    file.write(name + '\n')
-
-                print('[Andalusian Elite] Добавлена в очередь на ожидание случки')
-            else:
-                print('[Andalusian Elite] Уже в очереди на ожидание случки')
-
-            return 0
-
-        elif race == 'andalusian_blup':
-            if male_url:
+            elif sex == 'creme':
                 name = get_name_horse(driver)
-                driver.get(male_url)
-                push_mating_for_name(driver, name)
-                driver.back()
+                color = get_color(driver)
+                creme = ''
 
-                print('[Andalusian Blup] Случка прокинута на кобылу')
-            else:
-                print('[Andalusian Blup] Нет ссылки на коня')
+                if color == 'Соловая (Паломино)':
+                    creme = 'palomino'
+                elif color == 'Кремелло':
+                    creme = 'cremello'
 
-            return 0
+                try:
+                    with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'r') as file:
+                        names = file.readlines()
 
-        elif race == 'francais_blup':
-            if male_url:
+                if name + '\n' not in names:
+                    with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'a') as file:
+                        file.write(name + '\n')
+
+                    print('[Andalusian Creme] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Andalusian Creme] Уже в очереди на ожидание случки')
+
+                return 0
+
+            elif sex == 'lava':
                 name = get_name_horse(driver)
-                driver.get(male_url)
-                push_mating_for_name(driver, name)
-                driver.back()
+                color = get_color(driver)
+                lava = ''
 
-                print('[Francais Blup] Случка прокинута на кобылу')
-            else:
-                input('[Francais Blup] Нет ссылки на коня, давайте сами')
+                if color == 'Огненно-рыжая с лавовой гривой':
+                    lava = 'fire-red'
+                elif color == 'Рыжая с лавовой гривой':
+                    lava = 'red'
+
+                try:
+                    with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'r') as file:
+                        names = file.readlines()
+
+                if name + '\n' not in names:
+                    with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'a') as file:
+                        file.write(name + '\n')
+
+                    print('[Andalusian Lava] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Andalusian Lava] Уже в очереди на ожидание случки')
+
+                return 0
+
+            elif sex == 'elite':
+                name = get_name_horse(driver)
+
+                with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
+                    names = file.readlines()
+
+                if name + '\n' not in names:
+                    with open('lowadi/Lists of horses/andalusian.txt', 'a') as file:
+                        file.write(name + '\n')
+
+                    print('[Andalusian Elite] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Andalusian Elite] Уже в очереди на ожидание случки')
+
+                return 0
+
+            elif sex == 'blup':
+                if male_url:
+                    name = get_name_horse(driver)
+                    driver.get(male_url)
+                    push_mating_for_name(driver, name)
+                    driver.back()
+
+                    print('[Andalusian Blup] Случка прокинута на кобылу')
+                else:
+                    print('[Andalusian Blup] Нет ссылки на коня')
+
+                return 0
+
+            elif sex == 'unicorn':
+                name = get_name_horse(driver)
+
+                with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'r') as file:
+                    names = file.readlines()
+
+                if name + '\n' not in names:
+                    with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'a') as file:
+                        file.write(name + '\n')
+
+                    print('[Andalusian Unicorn] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Andalusian Unicorn] Уже в очереди на ожидание случки')
+
+                return 0
+
+        elif race == 'francais':
+            if sex == 'blup':
+
+                if male_url:
+                    name = get_name_horse(driver)
+                    driver.get(male_url)
+                    push_mating_for_name(driver, name)
+                    driver.back()
+
+                    print('[Francais Blup] Случка прокинута на кобылу')
+                else:
+                    input('[Francais Blup] Нет ссылки на коня, давайте сами')
 
         elif race == 'goland_blup':
-            if male_url:
-                name = get_name_horse(driver)
-                driver.get(male_url)
-                push_mating_for_name(driver, name)
-                driver.back()
+            if sex == 'blup':
+                if male_url:
+                    name = get_name_horse(driver)
+                    driver.get(male_url)
+                    push_mating_for_name(driver, name)
+                    driver.back()
 
-                print('[Goland Blup] Случка прокинута на кобылу')
-            else:
-                input('[Goland Blup] Нет ссылки на коня, давайте сами')
+                    print('[Goland Blup] Случка прокинута на кобылу')
+                else:
+                    input('[Goland Blup] Нет ссылки на коня, давайте сами')
 
         elif race == 'marshadore':
-            name = get_name_horse(driver)
+            if sex == 'female':
+                name = get_name_horse(driver)
 
-            with open('lowadi/Lists of horses/marshadore.txt', 'r') as file:
-                names = file.readlines()
+                with open('lowadi/Lists of horses/marshadore.txt', 'r') as file:
+                    names = file.readlines()
 
-            if name + '\n' not in names:
-                with open('lowadi/Lists of horses/marshadore.txt', 'a') as file:
-                    file.write(name + '\n')
+                if name + '\n' not in names:
+                    with open('lowadi/Lists of horses/marshadore.txt', 'a') as file:
+                        file.write(name + '\n')
 
-                print('[Marshadore] Добавлена в очередь на ожидание случки')
-            else:
-                print('[Marshadore] Уже в очереди на ожидание случки')
+                    print('[Marshadore] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Marshadore] Уже в очереди на ожидание случки')
 
-            return 0
+                return 0
 
-        elif race == 'andalusian_unicorn':
-            name = get_name_horse(driver)
-
-            with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'r') as file:
-                names = file.readlines()
-
-            if name + '\n' not in names:
-                with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'a') as file:
-                    file.write(name + '\n')
-
-                print('[Andalusian Unicorn] Добавлена в очередь на ожидание случки')
-            else:
-                print('[Andalusian Unicorn] Уже в очереди на ожидание случки')
-
-            return 0
     else:
         return 0
 
 
-def male_reproduction(driver, race='andalusian'):
+def male_reproduction(driver, race='andalusian', sex='male'):
     if race == 'andalusian':
-        race = andalusian_male_color_mating(driver)
+        sex = andalusian_male_color_mating(driver)
+
     lists_reproductions = {
-        'andalusian_elite': 'lowadi/Lists of horses/andalusian.txt',
-        'marshadore': 'lowadi/Lists of horses/marshadore.txt',
-        'andalusian_unicorn': 'lowadi/Lists of horses/andalusian_unicorn.txt',
-        'andalusian_palomino': 'lowadi/Lists of horses/andalusian_palomino.txt',
-        'andalusian_cremello': 'lowadi/Lists of horses/andalusian_cremello.txt',
-        'andalusian_red': 'lowadi/Lists of horses/andalusian_red.txt',
-        'andalusian_fire_red': 'lowadi/Lists of horses/andalusian_fire-red.txt'
+        'andalusian': {
+            'elite': 'lowadi/Lists of horses/andalusian.txt',
+            'unicorn': 'lowadi/Lists of horses/andalusian_unicorn.txt',
+            'palomino': 'lowadi/Lists of horses/andalusian_palomino.txt',
+            'cremello': 'lowadi/Lists of horses/andalusian_cremello.txt',
+            'red': 'lowadi/Lists of horses/andalusian_red.txt',
+            'fire_red': 'lowadi/Lists of horses/andalusian_fire-red.txt'
+        },
+        'marshadore': {
+            'male': 'lowadi/Lists of horses/marshadore.txt'
+        }
     }
+
     time.sleep(1)
     mating = 25
     num = 0
@@ -380,7 +374,7 @@ def male_reproduction(driver, race='andalusian'):
     gp = int(name.split()[1][:-3])
     energy = get_energy(driver)
     count = energy // mating
-    if race == 'andalusian':
+    if race == 'andalusian' and sex == 'male':
         try:
             while count != 0:
                 create_mating = driver.find_element(
@@ -441,7 +435,7 @@ def male_reproduction(driver, race='andalusian'):
     else:
         try:
             while count != 0:
-                with open(lists_reproductions[race], 'r') as file:
+                with open(lists_reproductions[race][sex], 'r') as file:
                     females = file.readlines()
 
                 if not females:
@@ -482,7 +476,7 @@ def male_reproduction(driver, race='andalusian'):
                 ).click()
                 time.sleep(3)
 
-                with open(lists_reproductions[race], 'w') as file:
+                with open(lists_reproductions[race][sex], 'w') as file:
                     for female in females[1:]:
                         file.write(female)
 
@@ -498,6 +492,3 @@ def male_reproduction(driver, race='andalusian'):
             print('error male_reproduction')
 
             return num
-
-
-
