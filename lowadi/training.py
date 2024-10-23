@@ -283,7 +283,43 @@ def blup_jump(driver, hour):
     time.sleep(2)
 
 
-def general_training(driver, energy=20):
+def get_train_program(race='andalusian'):
+    train_program = {
+        'andalusian': ['speed', 'dressage', 'galop'],
+        'francais': ['speed', 'dressage', 'trot'],
+        'goland': ['speed', 'dressage', 'jump'],
+        'marshadore': ['stamina', 'speed', 'dressage'],
+        'lusitanien': ['dressage', 'galop', 'trot']
+    }
+    return train_program[race]
+
+
+def train_cost(train):
+    costs = {
+        'mountains': 9,
+        'stamina': 8,
+        'speed': 8,
+        'dressage': 5,
+        'galop': 7,
+        'trot': 7,
+        'jump': 7,
+    }
+    return costs[train]
+
+
+def get_training(_type='speed'):
+    train_types = {
+        'stamina': blup_stamina,
+        'speed': blup_speed,
+        'dressage': blup_dressage,
+        'galop': blup_galop,
+        'trot': blup_trot,
+        'jump': blup_jump,
+    }
+    return train_types[_type]
+
+
+def general_training(driver, energy=20, race='andalusian'):
     if energy <= 29:
         print('Энергии слишком мало')
         return
@@ -292,114 +328,28 @@ def general_training(driver, energy=20):
             print('Кобыла слишком жеребая, тренировка невозможна')
             return
 
-    train_programm = ['speed', 'dressage', 'galop']
-
-    montains = 9
-    speed = 8
-    dressage = 5
-    galop = 7
+    train_program = get_train_program(race)
 
     flag = 100
     train = 'speed'
 
-    for train in train_programm:
+    for train in train_program:
         flag = flag_train_complete(driver, train)
         time.sleep(0.5)
         if flag != 100:
             break
 
     if flag != 100:
-
-        if train == 'speed':
-            hour = (energy - 20) // speed
-            if hour <= 100 - flag:
-                blup_speed(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_speed(driver, hour)
-
-        elif train == 'dressage':
-            hour = (energy - 20) // dressage
-            if hour <= 100 - flag:
-                blup_dressage(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_dressage(driver, hour)
-
-        elif train == 'galop':
-            hour = (energy - 20) // galop
-            if hour <= 100 - flag:
-                blup_galop(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_galop(driver, hour)
+        hour = (energy - 20) // train_cost(train)
+        if hour <= 100 - flag:
+            run_train = get_training(train)(driver, hour)
+        else:
+            hour = 100 - flag
+            run_train = get_training(train)(driver, hour)
 
     else:
-        hour = (energy - 20) // montains
-        if not flag_montains_complete(driver):
-            blup_montains(driver, hour)
-        elif not flag_forest_complete(driver):
-            blup_forest(driver, hour)
-
-
-    print(f'Проведена тренировка {train} на {hour / 2} hours')
-    time.sleep(2)
-
-
-def general_training_marshadore(driver, energy=20):
-    if energy <= 29:
-        print('Энергии слишком мало')
-        return
-    else:
-        if not flag_train_possible(driver, 'jump'):
-            print('Кобыла слишком жеребая, тренировка невозможна')
-            return
-
-    train_programm = ['stamina', 'speed', 'dressage']
-
-    montains = 9
-    stamina = 8
-    speed = 8
-    dressage = 5
-
-    flag = 100
-    train = 'stamina'
-
-    for train in train_programm:
-        flag = flag_train_complete(driver, train)
-        time.sleep(0.5)
-        if flag != 100:
-            break
-
-    if flag != 100:
-
-        if train == 'stamina':
-            hour = (energy - 20) // stamina
-            if hour <= 100 - flag:
-                blup_stamina(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_stamina(driver, hour)
-
-        elif train == 'speed':
-            hour = (energy - 20) // speed
-            if hour <= 100 - flag:
-                blup_speed(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_speed(driver, hour)
-
-        elif train == 'dressage':
-            hour = (energy - 20) // dressage
-            if hour <= 100 - flag:
-                blup_dressage(driver, hour)
-            else:
-                hour = 100 - flag
-                blup_dressage(driver, hour)
-
-    else:
-        hour = (energy - 20) // montains
-        if not flag_montains_complete(driver):
+        hour = (energy - 20) // train_cost('mountains')
+        if not flag_mountains_complete(driver):
             blup_montains(driver, hour)
         elif not flag_forest_complete(driver):
             blup_forest(driver, hour)
@@ -409,14 +359,9 @@ def general_training_marshadore(driver, energy=20):
 
 
 def blup_training(driver, energy=20, race='andalusian'):
-    if race == 'andalusian':
-        train_programm = ['speed', 'dressage', 'galop']
-    elif race == 'francy':
-        train_programm = ['speed', 'dressage', 'trot']
-    elif race == 'goland':
-        train_programm = ['speed', 'dressage', 'jump']
+    train_program = get_train_program(race)
 
-    montains = 8.1
+    mountains = 8.1
     speed = 7.2
     dressage = 4.5
     galop = 6.3
@@ -427,7 +372,7 @@ def blup_training(driver, energy=20, race='andalusian'):
     hour = 0
     train = 'speed'
 
-    for train in train_programm:
+    for train in train_program:
         flag = flag_train_complete(driver, train)
         time.sleep(0.5)
         if flag != 100:
@@ -478,9 +423,9 @@ def blup_training(driver, energy=20, race='andalusian'):
         return train
 
     else:
-        hour = energy // montains
+        hour = energy // mountains
 
-        if not flag_montains_complete(driver):
+        if not flag_mountains_complete(driver):
             blup_montains(driver, hour)
         elif not flag_forest_complete(driver):
             blup_forest(driver, hour)
@@ -495,7 +440,7 @@ def blup_training(driver, energy=20, race='andalusian'):
     return message
 
 
-def flag_montains_complete(driver):
+def flag_mountains_complete(driver):
     driver.find_element(
         By.XPATH,
         '//*[@id="boutonBalade-montagne"]'
