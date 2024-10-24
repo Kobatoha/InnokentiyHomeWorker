@@ -58,12 +58,18 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
                 ).text
                 print(f'[Andalusian Elite] Принимаем случку от {male_name}')
-
-                ok = driver.find_element(
-                    By.XPATH,
-                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
-                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
-                ).click()
+                try:
+                    ok = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                        '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                    ).click()
+                except:
+                    ok = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[8]/main/section/section/div[5]/div/div[3]/div[5]'
+                        '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                    ).click()
 
                 check_ufo(driver)
 
