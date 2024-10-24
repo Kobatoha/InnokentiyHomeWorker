@@ -94,7 +94,7 @@ def equiped_horse(driver, _type='public'):
         time.sleep(1)
 
     except:
-        print('error')
+        pass
 
 
 def choice_specialisation(driver, _type='classique'):
@@ -211,25 +211,47 @@ def get_competition_galop(driver):
         By.XPATH,
         '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[2]/a'
     ).click()
-    time.sleep(3)
+    time.sleep(2)
     try:
-        cost = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[7]'
-        ).text.split(' ')[0]
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[8]'
-        ).click()
+        try:
+            cost = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[7]'
+            ).text.split(' ')[0]
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[8]'
+            ).click()
+        except:
+            cost = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[7]'
+            ).text.split(' ')[0]
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]'
+            ).click()
     except:
-        cost = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[2]/table/tbody/tr[1]/td[7]'
-        ).text.split(' ')[0]
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
+        try:
+            cost = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div[2]/div/div[1]/table/tbody'
+                '/tr[1]/td/div/table/tbody/tr[1]/td[7]'
+            ).text.split(' ')[0]
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div[2]/div/div[1]/table/tbody'
+                '/tr[1]/td/div/table/tbody/tr[1]/td[8]'
+            ).click()
+        except:
+            cost = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[2]/table/tbody/tr[1]/td[7]'
+            ).text.split(' ')[0]
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+            ).click()
 
     return float(cost)
 
