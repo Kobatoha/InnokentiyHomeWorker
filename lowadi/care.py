@@ -638,6 +638,15 @@ def stable_options(driver):
     return options
 
 
+def get_name_race(driver):
+    name_race = driver.find_element(
+        By.XPATH,
+        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[1]'
+        '/tbody[1]/tr/td/div/table/tbody/tr[1]/td[1]/span/a'
+    ).text
+    return name_race
+
+
 def childbirth_without_stable(driver):
     try:
         button = driver.find_element(
@@ -692,14 +701,14 @@ def childbirth(driver, current_url, race):
 
     races = {
         'andalusian': ['Подземелье', 'Сливки', 'Томат'],
-        'andalusian_elite': ['...', 'rename', 'rename'],
+        'andalusian_elite': ['...', 'female', 'male'],
         'unicorn': ['9-й этаж [ᴜɴɪᴄᴏʀɴ]', 'Морожка', 'Ворожка'],
         'heavy_horse': ['Серп и Молот', 'Пончик', 'Эклер'],
         'marshadore': ['Катакомбы', 'Марша', 'Маршель'],
-        'andalusian_blup': ['...', 'rename', 'rename'],
+        'andalusian_blup': ['...', 'female', 'male'],
         'without_corn': ['Безрожье', 'безрожка', 'безрожик'],
-        'francais': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'fr', 'fr'],
-        'goland': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ', 'goldy', 'gold']
+        'francais': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'франочка', 'франчик'],
+        'goland': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ', 'голдишка', 'голдунец']
     }
 
     if race == 'unicorn':
