@@ -8,6 +8,7 @@ from lowadi.training import *
 from lowadi.reproduction import *
 from lowadi.competitions import *
 from lowadi.divine import *
+from lowadi.states import *
 
 
 def begin(driver):
@@ -18,6 +19,7 @@ def begin(driver):
     givre(driver)
     time.sleep(5)
     tianma(driver)
+    begin_state = True
 
 
 def create_driver_chrome():
@@ -51,6 +53,8 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
     :param horses:
     :return:
     '''
+
+    print(f'Завод: {race.capitalize()} {sex.capitalize()}')
 
     current_url, horses = find_unworking_horse(driver, race, sex)
     not_training = ['unicorn', 'all']
@@ -222,18 +226,23 @@ if __name__ == '__main__':
     to_go_list = [
         ['heavyhorse', 'all'],
         ['andalusian', 'unicorn'],
+
+        ['francais', 'blup'],
+        ['goland', 'blup'],
+
         ['andalusian', 'basic'],
         ['andalusian', 'black'],
         ['andalusian', 'mouse'],
         ['andalusian', 'lava'],
         ['andalusian', 'creme'],
+
         ['francais', 'garden'],
-        ['francais', 'blup'],
         ['francais', 'north'],
-        ['goland', 'blup'],
+
         ['goland', 'garden'],
         ['goland', 'north'],
+
     ]
+
     for to_go in to_go_list:
         run_horses(driver, to_go[0], to_go[1])
-
