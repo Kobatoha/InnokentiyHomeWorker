@@ -206,6 +206,58 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
                 return 1
 
+            elif sex == 'black':
+                print('В эфире черная андалузка, идем на брачный рынок..')
+                check_ufo(driver)
+                driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
+                time.sleep(1)
+                master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
+                time.sleep(1)
+                get_offers = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/form/button[1]/span/span'
+                ).click()
+                time.sleep(1)
+                gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
+                time.sleep(1)
+                get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
+                time.sleep(1)
+
+                if 'Kolgotki' in driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[2]').text:
+                    mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                    time.sleep(1)
+
+                print('[Andalusian Black] Кобыла успешно провела случку')
+                time.sleep(1)
+
+                return 1
+
+            elif sex == 'mouse':
+                print('В эфире мышиная андалузка, идем на брачный рынок..')
+                check_ufo(driver)
+                driver.find_element(By.XPATH, '//*[@id="reproduction-tab-0"]/table/tbody/tr/td[3]/a').click()
+                time.sleep(1)
+                master = driver.find_element(By.XPATH, '//*[@id="breeder"]').send_keys('Kolgotki')
+                time.sleep(1)
+                get_offers = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/form/button[1]/span/span'
+                ).click()
+                time.sleep(1)
+                gp_sort = driver.find_element(By.XPATH, '//*[@id="table-0"]/thead/tr/td[4]/div/a').click()
+                time.sleep(1)
+                get_mating = driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[8]/a').click()
+                time.sleep(1)
+
+                if 'Kolgotki' in driver.find_element(By.XPATH, '//*[@id="table-0"]/tbody/tr[1]/td[2]').text:
+                    mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                    time.sleep(1)
+
+                print('[Andalusian Mouse] Кобыла успешно провела случку')
+                time.sleep(1)
+
+                return 1
+
             elif sex == 'creme':
                 name = get_name_horse(driver)
                 color = get_color(driver)
@@ -356,7 +408,7 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
                 return 0
 
-        elif race == 'goland_blup':
+        elif race == 'goland':
             if sex == 'blup':
                 if male_url:
                     name = get_name_horse(driver)
@@ -367,6 +419,28 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     print('[Goland Blup] Случка прокинута на кобылу')
                 else:
                     input('[Goland Blup] Нет ссылки на коня, давайте сами')
+
+            elif sex == 'garden':
+                name = get_name_horse(driver)
+
+                try:
+                    with open('lowadi/Lists of horses/goland_garden.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/goland_garden.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/goland_garden.txt', 'r') as file:
+                        names = file.readlines()
+
+                if name + '\n' not in names:
+                    with open('lowadi/Lists of horses/goland_garden.txt', 'a') as file:
+                        file.write(name + '\n')
+
+                    print('[Goland Garden] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Goland Garden] Уже в очереди на ожидание случки')
+
+                return 0
 
         elif race == 'marshadore':
             if sex == 'female':
@@ -404,6 +478,12 @@ def male_reproduction(driver, race='andalusian', sex='male'):
         },
         'marshadore': {
             'male': 'lowadi/Lists of horses/marshadore.txt'
+        },
+        'francais': {
+            'north': 'lowadi/Lists of horses/francais_garden.txt'
+        },
+        'goland': {
+            'north': 'lowadi/Lists of horses/goland_garden.txt'
         }
     }
 
@@ -528,7 +608,4 @@ def male_reproduction(driver, race='andalusian', sex='male'):
             return num
 
         except:
-
-            print('error male_reproduction')
-
             return num

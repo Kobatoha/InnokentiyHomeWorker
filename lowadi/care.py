@@ -639,11 +639,18 @@ def stable_options(driver):
 
 
 def get_name_race(driver):
-    name_race = driver.find_element(
-        By.XPATH,
-        '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[1]'
-        '/tbody[1]/tr/td/div/table/tbody/tr[1]/td[1]/span/a'
-    ).text
+    try:
+        name_race = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[1]'
+            '/tbody[1]/tr/td/div/table/tbody/tr[1]/td[1]/span/a'
+        ).text
+    except:
+        name_race = driver.find_element(
+            By.XPATH,
+            '/html/body/div[8]/main/section/section/div[5]/div/div[2]/div[4]/div/div/div/div/table[1]'
+            '/tbody[1]/tr/td/div/table/tbody/tr[1]/td[1]/span/a'
+        ).text
     return name_race
 
 

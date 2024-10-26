@@ -54,7 +54,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
     current_url, horses = find_unworking_horse(driver, race, sex)
     not_training = ['unicorn', 'all']
-    not_lesson = ['elite', 'garden']
+    not_lesson = ['elite', 'garden', 'north']
     not_equip = []
 
     if not current_url:
@@ -70,7 +70,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
     competitions = 0
     n = 1
     time.sleep(2)
-    print(f'Начинаем гонять: {race} {sex} - {horses} коняк')
+    print(f'Начинаем гонять: {race} {sex} - {horses} конях')
 
     while horses != 0:
         check_ufo(driver)
@@ -222,8 +222,14 @@ if __name__ == '__main__':
     to_go_list = [
         ['heavyhorse', 'all'],
         ['andalusian', 'unicorn'],
+        ['andalusian', 'basic'],
+        ['andalusian', 'black'],
         ['francais', 'garden'],
-        ['francais', 'blup']
+        ['francais', 'blup'],
+        ['francais', 'north'],
+        ['goland', 'blup'],
+        ['goland', 'garden'],
+        ['goland', 'north'],
     ]
     for to_go in to_go_list:
         run_horses(driver, to_go[0], to_go[1])

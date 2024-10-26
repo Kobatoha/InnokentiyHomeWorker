@@ -318,20 +318,10 @@ def get_competition_jump(driver):
         By.XPATH,
         '//*[@id="competition-body-content"]/table/tbody/tr[2]/td[3]/a'
     ).click()
-    time.sleep(5)
-    try:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
-            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-    except:
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-
     time.sleep(3)
+
+    cost = get_cost_and_run_competition(driver)
+    return float(cost)
 
 
 def find_fast_competition(driver, _type='public', _eclair=False):
