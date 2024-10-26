@@ -136,7 +136,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 get_sleep(driver)
 
-                if race == 'andalusian' and sex != 'elite' and lesson:
+                if race == 'andalusian' and sex != 'elite' and sex != 'unicorn' and lesson:
                     get_lesson(driver)
 
                     if 'заработок: 0' in get_history(driver, 'lesson') and lesson:
