@@ -334,6 +334,28 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                 else:
                     input('[Francais Blup] Нет ссылки на коня, давайте сами')
 
+            elif sex == 'garden':
+                name = get_name_horse(driver)
+
+                try:
+                    with open('lowadi/Lists of horses/francais_garden.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/francais_garden.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/francais_garden.txt', 'r') as file:
+                        names = file.readlines()
+
+                if name + '\n' not in names:
+                    with open('lowadi/Lists of horses/francais_garden.txt', 'a') as file:
+                        file.write(name + '\n')
+
+                    print('[Francais Garden] Добавлена в очередь на ожидание случки')
+                else:
+                    print('[Francais Garden] Уже в очереди на ожидание случки')
+
+                return 0
+
         elif race == 'goland_blup':
             if sex == 'blup':
                 if male_url:
