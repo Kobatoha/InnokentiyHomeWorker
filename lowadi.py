@@ -53,6 +53,8 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
     '''
 
     current_url, horses = find_unworking_horse(driver, race, sex)
+    not_training = ['unicorn', 'all']
+    not_lesson = ['elite']
 
     if not current_url:
         print('Все спят, гонять нечего <3')
@@ -136,7 +138,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 get_sleep(driver)
 
-                if race == 'andalusian' and sex != 'elite' and sex != 'unicorn' and lesson:
+                if race == 'andalusian' and sex not in not_lesson and lesson:
                     get_lesson(driver)
 
                     if 'заработок: 0' in get_history(driver, 'lesson') and lesson:
@@ -153,30 +155,31 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 energy = get_energy(driver)
                 try:
-                    general_training(driver, energy, race)
+                    if sex not in not_training:
+                        general_training(driver, energy, race)
 
-                    if about_stable(driver) != 'Велосипед на рельсах':
-                        choice_specialisation(driver)
-                        equiped_horse(driver, 'public')
+                        if about_stable(driver) != 'Велосипед на рельсах':
+                            choice_specialisation(driver)
+                            equiped_horse(driver, 'public')
 
-                    energy = get_energy(driver)
+                        energy = get_energy(driver)
 
-                    try:
-                        if lesson:
+                        try:
+                            if lesson:
 
-                            while energy >= 35:
-                                cost = choice_competition(driver, race)
-                                energy -= cost
-                                time.sleep(1)
+                                while energy >= 35:
+                                    cost = choice_competition(driver, race)
+                                    energy -= cost
+                                    time.sleep(1)
 
-                            if get_energy(driver) < 20:
-                                get_doping(driver)[0].click()
-                                time.sleep(1)
-                                get_doping(driver)[1].click()
-                                time.sleep(1)
+                                if get_energy(driver) < 20:
+                                    get_doping(driver)[0].click()
+                                    time.sleep(1)
+                                    get_doping(driver)[1].click()
+                                    time.sleep(1)
 
-                    except:
-                        pass
+                        except:
+                            pass
                 except:
                     pass
 
