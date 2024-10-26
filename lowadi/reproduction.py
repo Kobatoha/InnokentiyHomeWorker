@@ -356,7 +356,7 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
 
 def male_reproduction(driver, race='andalusian', sex='male'):
-    if race == 'andalusian':
+    if race == 'andalusian' and sex != 'unicorn':
         sex = andalusian_male_color_mating(driver)
 
     lists_reproductions = {

@@ -149,7 +149,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     if 'кобыла' in sex_horse:
                         get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
-                        get_mating += male_reproduction(driver, race)
+                        get_mating += male_reproduction(driver, race, sex)
                 except:
                     pass
 
