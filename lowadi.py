@@ -54,7 +54,8 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
     current_url, horses = find_unworking_horse(driver, race, sex)
     not_training = ['unicorn', 'all']
-    not_lesson = ['elite']
+    not_lesson = ['elite', 'garden']
+    not_equip = []
 
     if not current_url:
         print('Все спят, гонять нечего <3')
@@ -66,6 +67,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
     get_mating = 0
     stable = 0
     lesson = True
+    competitions = 0
     n = 1
     time.sleep(2)
     print(f'Начинаем гонять: {race} {sex} - {horses} коняк')
@@ -111,7 +113,9 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 sex_horse = get_sex(driver)
 
-                print(f'№{n} Лошадь: {name}, начинаем уход.', *age)
+                name_race = get_name_race(driver)
+
+                print(f'№{n} - [{name_race}]: {name}, начинаем уход.', *age)
 
                 childbirth_without_stable(driver)
 
@@ -131,6 +135,8 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                 else:
                     stable += get_stable(driver)
 
+                check_ufo(driver)
+
                 clean = get_doping(driver)[-1].click()
                 time.sleep(1)
 
@@ -138,7 +144,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 get_sleep(driver)
 
-                if race == 'andalusian' and sex not in not_lesson and lesson:
+                if sex not in not_lesson and lesson:
                     get_lesson(driver)
 
                     if 'заработок: 0' in get_history(driver, 'lesson') and lesson:
@@ -170,6 +176,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                                 while energy >= 35:
                                     cost = choice_competition(driver, race)
                                     energy -= cost
+                                    competitions += 1
                                     time.sleep(1)
 
                                 if get_energy(driver) < 20:
@@ -203,5 +210,21 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
             horses -= 1
 
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Принято случек: {get_mating}'
-          f'\n-- Куплено стойл: {stable}')
+    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Устроено случек: {get_mating}'
+          f'\n-- Куплено стойл: {stable}\n-- Соревнований проведено: {competitions}')
+
+
+if __name__ == '__main__':
+    driver = create_driver_chrome()
+
+    begin(driver)
+
+    to_go_list = [
+        ['heavyhorse', 'all'],
+        ['andalusian', 'unicorn'],
+        ['francais', 'garden'],
+        ['francais', 'blup']
+    ]
+    for to_go in to_go_list:
+        run_horses(driver, to_go[0], to_go[1])
+
