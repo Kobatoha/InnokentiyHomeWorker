@@ -62,11 +62,11 @@ def equiped_horse(driver, _type='public'):
 
             equip = {
                 'tapis': ['/html/body/div[12]/span/div/div[1]/div[2]/div[2]',
-                          '/html/body/div[11]/span/div/div[1]/form/div[1]/div'],
+                          '/html/body/div[12]/span/div/div[1]/form/div[1]/div'],
                 'selle': ['/html/body/div[12]/span/div/div[1]/div[2]/div[3]',
-                          '/html/body/div[11]/span/div/div[1]/form/div[2]/div'],
+                          '/html/body/div[12]/span/div/div[1]/form/div[2]/div'],
                 'bride': ['/html/body/div[12]/span/div/div[1]/div[2]/div[4]',
-                          '/html/body/div[11]/span/div/div[1]/form/div[3]/div']
+                          '/html/body/div[12]/span/div/div[1]/form/div[3]/div']
             }
 
         for i in equip:
@@ -87,11 +87,18 @@ def equiped_horse(driver, _type='public'):
 
             time.sleep(1)
 
-        agree = driver.find_element(
-            By.XPATH,
-            '/html/body/div[11]/span/div/button/span/span/span'
-        ).click()
-        time.sleep(1)
+        try:
+            agree = driver.find_element(
+                By.XPATH,
+                '/html/body/div[11]/span/div/button/span/span/span'
+            ).click()
+            time.sleep(1)
+        except:
+            agree = driver.find_element(
+                By.XPATH,
+                '/html/body/div[12]/span/div/button/span/span/span'
+            ).click()
+            time.sleep(1)
 
     except:
         pass
@@ -206,6 +213,44 @@ def choice_competition(driver, race='andalusian'):
     return cost
 
 
+def get_cost_and_run_competition(driver):
+    try:
+        try:
+            cost = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[7]'
+            ).text.split(' ')[0]
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
+                '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
+            ).click()
+
+        except:
+            cost = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody'
+                '/tr[1]/td/div/table/tbody/tr[1]/td[7]'
+            ).text.split(' ')[0]
+            run = driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody'
+                '/tr[1]/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
+            ).click()
+
+    except:
+        cost = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[2]/td[7]'
+        ).text.split(' ')[0]
+        run = driver.find_element(
+            By.XPATH,
+            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
+        ).click()
+
+    return cost
+
+
 def get_competition_galop(driver):
     click_competition = driver.find_element(
         By.XPATH,
@@ -261,28 +306,11 @@ def get_competition_trot(driver):
         By.XPATH,
         '//*[@id="competition-body-content"]/table/tbody/tr[1]/td[1]/a'
     ).click()
-    time.sleep(5)
-    try:
-        cost = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[7]'
-        ).text.split(' ')[0]
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
-            '/td/div/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-    except:
-        cost = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[2]/td[7]'
-        ).text.split(' ')[0]
-        run = driver.find_element(
-            By.XPATH,
-            '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td[8]/button/span/span/span'
-        ).click()
-
     time.sleep(3)
+
+    cost = get_cost_and_run_competition(driver)
+
+    return float(cost)
 
 
 def get_competition_jump(driver):

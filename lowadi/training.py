@@ -238,7 +238,7 @@ def blup_trot(driver, hour):
 
     train = driver.find_element(
         By.XPATH,
-        '//*[@id="training-tort-submit"]/span/span/span'
+        '//*[@id="training-trot-submit"]/span/span/span'
     ).click()
     print(f'Тренировали рысь {hour / 2} hours')
     time.sleep(2)
@@ -315,9 +315,17 @@ def general_training(driver, energy=20, race='andalusian'):
         print('Энергии слишком мало')
         return
     else:
-        if not flag_train_possible(driver, 'jump'):
-            print('Кобыла слишком жеребая, тренировка невозможна')
-            return
+        try:
+            if not flag_train_possible(driver, 'jump'):
+                print('Кобыла слишком жеребая, тренировка невозможна')
+                return
+        except:
+            if 'close' in driver.find_element(
+                By.XPATH,
+                '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[3]/div/div/div'
+            ).get_attribute('class'):
+                print('Тренировки польностью закончены - молодец <3')
+                return
 
     train_program = get_train_program(race)
 
@@ -345,7 +353,6 @@ def general_training(driver, energy=20, race='andalusian'):
         elif not flag_forest_complete(driver):
             blup_forest(driver, hour)
 
-    print(f'Проведена тренировка {train} на {hour / 2} hours')
     time.sleep(2)
 
 
