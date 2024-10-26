@@ -267,8 +267,14 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
             elif sex == 'elite':
                 name = get_name_horse(driver)
 
-                with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
-                    names = file.readlines()
+                try:
+                    with open('lowadi/Lists of horses/andalusian.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/andalusian.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/andalusian.txt.txt', 'r') as file:
+                        names = file.readlines()
 
                 if name + '\n' not in names:
                     with open('lowadi/Lists of horses/andalusian.txt', 'a') as file:
@@ -296,8 +302,14 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
             elif sex == 'unicorn':
                 name = get_name_horse(driver)
 
-                with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'r') as file:
-                    names = file.readlines()
+                try:
+                    with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/andalusian_unicorn.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/andalusian_unicorn.txt', 'r') as file:
+                        names = file.readlines()
 
                 if name + '\n' not in names:
                     with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'a') as file:
