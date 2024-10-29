@@ -694,7 +694,7 @@ def childbirth_farms(driver, place=''):
             return farm
 
 
-def childbirth(driver, current_url, race):
+def childbirth(driver, current_url, race, sex='basic'):
     '''
     0 == ...
     1 == Цитадель
@@ -716,7 +716,7 @@ def childbirth(driver, current_url, race):
         'goland': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ', 'голдишка', 'голдунец']
     }
 
-    if race == 'unicorn':
+    if sex == 'unicorn':
         style = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/div/figure'

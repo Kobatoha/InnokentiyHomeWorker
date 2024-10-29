@@ -80,9 +80,6 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
         check_ufo(driver)
         time.sleep(1)
 
-        if check_equus(driver) == 'Good':
-            spend_equus(driver, 'sand')
-
         if check_horse_complete(driver):
 
             age = get_age_horse(driver)
@@ -130,7 +127,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                         print('Ваша кобыла скоро родит!')
                         call_doctor = driver.find_element(By.XPATH, '//*[@id="boutonVeterinaire"]').click()
                         time.sleep(1)
-                        children += childbirth(driver, current_url, race)
+                        children += childbirth(driver, current_url, race, sex)
                 except:
                     pass
 
@@ -157,7 +154,9 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 try:
                     if 'кобыла' in sex_horse:
-                        get_mating += female_reproduction(driver, race, sex)
+                        if check_equus(driver) == 'Good':
+                            spend_equus(driver, 'sand')
+                            get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
                         get_mating += male_reproduction(driver, race, sex)
                 except:
