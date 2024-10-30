@@ -244,6 +244,7 @@ if __name__ == '__main__':
         ['andalusian', 'male'],
         ['andalusian', 'reserve'],
         ['andalusian', 'north'],
+        ['andalusian', 'color'],
 
         ['francais', 'garden'],
         ['francais', 'north'],
