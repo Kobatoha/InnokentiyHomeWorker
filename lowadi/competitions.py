@@ -146,7 +146,24 @@ def choice_specialisation(driver, _type='classique'):
         pass
 
 
-def get_stable_with_equip(driver):
+def get_stable_with_equip(driver, race='andalusian'):
+    specialisation = {
+        'classique': ['andalusian', 'francais', 'goland', 'lusitanien'],
+        'western': ['marshadore']
+    }
+    options = {
+        'days': '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[3]/a',
+        'selle': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[5]',
+        'bride': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[6]',
+        'tapis': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[7]',
+        'classic': '//*[@id="classiqueLabel"]'
+    }
+
+    if race in specialisation['classique']:
+        options['classic'] = '//*[@id="classiqueLabel"]'
+    else:
+        options['classic'] = '//*[@id="westernLabel"]'
+
     try:
         if 'Зарегистрируйте свою лошадь' in driver.find_element(
                 By.XPATH,
@@ -166,14 +183,6 @@ def get_stable_with_equip(driver):
             time.sleep(3)
 
             check_ufo(driver)
-
-            options = {
-                'days': '/html/body/div[7]/main/section/section/div[1]/table/thead/tr/td[6]/span[2]/span/span[3]/a',
-                'selle': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[5]',
-                'bride': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[6]',
-                'tapis': '//*[@id="search-line"]/table/tbody/tr[2]/td[1]/span[7]',
-                'classic': '//*[@id="classiqueLabel"]'
-            }
 
             for i in options:
                 driver.find_element(By.XPATH, options[i]).click()

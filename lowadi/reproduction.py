@@ -465,8 +465,14 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
             if sex == 'female':
                 name = get_name_horse(driver)
 
-                with open('lowadi/Lists of horses/marshadore.txt', 'r') as file:
-                    names = file.readlines()
+                try:
+                    with open(f'lowadi/Lists of horses/marshadore.txt', 'r') as file:
+                        names = file.readlines()
+                except FileNotFoundError:
+                    with open(f'lowadi/Lists of horses/marshadore.txt', 'w') as file:
+                        pass
+                    with open(f'lowadi/Lists of horses/marshadore.txt', 'r') as file:
+                        names = file.readlines()
 
                 if name + '\n' not in names:
                     with open('lowadi/Lists of horses/marshadore.txt', 'a') as file:

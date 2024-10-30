@@ -132,11 +132,14 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     pass
 
                 if not equip and not child_age(age):
-                    stable += get_stable_with_equip(driver)
+                    stable += get_stable_with_equip(driver, race)
                     driver.get(current_url)
                 else:
                     stable += get_stable(driver)
                     driver.get(current_url)
+
+                if check_equus(driver) == 'Good':
+                    spend_equus(driver, 'sand')
 
                 check_ufo(driver)
 
@@ -156,8 +159,6 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 try:
                     if 'кобыла' in sex_horse:
-                        if check_equus(driver) == 'Good':
-                            spend_equus(driver, 'sand')
                         get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
                         get_mating += male_reproduction(driver, race, sex)
@@ -170,7 +171,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                         general_training(driver, energy, race)
 
                         if about_stable(driver) != 'Велосипед на рельсах':
-                            choice_specialisation(driver)
+                            choice_specialisation(driver, 'western')
                             equiped_horse(driver, 'public')
 
                         energy = get_energy(driver)
