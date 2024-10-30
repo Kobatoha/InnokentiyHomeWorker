@@ -133,10 +133,10 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 if not equip and not child_age(age):
                     stable += get_stable_with_equip(driver)
+                    driver.get(current_url)
                 else:
                     stable += get_stable(driver)
-
-                driver.get(current_url)
+                    driver.get(current_url)
 
                 check_ufo(driver)
 
