@@ -74,7 +74,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
     competitions = 0
     n = 1
     time.sleep(2)
-    print(f'Начинаем гонять: {race} {sex} - {horses} конях')
+    print(f'Начинаем гонять: {race.capitalize()} {sex.capitalize()} - {horses} конях')
 
     while horses != 0:
         check_ufo(driver)
@@ -136,6 +136,8 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                 else:
                     stable += get_stable(driver)
 
+                driver.get(current_url)
+
                 check_ufo(driver)
 
                 clean = get_doping(driver)[-1].click()
@@ -156,7 +158,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     if 'кобыла' in sex_horse:
                         if check_equus(driver) == 'Good':
                             spend_equus(driver, 'sand')
-                            get_mating += female_reproduction(driver, race, sex)
+                        get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
                         get_mating += male_reproduction(driver, race, sex)
                 except:
@@ -230,12 +232,18 @@ if __name__ == '__main__':
 
         ['francais', 'blup'],
         ['goland', 'blup'],
+        ['andalusian', 'blup'],
 
         ['andalusian', 'basic'],
         ['andalusian', 'black'],
         ['andalusian', 'mouse'],
         ['andalusian', 'lava'],
         ['andalusian', 'creme'],
+        ['andalusian', 'elite'],
+
+        ['andalusian', 'male'],
+        ['andalusian', 'reserve'],
+        ['andalusian', 'north'],
 
         ['francais', 'garden'],
         ['francais', 'north'],

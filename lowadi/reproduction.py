@@ -49,6 +49,8 @@ def ready_matt(driver):
 def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
     matting = ready_matt(driver)
 
+    cap_text = f'[{race.capitalize()} {sex.capitalize()}]'
+
     if matting and matting[1] == 1:
 
         if race == 'andalusian':
@@ -201,7 +203,7 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
                     time.sleep(1)
 
-                print('[Andalusian] Кобыла успешно провела случку')
+                print(f'{cap_text} Кобыла успешно провела случку')
                 time.sleep(1)
 
                 return 1
@@ -227,7 +229,7 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
                     time.sleep(1)
 
-                print('[Andalusian Black] Кобыла успешно провела случку')
+                print(f'{cap_text} Кобыла успешно провела случку')
                 time.sleep(1)
 
                 return 1
@@ -253,7 +255,7 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
                     time.sleep(1)
 
-                print('[Andalusian Mouse] Кобыла успешно провела случку')
+                print(f'{cap_text} Кобыла успешно провела случку')
                 time.sleep(1)
 
                 return 1
@@ -281,9 +283,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open(f'lowadi/Lists of horses/andalusian_{creme}.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Andalusian Creme] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Andalusian Creme] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -310,9 +312,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open(f'lowadi/Lists of horses/andalusian_{lava}.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Andalusian Lava] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Andalusian Lava] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -332,22 +334,39 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open('lowadi/Lists of horses/andalusian.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Andalusian Elite] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Andalusian Elite] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
             elif sex == 'blup':
+                name = get_name_horse(driver)
+
                 if male_url:
-                    name = get_name_horse(driver)
                     driver.get(male_url)
                     push_mating_for_name(driver, name)
                     driver.back()
 
-                    print('[Andalusian Blup] Случка прокинута на кобылу')
+                    print(f'[{race.capitalize()} {sex.capitalize()}] Случка прокинута на кобылу')
                 else:
-                    print('[Andalusian Blup] Нет ссылки на коня')
+                    print(f'[{race.capitalize()} {sex.capitalize()}] Нет ссылки на коня')
+                    try:
+                        with open(f'lowadi/Lists of horses/andalusian_{sex}.txt', 'r') as file:
+                            names = file.readlines()
+                    except FileNotFoundError:
+                        with open(f'lowadi/Lists of horses/andalusian_{sex}.txt', 'w') as file:
+                            pass
+                        with open(f'lowadi/Lists of horses/andalusian_{sex}.txt', 'r') as file:
+                            names = file.readlines()
+
+                    if name + '\n' not in names:
+                        with open(f'lowadi/Lists of horses/andalusian_{sex}.txt', 'a') as file:
+                            file.write(name + '\n')
+
+                        print(f'{cap_text} Добавлена в очередь на ожидание случки')
+                    else:
+                        print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -367,9 +386,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open('lowadi/Lists of horses/andalusian_unicorn.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Andalusian Unicorn] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Andalusian Unicorn] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -382,9 +401,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     push_mating_for_name(driver, name)
                     driver.back()
 
-                    print('[Francais Blup] Случка прокинута на кобылу')
+                    print(f'{cap_text} Случка прокинута на кобылу')
                 else:
-                    input('[Francais Blup] Нет ссылки на коня, давайте сами')
+                    input(f'{cap_text} Нет ссылки на коня, давайте сами')
 
             elif sex == 'garden':
                 name = get_name_horse(driver)
@@ -402,9 +421,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open('lowadi/Lists of horses/francais_garden.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Francais Garden] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Francais Garden] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -416,9 +435,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     push_mating_for_name(driver, name)
                     driver.back()
 
-                    print('[Goland Blup] Случка прокинута на кобылу')
+                    print(f'{cap_text} Случка прокинута на кобылу')
                 else:
-                    input('[Goland Blup] Нет ссылки на коня, давайте сами')
+                    input(f'{cap_text} Нет ссылки на коня, давайте сами')
 
             elif sex == 'garden':
                 name = get_name_horse(driver)
@@ -436,9 +455,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open('lowadi/Lists of horses/goland_garden.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Goland Garden] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Goland Garden] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -453,9 +472,9 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
                     with open('lowadi/Lists of horses/marshadore.txt', 'a') as file:
                         file.write(name + '\n')
 
-                    print('[Marshadore] Добавлена в очередь на ожидание случки')
+                    print(f'{cap_text} Добавлена в очередь на ожидание случки')
                 else:
-                    print('[Marshadore] Уже в очереди на ожидание случки')
+                    print(f'{cap_text} Уже в очереди на ожидание случки')
 
                 return 0
 
@@ -464,7 +483,7 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
 
 def male_reproduction(driver, race='andalusian', sex='male'):
-    if race == 'andalusian' and sex != 'unicorn':
+    if race == 'andalusian' and sex != 'unicorn' and sex != 'north':
         sex = andalusian_male_color_mating(driver)
 
     lists_reproductions = {
@@ -474,7 +493,8 @@ def male_reproduction(driver, race='andalusian', sex='male'):
             'palomino': 'lowadi/Lists of horses/andalusian_palomino.txt',
             'cremello': 'lowadi/Lists of horses/andalusian_cremello.txt',
             'red': 'lowadi/Lists of horses/andalusian_red.txt',
-            'fire_red': 'lowadi/Lists of horses/andalusian_fire-red.txt'
+            'fire_red': 'lowadi/Lists of horses/andalusian_fire-red.txt',
+            'north': 'lowadi/Lists of horses/andalusian_blup.txt'
         },
         'marshadore': {
             'male': 'lowadi/Lists of horses/marshadore.txt'
@@ -484,6 +504,18 @@ def male_reproduction(driver, race='andalusian', sex='male'):
         },
         'goland': {
             'north': 'lowadi/Lists of horses/goland_garden.txt'
+        }
+    }
+
+    second_lists_reproductions = {
+        'andalusian': {
+            'north': 'lowadi/Lists of horses/andalusian.txt',
+        },
+        'francais': {
+            'north': 'lowadi/Lists of horses/francais_blup.txt'
+        },
+        'goland': {
+            'north': 'lowadi/Lists of horses/goland_blup.txt'
         }
     }
 
@@ -559,7 +591,11 @@ def male_reproduction(driver, race='andalusian', sex='male'):
                     females = file.readlines()
 
                 if not females:
-                    return num
+                    with open(second_lists_reproductions[race][sex], 'r') as file:
+                        females = file.readlines()
+
+                    if not females:
+                        return num
 
                 use_mating = driver.find_element(
                     By.XPATH,
@@ -597,6 +633,10 @@ def male_reproduction(driver, race='andalusian', sex='male'):
                 time.sleep(3)
 
                 with open(lists_reproductions[race][sex], 'w') as file:
+                    for female in females[1:]:
+                        file.write(female)
+
+                with open(second_lists_reproductions[race][sex], 'w') as file:
                     for female in females[1:]:
                         file.write(female)
 
