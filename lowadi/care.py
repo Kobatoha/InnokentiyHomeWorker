@@ -24,6 +24,7 @@ def get_farm(race: str, sex: str):
             'male': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593198',
             'reserve': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593208',
             'north': 'https://www.lowadi.com/elevage/chevaux/?elevage=1596383',
+            'color': 'https://www.lowadi.com/elevage/chevaux/?elevage=1601761',
             'unicorn': 'https://www.lowadi.com/elevage/chevaux/?elevage=1593199'
         },
         'goland': {
