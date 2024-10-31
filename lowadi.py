@@ -171,7 +171,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                         general_training(driver, energy, race)
 
                         if about_stable(driver) != 'Велосипед на рельсах':
-                            choice_specialisation(driver, 'western')
+                            choice_specialisation(driver)
                             equiped_horse(driver, 'public')
 
                         energy = get_energy(driver)
