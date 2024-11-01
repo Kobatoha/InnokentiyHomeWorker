@@ -131,12 +131,13 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                 except:
                     pass
 
-                if not equip and not child_age(age):
+                if not equip and not child_age(age) and sex not in not_training:
                     stable += get_stable_with_equip(driver, race)
                     driver.get(current_url)
                 else:
                     stable += get_stable(driver)
-                    driver.get(current_url)
+                    if 'centreOk' in driver.current_url:
+                        driver.get(current_url)
 
                 if check_equus(driver) == 'Good':
                     spend_equus(driver, 'sand')
