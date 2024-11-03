@@ -220,8 +220,9 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
             horses -= 1
 
     now = datetime.now().strftime('%d.%m %H:%M')
-    print(f'\n{now} прогон окончен\n-- Родилось жеребят: {children}\n-- Устроено случек: {get_mating}'
-          f'\n-- Куплено стойл: {stable}\n-- Соревнований проведено: {competitions}')
+    print(f'\n{now} {race.capitalize()} {sex.capitalize()} прогон окончен\n-- Родилось жеребят: {children}\n-- Устроено случек: {get_mating}'
+          f'\n-- Куплено стойл: {stable}\n-- Соревнований проведено: {competitions}\n')
+    print('-' * 70)
 
 
 if __name__ == '__main__':

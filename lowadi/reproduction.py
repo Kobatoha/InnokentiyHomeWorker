@@ -179,6 +179,54 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
                 return 1
 
+        elif race == 'francais':
+            if sex == 'garden':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'{cap_text} Принимаем случку от {male_name}')
+
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
+
+                check_ufo(driver)
+
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
+
+                print(f'{cap_text} Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
+
+                return 1
+
+        elif race == 'goland':
+            if sex == 'garden':
+                male_name = driver.find_element(
+                    By.XPATH,
+                    '//*[@id="reproduction-bottom"]/table/tbody/tr/td[2]/a'
+                ).text
+                print(f'{cap_text} Принимаем случку от {male_name}')
+
+                ok = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                    '/div/div/div/div/div[2]/table/tbody/tr/td[4]/div/div/a/span/span/span'
+                ).click()
+
+                check_ufo(driver)
+
+                mating = driver.find_element(By.XPATH, '//*[@id="boutonDoReproduction"]').click()
+                time.sleep(1)
+
+                print(f'{cap_text} Кобыла успешно приняла предложенную случку')
+                time.sleep(1)
+
+                return 1
+
     elif matting and matting[1] == 0:
 
         if race == 'andalusian':
