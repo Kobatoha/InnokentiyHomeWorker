@@ -139,9 +139,6 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     if 'centreOk' in driver.current_url:
                         driver.get(current_url)
 
-                if check_equus(driver) == 'Good':
-                    spend_equus(driver, 'iron')
-
                 check_ufo(driver)
 
                 clean = get_doping(driver)[-1].click()
@@ -160,6 +157,8 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
                 try:
                     if 'кобыла' in sex_horse:
+                        if check_equus(driver) == 'Good':
+                            spend_equus(driver, 'iron')
                         get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
                         get_mating += male_reproduction(driver, race, sex)
