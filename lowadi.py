@@ -242,9 +242,9 @@ if __name__ == '__main__':
         ['andalusian', 'creme'],
         ['andalusian', 'elite'],
 
+        ['andalusian', 'north'],
         ['andalusian', 'male'],
         ['andalusian', 'reserve'],
-        ['andalusian', 'north'],
         ['andalusian', 'color'],
 
         ['marshadore', 'female'],
