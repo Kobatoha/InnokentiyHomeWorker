@@ -226,10 +226,6 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
 if __name__ == '__main__':
     driver = create_driver_chrome()
-    try:
-        begin(driver)
-    except:
-        print('Произошла ошибка где-то на уровно божков')
 
     to_go_list = [
         ['heavyhorse', 'all'],
@@ -264,3 +260,8 @@ if __name__ == '__main__':
 
     for to_go in to_go_list:
         run_horses(driver, to_go[0], to_go[1])
+
+    try:
+        begin(driver)
+    except:
+        print('Произошла ошибка где-то на уровно божков')
