@@ -611,6 +611,9 @@ def male_reproduction(driver, race='andalusian', sex='male'):
                     ).click()
                     time.sleep(1)
 
+                elif gp >= 21000:
+                    male_reproduction(driver, 'andalusian', 'elite')
+
                 else:
                     price = driver.find_element(
                         By.XPATH,
