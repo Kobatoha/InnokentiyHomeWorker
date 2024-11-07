@@ -335,23 +335,24 @@ def spend_equus(driver, res='wood'):
         time.sleep(3)
         iron = 10
         if equus >= 66000:
-            driver.get('https://www.lowadi.com/centre/pres/')
-            time.sleep(2)
-            fields = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div[3]'
-                '/div/div[1]/div/ul/li[1]/span[4]/button/span/span/span/img'
-            ).click()
-            time.sleep(2)
-            big_field = driver.find_element(
-                By.XPATH,
-                '/html/body/div[11]/div/div/div[2]/form/ul/li[3]/span[1]/input'
-            ).click()
-            time.sleep(1)
-            buy_field = driver.find_element(
-                By.XPATH,
-                '/html/body/div[11]/div/div/div[2]/form/div/div/div/button/span/span/span'
-            ).click()
+            pass
+            # driver.get('https://www.lowadi.com/centre/pres/')
+            # time.sleep(2)
+            # fields = driver.find_element(
+            #     By.XPATH,
+            #     '/html/body/div[7]/main/section/section/div[3]'
+            #     '/div/div[1]/div/ul/li[1]/span[4]/button/span/span/span/img'
+            # ).click()
+            # time.sleep(2)
+            # big_field = driver.find_element(
+            #     By.XPATH,
+            #     '/html/body/div[11]/div/div/div[2]/form/ul/li[3]/span[1]/input'
+            # ).click()
+            # time.sleep(1)
+            # buy_field = driver.find_element(
+            #     By.XPATH,
+            #     '/html/body/div[11]/div/div/div[2]/form/div/div/div/button/span/span/span'
+            # ).click()
         else:
             while equus > 10000:
                 get_resurses(driver, res).click()

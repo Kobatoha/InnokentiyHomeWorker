@@ -140,7 +140,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                         driver.get(current_url)
 
                 if check_equus(driver) == 'Good':
-                    spend_equus(driver, 'sand')
+                    spend_equus(driver, 'iron')
 
                 check_ufo(driver)
 
