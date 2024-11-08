@@ -63,6 +63,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
     if not current_url:
         print('Все спят, гонять нечего <3')
+        print('-' * 70)
         return
 
     driver.get(current_url)
