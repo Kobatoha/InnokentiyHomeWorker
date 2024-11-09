@@ -268,14 +268,26 @@ def get_competition_galop(driver):
     time.sleep(2)
     try:
         try:
-            cost = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[7]'
-            ).text.split(' ')[0]
-            run = driver.find_element(
-                By.XPATH,
-                '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]/td/div/table/tbody/tr[1]/td[8]'
-            ).click()
+            try:
+                cost = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
+                    '/td/div/table/tbody/tr[1]/td[7]'
+                ).text.split(' ')[0]
+                run = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div/div/div[1]/table/tbody/tr[1]'
+                    '/td/div/table/tbody/tr[1]/td[8]'
+                ).click()
+            except:
+                cost = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div/div[2]/div/div[1]/table/tbody/tr[1]/td[7]'
+                ).text.split(' ')[0]
+                run = driver.find_element(
+                    By.XPATH,
+                    '/html/body/div[7]/main/section/section/div/div[2]/div/div[1]/table/tbody/tr[1]/td[8]'
+                ).click()
         except:
             cost = driver.find_element(
                 By.XPATH,
