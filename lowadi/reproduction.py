@@ -537,12 +537,12 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
 
 def male_reproduction(driver, race='andalusian', sex='male'):
-    if race == 'andalusian' and sex != 'unicorn' and sex != 'north' and sex != 'elite':
+    if race == 'andalusian' and sex != 'unicorn' and sex != 'north' and sex != 'reserve':
         sex = andalusian_male_color_mating(driver)
 
     lists_reproductions = {
         'andalusian': {
-            'elite': 'lowadi/Lists of horses/andalusian.txt',
+            'reserve': 'lowadi/Lists of horses/andalusian.txt',
             'unicorn': 'lowadi/Lists of horses/andalusian_unicorn.txt',
             'palomino': 'lowadi/Lists of horses/andalusian_palomino.txt',
             'cremello': 'lowadi/Lists of horses/andalusian_cremello.txt',
@@ -612,7 +612,7 @@ def male_reproduction(driver, race='andalusian', sex='male'):
                     time.sleep(1)
 
                 elif gp >= 21000:
-                    male_reproduction(driver, 'andalusian', 'elite')
+                    male_reproduction(driver, 'andalusian', 'reserve')
 
                 else:
                     price = driver.find_element(
