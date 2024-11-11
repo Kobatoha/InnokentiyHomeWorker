@@ -143,6 +143,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     except:
                         driver.get(current_url)
                         next_horse(driver)
+                        continue
 
                 check_ufo(driver)
 
