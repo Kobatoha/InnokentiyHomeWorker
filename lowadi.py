@@ -17,9 +17,6 @@ def begin(driver):
     topaz(driver)
     time.sleep(5)
     givre(driver)
-    time.sleep(5)
-    tianma(driver)
-    begin_state = True
 
 
 def create_driver_chrome():
@@ -235,6 +232,9 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
 
 if __name__ == '__main__':
     driver = create_driver_chrome()
+
+    tianma(driver)
+    time.sleep(5)
 
     to_go_list = [
         ['heavyhorse', 'all'],
