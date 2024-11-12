@@ -136,14 +136,17 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     stable += get_stable_with_equip(driver, race)
                     driver.get(current_url)
                 else:
-                    try:
-                        stable += get_stable(driver)
-                        if 'centreOk' in driver.current_url:
-                            driver.get(current_url)
-                    except:
+                    n_stable = get_stable(driver)
+                    if 'centreOk' in driver.current_url:
+                        driver.get(current_url)
+                    if not n_stable:
+                        print(f'Со стойлом что-то не сложилось, пропускаем {name}')
                         driver.get(current_url)
                         next_horse(driver)
+                        horses -= 1
                         continue
+                    else:
+                        stable += n_stable
 
                 check_ufo(driver)
 
