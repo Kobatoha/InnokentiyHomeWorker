@@ -134,6 +134,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                     driver.get(current_url)
                 else:
                     n_stable = get_stable(driver)
+                    time.sleep(2)
                     if 'centreOk' in driver.current_url:
                         driver.get(current_url)
                     if not n_stable:
