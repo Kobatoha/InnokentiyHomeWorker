@@ -451,7 +451,8 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
                     print(f'{cap_text} Случка прокинута на кобылу')
                 else:
-                    input(f'{cap_text} Нет ссылки на коня, давайте сами')
+                    print(f'{cap_text} Нет ссылки на коня, давайте сами')
+                    time.sleep(60 * 5)
 
             elif sex == 'garden':
                 name = get_name_horse(driver)
@@ -485,7 +486,8 @@ def female_reproduction(driver, race='andalusian', sex='basic', male_url=None):
 
                     print(f'{cap_text} Случка прокинута на кобылу')
                 else:
-                    input(f'{cap_text} Нет ссылки на коня, давайте сами')
+                    print(f'{cap_text} Нет ссылки на коня, давайте сами')
+                    time.sleep(60 * 5)
 
             elif sex == 'garden':
                 name = get_name_horse(driver)
