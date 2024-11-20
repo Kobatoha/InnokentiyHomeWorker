@@ -605,7 +605,10 @@ def male_reproduction(driver, race='andalusian', sex='male'):
                 ).click()
                 time.sleep(2)
 
-                if gp >= 19000:
+                if gp >= 21000:
+                    male_reproduction(driver, 'andalusian', 'reserve')
+
+                elif gp >= 20000:
                     price = driver.find_element(
                         By.XPATH,
                         '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
@@ -613,8 +616,13 @@ def male_reproduction(driver, race='andalusian', sex='male'):
                     ).click()
                     time.sleep(1)
 
-                elif gp >= 21000:
-                    male_reproduction(driver, 'andalusian', 'reserve')
+                elif gp >= 19000:
+                    price = driver.find_element(
+                        By.XPATH,
+                        '/html/body/div[7]/main/section/section/div[5]/div/div[3]/div[5]'
+                        '/div/div/div/div/div[1]/div[3]/table/tbody/tr[2]/td/form/div[1]/select/option[5]'
+                    ).click()
+                    time.sleep(1)
 
                 else:
                     price = driver.find_element(
