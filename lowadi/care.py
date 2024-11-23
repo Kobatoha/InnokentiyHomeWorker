@@ -695,26 +695,39 @@ def childbirth_farms(driver, place=''):
             return farm
 
 
-def childbirth(driver, current_url, race, sex='basic'):
-    '''
-    0 == ...
-    1 == Цитадель
-    :param driver:
-    :param current_url:
-    :param race:
-    :return:
-    '''
+def childbirth(driver, current_url, race='andalusian', sex='basic'):
     age = ['Возраст:', 'несколько', 'часов']
     check_ufo(driver)
 
     races = {
-        'andalusian': ['Подземелье', 'Сливки', 'Томат'],
-        'unicorn': ['9-й этаж [ᴜɴɪᴄᴏʀɴ]', 'Морожка', 'Ворожка'],
-        'heavyhorse': ['Серп и Молот', 'Пончик', 'Эклер'],
-        'marshadore': ['Катакомбы', 'Марша', 'Маршель'],
-        'without_corn': ['Безрожье', 'безрожка', 'безрожик'],
-        'francais': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'франочка', 'франчик'],
-        'goland': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'голдишка', 'голдунец']
+        'andalusian': {
+            'basic': ['Подземелье', 'Ежевика', 'Лимон'],
+            'unicorn': ['9-й этаж [ᴜɴɪᴄᴏʀɴ]', 'Морожка', 'Ворожка'],
+            'without_corn': ['Безрожье', 'Безрожка', 'Безрожик'],
+            'black': ['Подземелье', 'Смородина', 'Розмарин'],
+            'lava': ['Подземелье', 'Шоколадка', 'Кофе'],
+            'creme': ['Подземелье', 'Пломбир', 'Крем'],
+            'mouse': ['Подземелье', 'Мауси', 'Мышъ'],
+            'elite': ['Подземелье', 'Чили', 'Шафран'],
+            'blup': ['⧉ ᴛʀᴀɪɴɪɴɢ', 'жгг', 'мгг'],
+        },
+        'heavyhorse': {
+            'all': ['Серп и Молот', 'Пончик', 'Эклер']
+        },
+        'marshadore': {
+            'female': ['Катакомбы', 'Марша', 'Маршель']
+        },
+        'francais': {
+            'blup': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'Франочка', 'Франчик'],
+            'garden': ['ᴅɪᴏɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'Франочка', 'Франчик'],
+        },
+        'goland': {
+            'blup': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'Голдишка', 'Голдунец'],
+            'garden': ['ɢɪʀᴀɴ ᴠɪʟʟᴀɢᴇ ɢᴀʀᴅᴇɴ', 'Голдишка', 'Голдунец'],
+        },
+        'lusitanien': {
+            'blup': ['ᴀᴅᴇɴ ᴠɪʟʟᴀɢᴇ', 'Лулзишка', 'Лулзинец'],
+        }
     }
 
     if sex == 'unicorn':
@@ -723,9 +736,9 @@ def childbirth(driver, current_url, race, sex='basic'):
             '/html/body/div[7]/main/section/section/div/figure'
         ).get_attribute('style')
         if 'horn' not in style:
-            race = 'without_corn'
+            sex = 'without_corn'
 
-    sex = driver.find_element(
+    sex_newhorse = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/img'
     ).get_attribute('alt')
@@ -733,22 +746,22 @@ def childbirth(driver, current_url, race, sex='basic'):
     gen_potential = driver.find_element(
         By.XPATH,
         '/html/body/div[7]/main/section/section/form/table[2]/tbody/tr[1]/td[2]/span').text
-    print(f'Родился жеребенок! Пол: {sex}, ГП: {gen_potential}')
+    print(f'Родился жеребенок! Пол: {sex_newhorse}, ГП: {gen_potential}')
 
     new_name = ''
 
-    if sex == 'male':
+    if sex_newhorse == 'male':
 
-        new_name = f'{races[race][2]} {gen_potential}'
+        new_name = f'{races[race][sex][2]} {gen_potential}'
 
         get_name = driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/section/section/form/table[3]/tbody/tr/td[2]/input'
         ).send_keys(new_name)
 
-    elif sex == 'femelle':
+    elif sex_newhorse == 'femelle':
 
-        new_name = f'{races[race][1]} {gen_potential}'
+        new_name = f'{races[race][sex][1]} {gen_potential}'
 
         get_name = driver.find_element(
             By.XPATH,
@@ -762,7 +775,7 @@ def childbirth(driver, current_url, race, sex='basic'):
     ).click()
     time.sleep(1)
 
-    choice_farm = childbirth_farms(driver, races[race][0])
+    choice_farm = childbirth_farms(driver, races[race][sex][0])
     choice_farm.click()
     time.sleep(1)
 
