@@ -376,12 +376,13 @@ def train_blup(driver, race='andalusian', sex='blup', child=False):
                 print(f'№{step} Взрослая лошадь: {name}, идем на соревнования.', *age)
 
                 energy = get_energy(driver)
-                competition_trot = 13.5
+
+                # competition_trot = 13.5
 
                 count = int(energy // 13.5)
 
                 for _ in range(count):
-                    get_competition_trot(driver)
+                    choice_competition(driver, race=race)
                     competitions -= 1
                 for i in range(2):
                     get_doping(driver)[i].click()
