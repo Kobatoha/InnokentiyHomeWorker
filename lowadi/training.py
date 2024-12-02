@@ -59,6 +59,7 @@ def blup_montains(driver, hour):
             f'//*[@id="walkmontagneSlider"]/ol/li[{hour + 1}]'
         ).click()
         time.sleep(1)
+
         train = driver.find_element(
             By.XPATH,
             '//*[@id="walk-montagne-submit"]/span/span/span'
