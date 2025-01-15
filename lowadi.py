@@ -412,14 +412,17 @@ def train_blup(driver, race='andalusian', sex='blup', child=False):
 
 
 if __name__ == '__main__':
-    driver = create_driver_chrome()
+    try:
+        driver = create_driver_chrome()
+    except:
+        pass
 
     tianma(driver)
     time.sleep(5)
 
     to_go_list = [
         ['heavyhorse', 'all'],
-        ['andalusian', 'unicorn'],
+        # ['andalusian', 'unicorn'],
 
         ['francais', 'blup'],
         ['goland', 'blup'],

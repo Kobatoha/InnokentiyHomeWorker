@@ -414,7 +414,7 @@ def login_lowadi(driver):
         print(f'Входим')
         connect = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/header/nav/div/div/form/button/span/span/span'
+            '/html/body/div[7]/header/div[2]/nav/div/div/form/div[2]/button'
         ).click()
         time.sleep(2)
 
