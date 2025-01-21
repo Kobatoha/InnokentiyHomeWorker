@@ -26,7 +26,6 @@ def create_driver_chrome():
     print(f'{datetime.now().strftime("%H:%M:%S")}: запускаем chrome')
     driver = new_drb()
     driver.set_window_size(1400, 1300)
-    login_lowadi(driver)
 
     return driver
 
@@ -157,7 +156,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                 try:
                     if 'кобыла' in sex_horse:
                         if check_equus(driver) == 'Good':
-                            spend_equus(driver, 'iron')
+                            spend_equus(driver, 'sand')
                         get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
                         get_mating += male_reproduction(driver, race, sex)
@@ -417,6 +416,7 @@ if __name__ == '__main__':
     except:
         pass
 
+    login_lowadi(driver)
     tianma(driver)
     time.sleep(5)
 
