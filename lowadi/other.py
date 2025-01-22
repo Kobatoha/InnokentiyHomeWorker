@@ -424,6 +424,8 @@ def login_lowadi(driver):
         driver.get(url)
 
         print(f'Пробуем зайти заново')
+        driver.find_element(By.XPATH, '//*[@id="header-login-label"]').click()
+
         time.sleep(10)
         if driver.find_element(By.XPATH, '//*[@id="login"]').text == '':
             print(f'Вводим логин..')
@@ -435,7 +437,7 @@ def login_lowadi(driver):
             print(f'Входим')
         connect = driver.find_element(
             By.XPATH,
-            '/html/body/div[7]/main/section/section/aside/form/button'
+            '/html/body/div[7]/header/div[2]/nav/div/div/form/div[2]/button'
         ).click()
         time.sleep(10)
 
