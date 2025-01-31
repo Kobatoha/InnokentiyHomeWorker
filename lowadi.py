@@ -156,7 +156,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                 try:
                     if 'кобыла' in sex_horse:
                         if check_equus(driver) == 'Good':
-                            spend_equus(driver, 'sand')
+                            spend_equus(driver, 'wood')
                         get_mating += female_reproduction(driver, race, sex)
                     elif 'конь' in sex_horse:
                         get_mating += male_reproduction(driver, race, sex)
