@@ -11,6 +11,45 @@ from lowadi.divine import *
 from lowadi.states import *
 
 
+class HorsesHandler:
+
+    def __init__(self):
+        self.driver = new_drb()
+        self.driver.set_window_size(1400, 1300)
+
+    @staticmethod
+    def get_horses_list() -> list[list[str, str]]:
+        return [
+            ['heavyhorse', 'all'],
+            # ['andalusian', 'unicorn'],
+
+            ['francais', 'blup'],
+            ['goland', 'blup'],
+            ['andalusian', 'blup'],
+
+            ['andalusian', 'basic'],
+            ['andalusian', 'black'],
+            ['andalusian', 'mouse'],
+            ['andalusian', 'lava'],
+            ['andalusian', 'creme'],
+            ['andalusian', 'elite'],
+
+            ['andalusian', 'north'],
+            ['andalusian', 'male'],
+            ['andalusian', 'reserve'],
+            ['andalusian', 'color'],
+
+            ['marshadore', 'female'],
+            ['marshadore', 'male'],
+
+            ['francais', 'garden'],
+            ['francais', 'north'],
+
+            ['goland', 'garden'],
+            ['goland', 'north'],
+        ]
+
+
 def begin(driver):
     xanthos(driver)
     time.sleep(5)

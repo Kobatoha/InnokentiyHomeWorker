@@ -5,6 +5,11 @@ from selenium.webdriver.common.by import By
 from lowadi.other import check_ufo, check_equus
 
 
+class HorseCare:
+    def __init__(self, driver):
+        self.driver = driver
+
+
 def get_farm(race: str, sex: str):
 
     farms = {
