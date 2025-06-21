@@ -11,11 +11,14 @@ from lowadi.divine import *
 from lowadi.states import *
 
 
-class HorsesHandler:
+class Horses:
 
     def __init__(self):
         self.driver = new_drb()
         self.driver.set_window_size(1400, 1300)
+
+    def get_handler(self):
+        horses_list = self.get_horses_list()
 
     @staticmethod
     def get_horses_list() -> list[list[str, str]]:
@@ -48,6 +51,9 @@ class HorsesHandler:
             ['goland', 'garden'],
             ['goland', 'north'],
         ]
+
+    def build_horses_run_scheme(self, race: str, sex: str):
+        pass
 
 
 def begin(driver):
