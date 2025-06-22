@@ -55,13 +55,11 @@ class Horses:
     def build_horses_run_scheme(self, race: str, sex: str):
         pass
 
-
-def begin(driver):
-    xanthos(driver)
-    time.sleep(5)
-    topaz(driver)
-    time.sleep(5)
-    givre(driver)
+    def run_divine_horses(self):
+        divines = [xanthos, topaz, givre]
+        for divine in divines:
+            divine(self.driver)
+            time.sleep(5)
 
 
 def create_driver_chrome():
