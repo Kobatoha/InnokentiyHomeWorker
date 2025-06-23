@@ -19,6 +19,8 @@ class Horses:
 
     def get_handler(self):
         horses_list = self.get_horses_list()
+        for list in horses_list:
+            run_horses(self.driver, list)
 
     @staticmethod
     def get_horses_list() -> list[list[str, str]]:
@@ -186,7 +188,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
                 check_ufo(driver)
 
                 clean = get_doping(driver)[-1].click()
-                time.sleep(1)
+                time.sleep(3)
 
                 get_food(driver)
 
@@ -460,7 +462,7 @@ if __name__ == '__main__':
     try:
         driver = create_driver_chrome()
     except:
-        pass
+        driver = create_driver_chrome()
 
     login_lowadi(driver)
     tianma(driver)
