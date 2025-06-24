@@ -23,11 +23,17 @@ extension = 'omghfjlpggmjjaagoclmmobgdodcjboh'
 
 
 def new_drb():
-    chromeOptions = uc.ChromeOptions()
+    chrome_options = uc.ChromeOptions()
+
+    chrome_options.add_experimental_option("prefs", {
+        "credentials_enable_service": False,
+        "profile.password_manager_enabled": False
+    })
     caps = DesiredCapabilities().CHROME
-    caps["pageLoadStrategy"] = "eager"
-    chromeOptions.headless = False
-    driver = uc.Chrome(options=chromeOptions, desired_capabilities=caps)
+    caps["pageLoadStrategy"] = "normal"
+
+    chrome_options.headless = False
+    driver = uc.Chrome(options=chrome_options, desired_capabilities=caps)
 
     return driver
 
