@@ -61,6 +61,9 @@ class Horses:
             divine(self.driver)
             time.sleep(5)
 
+    def login(self):
+        login_lowadi(self.driver)
+
 
 def create_driver_chrome():
     '''
