@@ -390,11 +390,11 @@ def login_lowadi(driver):
     driver.get(url)
 
     try:
-        print('НЕ принимаем cookie')
         driver.find_element(
             By.XPATH,
             '/html/body/div[7]/main/aside/div/article/div/div[2]/div/div/div[2]/form/button'
         ).click()
+        print('НЕ принимаем cookie')
 
     except:
         print('Принять cookie не просили')
@@ -419,12 +419,14 @@ def login_lowadi(driver):
         time.sleep(2)
 
     except:
-
+        time.sleep(3)
         url = 'https://www.lowadi.com/elevage/chevaux/cheval?id=20378769'
         driver.get(url)
-
         print(f'Пробуем зайти заново')
-        driver.find_element(By.XPATH, '//*[@id="header-login-label"]').click()
+
+        frame = driver.find_element(By.XPATH, "/html/body/div[7]/header/div[2]/nav/div")
+        if frame.get_attribute("class") != "header-login-button active":
+            driver.find_element(By.XPATH, '//*[@id="header-login-label"]').click()
 
         time.sleep(10)
         if driver.find_element(By.XPATH, '//*[@id="login"]').text == '':
