@@ -269,6 +269,7 @@ def get_sex(driver):
 def get_food(driver):
     try:
         food = driver.find_element(By.XPATH, '//*[@id="boutonAllaiter"]').click()
+        time.sleep(2)
     except:
         food = driver.find_element(By.XPATH, '//*[@id="boutonNourrir"]').click()
         time.sleep(2)
