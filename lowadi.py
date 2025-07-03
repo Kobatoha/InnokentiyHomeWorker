@@ -252,6 +252,7 @@ def run_horses(driver, race='andalusian', sex='basic', horses=200) -> None:
             except Exception as e:
 
                 print('Некакая error при уходе за лошадью:', e, current_url)
+                time.sleep(3)
                 try:
                     next_horse(driver)
                 except:
