@@ -459,6 +459,13 @@ def train_blup(driver, race='andalusian', sex='blup', child=False):
     print(f'{now} кач окончен')
 
 
+def begin(driver):
+    divines = [xanthos, topaz, givre]
+    for divine in divines:
+        divine(driver)
+        time.sleep(5)
+
+
 if __name__ == '__main__':
     try:
         driver = create_driver_chrome()
